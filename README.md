@@ -66,11 +66,14 @@ ReactDOM.createRoot() - tells React where to render.
 
 render(<App />) - renders a component.
 
-JSX: <h1>Hello</h1> (we'll cover next)
+JSX: 
+```ch
+<h1> Hello</h1> 
+```
+(we'll cover next)
 
 Component: App is a functional component.
 
-Let me know when you're ready to move on to:
 
 ✅ 2. JSX (JavaScript XML)
 🔹 What is JSX?
