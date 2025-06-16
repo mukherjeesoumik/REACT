@@ -114,7 +114,11 @@ return (
   <p>World</p>
 );
 ```
-Always wrap in a parent tag like <div> or use <> ... </> (called a Fragment).
+Always wrap in a parent tag like <div> or use
+```cs
+<> ... </>
+```
+(called a Fragment).
 
 Use className instead of class
 
