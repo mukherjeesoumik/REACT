@@ -15,7 +15,7 @@ Supported by a huge community
 Think of React like LEGO blocks. Each block (component) can be reused and combined to build a large structure (app).
 
 🔸 Example without React (Plain JS):
-```ch
+```cs
 <!-- index.html -->
 <!DOCTYPE html>
 <html>
