@@ -33,7 +33,7 @@ Think of React like LEGO blocks. Each block (component) can be reused and combin
 This works, but it's hard to manage as apps get bigger.
 
 🔸 Same Example with React:
-```ch
+```cs
 // index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -45,7 +45,7 @@ const App = () => {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
 ```
-```ch
+```cs
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +67,7 @@ ReactDOM.createRoot() - tells React where to render.
 render(<App />) - renders a component.
 
 JSX: 
-```ch
+```cs
 <h1> Hello </h1> 
 ```
 (we'll cover next)
@@ -83,13 +83,13 @@ Think of it like writing HTML inside JavaScript.
 
 🔸 Example:
 jsx
-```ch
+```cs
 const element = <h1>Hello, JSX!</h1>;
 ```
 This JSX code is converted by React tools (like Babel) into:
 
 js
-```ch
+```cs
 const element = React.createElement('h1', null, 'Hello, JSX!');
 ```
 So JSX is not HTML, but a syntax that React transforms into JavaScript.
@@ -98,7 +98,7 @@ So JSX is not HTML, but a syntax that React transforms into JavaScript.
 One parent element
 ✅ Good:
 jsx
-```ch
+```cs
 return (
   <div>
     <h1>Hello</h1>
@@ -108,7 +108,7 @@ return (
 ```
 ❌ Error:
 jsx
-```ch
+```cs
 return (
   <h1>Hello</h1>
   <p>World</p>
@@ -119,26 +119,26 @@ Always wrap in a parent tag like <div> or use <> ... </> (called a Fragment).
 Use className instead of class
 
 jsx
-```ch
+```cs
 <div className="container">Hello</div>
 ```
 Use {} to embed JavaScript
 
 jsx
-```ch
+```cs
 const name = "Soumik";
 return <h1>Hello, {name}!</h1>;
 ```
 Self-closing tags must end with /
 
 jsx
-```ch
+```cs
 <img src="logo.png" />
 <input type="text" />
 ```
 🔹 Full JSX Example
 jsx
-```ch
+```cs
 function App() {
   const user = {
     name: 'Soumik',
@@ -172,7 +172,7 @@ React supports two types of components:
 These are simple JavaScript functions that return JSX.
 
 jsx
-```ch
+```cs
 function Welcome() {
   return <h1>Hello from Functional Component</h1>;
 }
@@ -180,7 +180,7 @@ function Welcome() {
 OR using ES6 arrow functions:
 
 jsx
-```ch
+```cs
 const Welcome = () => <h1>Hello from Functional Component</h1>;
 ```
 ✅ Preferred in modern React, especially with Hooks (useState, useEffect, etc.)
@@ -189,7 +189,7 @@ const Welcome = () => <h1>Hello from Functional Component</h1>;
 These are ES6 classes that extend React.Component and include a render() method.
 
 jsx
-```ch
+```cs
 import React, { Component } from 'react';
 
 class Welcome extends Component {
@@ -211,7 +211,7 @@ Modern React Style	✅ Yes (with Hooks)	❌ Old-style
 🔹 Example Side by Side:
 ✅ Functional Component
 jsx
-```ch
+```cs
 import React, { useState } from 'react';
 
 const Counter = () => {
@@ -228,7 +228,7 @@ const Counter = () => {
 export default Counter;
 🆚 Class Component
 jsx
-```ch
+```cs
 import React, { Component } from 'react';
 
 class Counter extends Component {
@@ -263,7 +263,7 @@ Props help make components reusable and dynamic.
 
 🔸 Example: Passing Props to a Component
 jsx
-```ch
+```cs
 // Parent Component
 function App() {
   return <Greeting name="Soumik" />;
@@ -287,7 +287,7 @@ Props are read-only (you can’t modify them inside the child).
 Instead of this:
 
 jsx
-```ch
+```cs
 function Greeting(props) {
   return <h1>Hello, {props.name}</h1>;
 }
@@ -295,7 +295,7 @@ function Greeting(props) {
 You can do this:
 
 jsx
-```ch
+```cs
 function Greeting({ name }) {
   return <h1>Hello, {name}</h1>;
 }
@@ -304,7 +304,7 @@ Both are the same, but destructuring makes it neater.
 
 🔸 Passing Multiple Props
 jsx
-```ch
+```cs
 function App() {
   return (
     <Profile name="Soumik" age={22} isStudent={true} />
@@ -335,7 +335,7 @@ JSX/Component	children (explained below)
 React automatically sends anything between the opening and closing tags as a children prop.
 
 jsx
-```ch
+```cs
 function Wrapper({ children }) {
   return <div className="box">{children}</div>;
 }
@@ -368,7 +368,7 @@ It allows your component to remember values and reactively update the UI when th
 
 🔸 Syntax:
 jsx
-```ch
+```cs
 const [state, setState] = useState(initialValue);
 ```
 state – current value
@@ -379,7 +379,7 @@ initialValue – starting value (string, number, boolean, array, etc.)
 
 🔹 Example 1: Counter App
 jsx
-```ch
+```cs
 import React, { useState } from 'react';
 
 function Counter() {
@@ -399,7 +399,7 @@ Each time you click the button, setCount updates count, and React re-renders the
 
 🔹 Example 2: Toggle Text
 jsx
-```ch
+```cs
 function ToggleMessage() {
   const [show, setShow] = useState(true);
 
@@ -417,7 +417,7 @@ function ToggleMessage() {
 ✅ You can use multiple useState() calls:
 
 jsx
-```ch
+```cs
 const [name, setName] = useState('');
 const [age, setAge] = useState(0);
 ```
@@ -426,7 +426,7 @@ const [age, setAge] = useState(0);
 ✅ Don't modify state directly! ❌
 
 js
-```ch
+```cs
 // ❌ Wrong
 count++;
 
@@ -436,7 +436,7 @@ setCount(count + 1);
 ```
 🔹 Example 3: Handling Input Field
 jsx
-```ch
+```cs
 function NameInput() {
   const [name, setName] = useState('');
 
@@ -472,7 +472,7 @@ But in React, event handlers are written in camelCase and use functions, not str
 
 🔸 Example: Click Event
 jsx
-```ch
+```cs
 function ClickExample() {
   const handleClick = () => {
     alert("Button was clicked!");
@@ -487,7 +487,7 @@ handleClick is the function that runs on the event.
 
 🔸 Event Handlers with Parameters
 jsx
-```ch
+```cs
 function GreetUser() {
   const sayHello = (name) => {
     alert(`Hello, ${name}`);
@@ -504,7 +504,7 @@ We use an arrow function so the function isn’t called immediately during rende
 
 🔸 Handling Input Change Event
 jsx
-```ch
+```cs
 function InputExample() {
   const [text, setText] = useState("");
 
@@ -522,7 +522,7 @@ function InputExample() {
 ```
 🔸 Handling Form Submit
 jsx
-```ch
+```cs
 function FormExample() {
   const [email, setEmail] = useState("");
 
@@ -566,7 +566,7 @@ In React, conditional rendering means showing different UI based on a condition�
 
 🔸 1. Using if or if-else Inside the Component
 jsx
-```ch
+```cs
 function Greeting({ isLoggedIn }) {
   if (isLoggedIn) {
     return <h1>Welcome back!</h1>;
@@ -577,7 +577,7 @@ function Greeting({ isLoggedIn }) {
 ```
 🔸 2. Using the Ternary Operator (? :)
 jsx
-```ch
+```cs
 function Greeting({ isLoggedIn }) {
   return (
     <h1>{isLoggedIn ? "Welcome back!" : "Please log in."}</h1>
@@ -588,7 +588,7 @@ function Greeting({ isLoggedIn }) {
 
 🔸 3. Using && (Short-circuit Rendering)
 jsx
-```ch
+```cs
 function Alert({ isError }) {
   return (
     <div>
@@ -602,7 +602,7 @@ If isError is true, the <p> tag is rendered.
 
 🔸 4. Conditional Rendering with State Example
 jsx
-```ch
+```cs
 import React, { useState } from 'react';
 
 function LoginToggle() {
@@ -625,7 +625,7 @@ function LoginToggle() {
 ```
 🔹 Optional: Extract UI into Variables
 jsx
-```ch
+```cs
 function Status({ isOnline }) {
   let statusMessage;
 
@@ -652,7 +652,7 @@ In React, when you want to render multiple elements from an array, you use JavaS
 
 🔸 Example: Rendering a Simple List
 jsx
-```ch
+```cs
 function FruitsList() {
   const fruits = ['Apple', 'Banana', 'Mango'];
 
@@ -681,7 +681,7 @@ The list is static
 Better: Use a unique ID.
 
 jsx
-```ch
+```cs
 const users = [
   { id: 101, name: 'Soumik' },
   { id: 102, name: 'Hrithik' }
@@ -697,7 +697,7 @@ return (
 ```
 🔸 List with Components
 jsx
-```ch
+```cs
 function User({ name }) {
   return <li>{name}</li>;
 }
@@ -716,7 +716,7 @@ function UserList() {
 ```
 🔹 Lists of Objects with Destructuring
 jsx
-```ch
+```cs
 const products = [
   { id: 1, name: "Laptop", price: 49999 },
   { id: 2, name: "Phone", price: 19999 }
@@ -763,7 +763,7 @@ In class components, this was done using lifecycle methods like componentDidMoun
 
 🔸 Syntax:
 jsx
-```ch
+```cs
 useEffect(() => {
   // Side effect logic here
 
@@ -774,7 +774,7 @@ useEffect(() => {
 ```
 🔹 Example 1: Run Once on Mount (like componentDidMount)
 jsx
-```ch
+```cs
 import React, { useEffect } from 'react';
 
 function App() {
@@ -787,7 +787,7 @@ function App() {
 ```
 🔹 Example 2: Run When a State Changes
 jsx
-```ch
+```cs
 import React, { useState, useEffect } from 'react';
 
 function Counter() {
@@ -807,7 +807,7 @@ function Counter() {
 ```
 🔹 Example 3: Cleanup Function (like componentWillUnmount)
 jsx
-```ch
+```cs
 useEffect(() => {
   const interval = setInterval(() => {
     console.log('Interval running...');
@@ -838,7 +838,7 @@ Dependency Array	Behavior
 
 🔹 Example 4: Fetching Data (basic)
 jsx
-```ch
+```cs
 import React, { useEffect, useState } from 'react';
 
 function UserList() {
@@ -883,7 +883,7 @@ Make sure you install version 6+ (the latest as of 2025).
 
 🔹 Basic Setup (React Router v6+)
 jsx
-```ch
+```cs
 // index.js or main.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -898,7 +898,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 ```
 🔹 Example App with Routes
 jsx
-```ch
+```cs
 // App.jsx
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
@@ -929,7 +929,7 @@ export default App;
 ```
 🔹 Example Components
 jsx
-```ch
+```cs
 // pages/Home.jsx
 export default function Home() {
   return <h2>Welcome to the Home Page</h2>;
@@ -947,7 +947,7 @@ export default function Contact() {
 ```
 🔹 Navigate Programmatically
 jsx
-```ch
+```cs
 import { useNavigate } from 'react-router-dom';
 
 function GoToContact() {
@@ -962,12 +962,12 @@ function GoToContact() {
 ```
 🔹 Route Parameters (Dynamic URLs)
 jsx
-```cht
+```cs
 // App.jsx
 <Route path="/user/:id" element={<UserProfile />} />
 ```
 jsx
-```ch
+```cs
 // UserProfile.jsx
 import { useParams } from 'react-router-dom';
 
