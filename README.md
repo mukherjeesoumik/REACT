@@ -989,7 +989,6 @@ You can also use dynamic routes with :params.
 ## ✅ 11. Forms and Controlled Inputs in React
 
 🔹 What are Controlled Components?
-
 In React, a controlled component is an input element (like <input>, <textarea>, or <select>) whose value is controlled by React state.
 
 Instead of letting the DOM handle the form elements directly, React keeps the data in the component's state and updates it using onChange.
@@ -1073,6 +1072,7 @@ function ContactForm() {
 }
 ```
 🔸 Example: Controlled Select and Textarea
+
 jsx
 ```ch
 function FeedbackForm() {
@@ -1102,8 +1102,11 @@ function FeedbackForm() {
 }
 ```
 🔹 Uncontrolled vs Controlled (at a glance)
+
 Type	Value Stored In	Code Controls?	Use Case
+
 Controlled	React state	✅ Yes	Most React forms
+
 Uncontrolled	DOM (ref)	❌ No	Simple, quick forms
 
 🔸 Optional: Basic Validation
@@ -1128,8 +1131,12 @@ Can be extended to include validation, error handling, etc.
 
 
 ## ✅ 12. Lifting State Up
+
+
 🔹 What is "Lifting State Up"?
 When two or more components need to share the same state, you lift the state up to their common parent.
+
+
 Instead of maintaining state in individual components, you move it to a common ancestor and pass it down via props.
 
 🔸 Real-Life Analogy
