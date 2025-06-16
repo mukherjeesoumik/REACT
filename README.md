@@ -72,23 +72,6 @@ Component: App is a functional component.
 
 Let me know when you're ready to move on to:
 
-👉 2. JSX
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Awesome! Let's move on to the second topic:
-
 ✅ 2. JSX (JavaScript XML)
 🔹 What is JSX?
 JSX is a syntax extension for JavaScript that looks similar to HTML. It's used with React to describe what the UI should look like.
@@ -97,65 +80,62 @@ Think of it like writing HTML inside JavaScript.
 
 🔸 Example:
 jsx
-Copy
-Edit
+```ch
 const element = <h1>Hello, JSX!</h1>;
+```
 This JSX code is converted by React tools (like Babel) into:
 
 js
-Copy
-Edit
+```ch
 const element = React.createElement('h1', null, 'Hello, JSX!');
+```
 So JSX is not HTML, but a syntax that React transforms into JavaScript.
 
 🔹 Rules of JSX
 One parent element
 ✅ Good:
-
 jsx
-Copy
-Edit
+```ch
 return (
   <div>
     <h1>Hello</h1>
     <p>World</p>
   </div>
 );
+```
 ❌ Error:
-
 jsx
-Copy
-Edit
+```ch
 return (
   <h1>Hello</h1>
   <p>World</p>
 );
+```
 Always wrap in a parent tag like <div> or use <> ... </> (called a Fragment).
 
 Use className instead of class
 
 jsx
-Copy
-Edit
+```ch
 <div className="container">Hello</div>
+```
 Use {} to embed JavaScript
 
 jsx
-Copy
-Edit
+```ch
 const name = "Soumik";
 return <h1>Hello, {name}!</h1>;
+```
 Self-closing tags must end with /
 
 jsx
-Copy
-Edit
+```ch
 <img src="logo.png" />
 <input type="text" />
+```
 🔹 Full JSX Example
 jsx
-Copy
-Edit
+```ch
 function App() {
   const user = {
     name: 'Soumik',
@@ -169,6 +149,7 @@ function App() {
     </>
   );
 }
+```
 <> is a fragment shorthand (doesn't create a real DOM element, just wraps elements).
 
 🧠 Why JSX is Great
@@ -177,26 +158,6 @@ Easier to read and write UI code.
 Combines markup + logic in one place.
 
 Works well with components and state.
-
-✅ That’s JSX!
-Let me know when you’re ready for the next topic:
-
-👉 3. Functional vs Class Components
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Great! Let’s dive into the third topic:
 
 ✅ 3. Functional vs Class Components
 🔹 What is a Component in React?
@@ -208,25 +169,24 @@ React supports two types of components:
 These are simple JavaScript functions that return JSX.
 
 jsx
-Copy
-Edit
+```ch
 function Welcome() {
   return <h1>Hello from Functional Component</h1>;
 }
+```
 OR using ES6 arrow functions:
 
 jsx
-Copy
-Edit
+```ch
 const Welcome = () => <h1>Hello from Functional Component</h1>;
+```
 ✅ Preferred in modern React, especially with Hooks (useState, useEffect, etc.)
 
 🔸 2. Class Components (Older)
 These are ES6 classes that extend React.Component and include a render() method.
 
 jsx
-Copy
-Edit
+```ch
 import React, { Component } from 'react';
 
 class Welcome extends Component {
@@ -234,6 +194,7 @@ class Welcome extends Component {
     return <h1>Hello from Class Component</h1>;
   }
 }
+```
 🚫 Not recommended for new code unless you're maintaining older projects.
 
 🔹 Key Differences:
@@ -247,8 +208,7 @@ Modern React Style	✅ Yes (with Hooks)	❌ Old-style
 🔹 Example Side by Side:
 ✅ Functional Component
 jsx
-Copy
-Edit
+```ch
 import React, { useState } from 'react';
 
 const Counter = () => {
@@ -261,12 +221,11 @@ const Counter = () => {
     </div>
   );
 };
-
+```
 export default Counter;
 🆚 Class Component
 jsx
-Copy
-Edit
+```ch
 import React, { Component } from 'react';
 
 class Counter extends Component {
@@ -290,26 +249,8 @@ class Counter extends Component {
 }
 
 export default Counter;
-✅ In modern React development, we mostly use functional components with hooks.
 
-Let me know when you're ready for the next topic:
-
-👉 4. Props
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Awesome! Let’s move to the fourth topic:
+```
 
 ✅ 4. Props (Properties)
 🔹 What are Props?
@@ -319,8 +260,7 @@ Props help make components reusable and dynamic.
 
 🔸 Example: Passing Props to a Component
 jsx
-Copy
-Edit
+```ch
 // Parent Component
 function App() {
   return <Greeting name="Soumik" />;
@@ -330,6 +270,7 @@ function App() {
 function Greeting(props) {
   return <h1>Hello, {props.name}!</h1>;
 }
+```
 Output: Hello, Soumik!
 
 🔸 How Props Work:
@@ -343,25 +284,24 @@ Props are read-only (you can’t modify them inside the child).
 Instead of this:
 
 jsx
-Copy
-Edit
+```ch
 function Greeting(props) {
   return <h1>Hello, {props.name}</h1>;
 }
+```
 You can do this:
 
 jsx
-Copy
-Edit
+```ch
 function Greeting({ name }) {
   return <h1>Hello, {name}</h1>;
 }
+```
 Both are the same, but destructuring makes it neater.
 
 🔸 Passing Multiple Props
 jsx
-Copy
-Edit
+```ch
 function App() {
   return (
     <Profile name="Soumik" age={22} isStudent={true} />
@@ -377,6 +317,7 @@ function Profile({ name, age, isStudent }) {
     </div>
   );
 }
+```
 🔸 Props Can Be Anything:
 Type	Example
 String	name="Soumik"
@@ -391,8 +332,7 @@ JSX/Component	children (explained below)
 React automatically sends anything between the opening and closing tags as a children prop.
 
 jsx
-Copy
-Edit
+```ch
 function Wrapper({ children }) {
   return <div className="box">{children}</div>;
 }
@@ -404,6 +344,7 @@ function App() {
     </Wrapper>
   );
 }
+```
 ✅ Recap:
 Props help make components dynamic and reusable.
 
@@ -415,26 +356,6 @@ Use children to pass JSX content.
 
 Let me know when you're ready for the next topic:
 
-👉 5. useState Hook
-Just reply with "next".
-
-
-2/2
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Great! Now let’s learn one of the most important concepts in React:
-
 ✅ 5. useState Hook
 🔹 What is useState?
 The useState hook is used to add state to functional components.
@@ -444,9 +365,9 @@ It allows your component to remember values and reactively update the UI when th
 
 🔸 Syntax:
 jsx
-Copy
-Edit
+```ch
 const [state, setState] = useState(initialValue);
+```
 state – current value
 
 setState – function to update that value
@@ -455,8 +376,7 @@ initialValue – starting value (string, number, boolean, array, etc.)
 
 🔹 Example 1: Counter App
 jsx
-Copy
-Edit
+```ch
 import React, { useState } from 'react';
 
 function Counter() {
@@ -471,12 +391,12 @@ function Counter() {
 }
 
 export default Counter;
+```
 Each time you click the button, setCount updates count, and React re-renders the component.
 
 🔹 Example 2: Toggle Text
 jsx
-Copy
-Edit
+```ch
 function ToggleMessage() {
   const [show, setShow] = useState(true);
 
@@ -489,30 +409,31 @@ function ToggleMessage() {
     </div>
   );
 }
+```
 🔹 Things to Remember:
 ✅ You can use multiple useState() calls:
 
 jsx
-Copy
-Edit
+```ch
 const [name, setName] = useState('');
 const [age, setAge] = useState(0);
+```
 ✅ setState is asynchronous – changes happen on the next render.
 
 ✅ Don't modify state directly! ❌
 
 js
-Copy
-Edit
+```ch
 // ❌ Wrong
 count++;
 
 // ✅ Correct
 setCount(count + 1);
+
+```
 🔹 Example 3: Handling Input Field
 jsx
-Copy
-Edit
+```ch
 function NameInput() {
   const [name, setName] = useState('');
 
@@ -528,6 +449,7 @@ function NameInput() {
     </div>
   );
 }
+```
 As you type, state updates and reflects instantly.
 
 ✅ Summary:
@@ -538,23 +460,6 @@ It helps React re-render the component when the state changes.
 You can track strings, numbers, arrays, objects—anything!
 
 Let me know when you’re ready for the next topic:
-
-👉 6. Event Handling
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Great! Let's move on to the 6th topic:
 
 ✅ 6. Event Handling in React
 🔹 What is Event Handling?
