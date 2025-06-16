@@ -68,7 +68,7 @@ render(<App />) - renders a component.
 
 JSX: 
 ```ch
-<h1> Hello</h1> 
+<h1> Hello </h1> 
 ```
 (we'll cover next)
 
