@@ -1074,7 +1074,7 @@ function ContactForm() {
 🔸 Example: Controlled Select and Textarea
 
 jsx
-```ch
+```cs
 function FeedbackForm() {
   const [feedback, setFeedback] = useState('');
   const [rating, setRating] = useState('5');
@@ -1111,7 +1111,7 @@ Uncontrolled	DOM (ref)	❌ No	Simple, quick forms
 
 🔸 Optional: Basic Validation
 jsx
-```ch
+```cs
 const handleSubmit = (e) => {
   e.preventDefault();
   if (!form.name || !form.email) {
@@ -1145,7 +1145,7 @@ Instead of each having their own state (which could conflict), the parent compon
 
 🔹 Example: Two Sibling Components
 jsx
-```ch
+```cs
 import React, { useState } from 'react';
 
 function Parent() {
@@ -1228,14 +1228,14 @@ Imagine a "Theme" or "Language" setting in your app. Instead of passing it from 
 🔹 Steps to Use Context API
 ✅ Step 1: Create a Context
 jsx
-```ch
+```cs
 import { createContext } from 'react';
 
 export const ThemeContext = createContext();
 ```
 ✅ Step 2: Create a Provider Component
 jsx
-```ch
+```cs
 import { useState } from 'react';
 import { ThemeContext } from './ThemeContext';
 
@@ -1253,7 +1253,7 @@ export function ThemeProvider({ children }) {
 ```
 ✅ Step 3: Wrap App with the Provider
 jsx
-```ch
+```cs
 // main.jsx or index.js
 import ReactDOM from 'react-dom/client';
 import App from './App';
@@ -1267,7 +1267,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 ```
 ✅ Step 4: Consume Context Anywhere
 jsx
-```ch
+```cs
 import { useContext } from 'react';
 import { ThemeContext } from './ThemeContext';
 
@@ -1284,7 +1284,7 @@ function ThemeSwitcher() {
 ```
 🔹 Example with User Context
 jsx
-```ch
+```cs
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
@@ -1298,7 +1298,7 @@ export function UserProvider({ children }) {
 }
 ```
 jsx
-```ch
+```cs
 import { useContext } from 'react';
 import { UserContext } from './UserContext';
 
@@ -1351,12 +1351,12 @@ Better than legacy redux + react-redux setup
 🔸 Step-by-Step Redux Toolkit Setup
 ✅ Step 1: Install Redux Toolkit & React-Redux
 bash
-```ch
+```cs
 npm install @reduxjs/toolkit react-redux
 ```
 ✅ Step 2: Create the Store
 js
-```ch
+```cs
 // store.js
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './features/counterSlice';
@@ -1371,7 +1371,7 @@ export default store;
 ```
 ✅ Step 3: Create a Slice
 js
-```ch
+```cs
 // features/counterSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -1400,7 +1400,7 @@ export default counterSlice.reducer;
 ```
 ✅ Step 4: Provide Store to App
 jsx
-```ch
+```cs
 // main.jsx or index.js
 import ReactDOM from 'react-dom/client';
 import App from './App';
@@ -1415,7 +1415,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 ```
 ✅ Step 5: Use Redux State in Components
 jsx
-```ch
+```cs
 // Counter.jsx
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement, incrementByAmount } from './features/counterSlice';
@@ -1440,7 +1440,7 @@ export default Counter;
 Use createAsyncThunk to fetch API data:
 
 js
-```ch
+```cs
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const fetchData = createAsyncThunk('data/fetch', async () => {
@@ -1489,7 +1489,7 @@ Displaying the result
 🔹 1. Using fetch()
 ✅ Basic GET Request Example
 jsx
-```ch
+```cs
 import { useEffect, useState } from 'react';
 
 function Users() {
@@ -1527,12 +1527,12 @@ Axios is a popular promise-based HTTP client with better error handling, default
 
 ✅ Install Axios:
 bash
-```ch
+```cs
 npm install axios
 ```
 ✅ Axios GET Example
 jsx
-```ch
+```cs
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -1568,7 +1568,7 @@ function Posts() {
 ```
 🔹 3. POST Request (Form Submission)
 jsx
-```ch
+```cs
 function AddUser() {
   const [name, setName] = useState('');
 
@@ -1632,7 +1632,7 @@ CSS Modules help scope CSS to a component, preventing global conflicts.
 Just rename your CSS file to ComponentName.module.css.
 
 css
-```ch
+```cs
 /* Button.module.css */
 .btn {
   background-color: royalblue;
@@ -1644,7 +1644,7 @@ css
 ```
 ✅ Usage in React
 jsx
-```ch
+```cs
 import styles from './Button.module.css';
 
 function Button() {
@@ -1658,13 +1658,13 @@ Tailwind provides predefined utility classes (e.g., bg-red-500, text-xl, flex) f
 
 ✅ Install Tailwind (Vite Example)
 bash
-```ch
+```cs
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 ```
 ✅ Configure tailwind.config.js
 js
-```ch
+```cs
 content: [
   "./index.html",
   "./src/**/*.{js,ts,jsx,tsx}",
@@ -1672,7 +1672,7 @@ content: [
 ```
 ✅ Add to index.css
 css
-```ch
+```cs
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -1696,12 +1696,12 @@ Allows writing real CSS in JavaScript files using template literals.
 
 ✅ Install
 bash
-```ch
+```cs
 npm install styled-components
 ```
 ✅ Usage
 jsx
-```ch
+```cs
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
@@ -1744,7 +1744,7 @@ A hook for referencing DOM elements or storing mutable values that don’t trigg
 
 ✅ Use Case 1: DOM Access
 jsx
-```ch
+```cs
 import { useRef } from 'react';
 
 function FocusInput() {
@@ -1764,7 +1764,7 @@ function FocusInput() {
 ```
 ✅ Use Case 2: Persist Value Between Renders
 jsx
-```ch
+```cs
 import { useRef, useState, useEffect } from 'react';
 
 function RenderCounter() {
@@ -1789,7 +1789,7 @@ Memoizes a computed value, so it's not recalculated on every render unless depen
 
 ✅ Example
 jsx
-```ch
+```cs
 import { useMemo, useState } from 'react';
 
 function ExpensiveCalc() {
@@ -1821,7 +1821,7 @@ Returns a memoized version of a function to prevent re-creating it on each rende
 
 ✅ Example
 jsx
-```ch
+```cs
 import { useCallback, useState } from 'react';
 
 const Child = ({ onClick }) => {
@@ -1868,7 +1868,7 @@ Easy to test and share
 
 🔸 Syntax Example
 js
-```ch
+```cs
 function useCustomName() {
   // your logic here
 }
@@ -1878,7 +1878,7 @@ function useCustomName() {
 📌 Example 1: useWindowWidth (custom hook to track window size)
 useWindowWidth.js
 jsx
-```ch
+```cs
 import { useEffect, useState } from 'react';
 
 function useWindowWidth() {
@@ -1898,7 +1898,7 @@ export default useWindowWidth;
 ```
 ✅ Usage:
 jsx
-```ch
+```cs
 import useWindowWidth from './useWindowWidth';
 
 function ResponsiveComponent() {
@@ -1917,7 +1917,7 @@ Persist data in localStorage while syncing with React state.
 
 useLocalStorage.js
 jsx
-```ch
+```cs
 import { useState, useEffect } from 'react';
 
 function useLocalStorage(key, initialValue) {
@@ -1937,7 +1937,7 @@ export default useLocalStorage;
 ```
 ✅ Usage:
 jsx
-```ch
+```cs
 import useLocalStorage from './useLocalStorage';
 
 function NameSaver() {
@@ -1993,7 +1993,7 @@ On logout → token is cleared.
 
 🔹 2. Store JWT in localStorage
 js
-```ch
+```cs
 // On login success
 localStorage.setItem('token', jwtToken);
 
@@ -2006,7 +2006,7 @@ localStorage.removeItem('token');
 🔹 3. Create a Fake Login & Auth Context
 ✅ AuthContext.js
 jsx
-```ch
+```cs
 import { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
@@ -2039,7 +2039,7 @@ export const useAuth = () => useContext(AuthContext);
 Restricts access to authenticated users only.
 
 jsx
-```ch
+```cs
 import { Navigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
@@ -2053,7 +2053,7 @@ export default PrivateRoute;
 🔹 5. Simple Routing Setup (with React Router)
 ✅ App.jsx
 jsx
-```ch
+```cs
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
@@ -2084,7 +2084,7 @@ function App() {
 ```
 🔹 6. Login Page Example
 jsx
-```ch
+```cs
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -2108,7 +2108,7 @@ function Login() {
 ```
 🔹 7. Dashboard Page
 jsx
-```ch
+```cs
 import { useAuth } from '../AuthContext';
 
 function Dashboard() {
@@ -2150,19 +2150,19 @@ Scalable Architecture	Better with large codebases
 For new projects:
 
 bash
-```ch
+```cs
 npm create vite@latest my-app --template react-ts
 ```
 Or for existing React projects:
 
 bash
-```ch
+```cs
 npm install --save-dev typescript @types/react @types/react-dom
 ```
 🔸 Basic Examples
 1. Typing Props
 tsx
-```ch
+```cs
 type ButtonProps = {
   label: string;
   onClick: () => void;
@@ -2191,7 +2191,7 @@ const [user, setUser] = useState<User | null>(null);
 Redux Toolkit works well with TypeScript. Here's a minimal slice:
 
 tsx
-```ch
+```cs
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type CounterState = {
@@ -2229,18 +2229,18 @@ Image Optimization	Automatic resizing & lazy loading
 
 📦 Setup
 bash
-```ch
+```cs
 npx create-next-app@latest my-next-app
 ```
 # Or with TypeScript
-```ch
+```cs
 npx create-next-app@latest my-next-app --typescript
 ```
 🔸 Routing
 In Next.js, every file in pages/ becomes a route.
 
 txt
-```ch
+```cs
 /pages
   └── index.tsx        →  "/"
   └── about.tsx        →  "/about"
@@ -2248,7 +2248,7 @@ txt
 ```
 🔸 API Routes (Backend in Next.js)
 ts
-```ch
+```cs
 // pages/api/hello.ts
 export default function handler(req, res) {
   res.status(200).json({ message: 'Hello from API!' });
@@ -2256,14 +2256,14 @@ export default function handler(req, res) {
 ```
 🔸 Linking Pages
 tsx
-```ch
+```cs
 import Link from 'next/link';
 
 <Link href="/about">About</Link>
 ```
 🔸 Fetching Data (SSR, SSG, CSR)
 tsx
-```ch
+```cs
 // Static Site Generation (SSG)
 export async function getStaticProps() {
   return {
@@ -2317,13 +2317,13 @@ If you used Create React App, Jest & RTL are already included.
 For Vite:
 
 bash
-```ch
+```cs
 npm install --save-dev vitest @testing-library/react @testing-library/jest-dom
 ```
 Then update vite.config.ts:
 
 ts
-```ch
+```cs
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -2338,7 +2338,7 @@ export default defineConfig({
 🔹 3. Writing Your First Test
 ✅ Component: Greeting.tsx
 tsx
-```ch
+```cs
 type Props = { name: string };
 
 const Greeting = ({ name }: Props) => {
@@ -2349,7 +2349,7 @@ export default Greeting;
 ```
 ✅ Test: Greeting.test.tsx
 tsx
-```ch
+```cs
 import { render, screen } from '@testing-library/react';
 import Greeting from './Greeting';
 
@@ -2362,7 +2362,7 @@ test('renders greeting with name', () => {
 🧪 Run tests:
 
 bash
-```ch
+```cs
 # CRA
 npm test
 
@@ -2372,7 +2372,7 @@ npx vitest run
 🔹 4. Simulating Events
 ✅ Component: Counter.tsx
 tsx
-```ch
+```cs
 import { useState } from 'react';
 
 const Counter = () => {
@@ -2390,7 +2390,7 @@ export default Counter;
 ```
 ✅ Test: Counter.test.tsx
 tsx
-```ch
+```cs
 import { render, screen, fireEvent } from '@testing-library/react';
 import Counter from './Counter';
 
@@ -2403,7 +2403,7 @@ test('increments counter on button click', () => {
 ```
 🔹 5. Bonus: Custom Matchers with jest-dom
 tsx
-```ch
+```cs
 import '@testing-library/jest-dom';
 
 expect(element).toBeInTheDocument();
@@ -2412,7 +2412,7 @@ expect(link).toHaveAttribute('href', '/about');
 ```
 🔹 6. Folder Structure Best Practices
 css
-```ch
+```cs
 src/
   components/
     Greeting.tsx
@@ -2424,7 +2424,7 @@ src/
 
 🔹 7. Mocking Fetch/API Requests
 tsx
-```ch
+```cs
 global.fetch = vi.fn(() =>
   Promise.resolve({
     json: () => Promise.resolve({ message: 'Hi!' }),
@@ -2458,7 +2458,7 @@ If you don’t have a Vercel account, create one: https://vercel.com
 If it’s not already in a repo:
 
 bash
-```ch
+```cs
 git init
 git remote add origin https://github.com/yourusername/your-repo-name
 git add .
@@ -2499,14 +2499,14 @@ Select your repo
 For Vite + React:
 
 yaml
-```ch
+```cs
 Build Command: npm run build
 Publish Directory: dist
 ```
 For CRA:
 
 yaml
-```ch
+```cs
 Build Command: npm run build
 Publish Directory: build
 ```
@@ -2516,7 +2516,7 @@ Click Deploy
 You can also:
 
 bash
-```ch
+```cs
 npm run build
 ```
 Then drag the /dist or /build folder into Netlify's “Drag & Drop” deploy area.
@@ -2528,7 +2528,7 @@ Both platforms support .env files for secrets like API keys:
 Define in .env:
 
 env
-```ch
+```cs
 VITE_API_URL=https://yourapi.com
 ```
 On Vercel/Netlify:
