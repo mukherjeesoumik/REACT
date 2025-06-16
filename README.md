@@ -75,7 +75,7 @@ JSX:
 Component: App is a functional component.
 
 
-✅ 2. JSX (JavaScript XML)
+## ✅ 2. JSX (JavaScript XML)
 🔹 What is JSX?
 JSX is a syntax extension for JavaScript that looks similar to HTML. It's used with React to describe what the UI should look like.
 
