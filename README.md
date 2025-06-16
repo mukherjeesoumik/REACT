@@ -985,7 +985,7 @@ Use <Routes> and <Route> to define paths and components.
 Use <Link> or useNavigate() to switch pages.
 
 You can also use dynamic routes with :params.
-
+```cs
 ## ✅ 11. Forms and Controlled Inputs in React
 
 🔹 What are Controlled Components?
@@ -2538,3 +2538,4 @@ Go to Project Settings → Environment Variables → add them manually there.
 Platform	Pros	Notes
 Vercel	Blazing fast, great for Vite/Next.js	Used by Next.js team
 Netlify	Simpler UI, drag-drop support	Built-in form handling
+```
