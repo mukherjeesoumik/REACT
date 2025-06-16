@@ -1,5 +1,5 @@
 # React
-✅ 1. What is React?
+## ✅ 1. What is React?
 React is a JavaScript library developed by Facebook for building user interfaces—especially single-page applications (SPAs) where you want a dynamic, fast, and responsive user experience.
 
 🔹 Why use React?
@@ -162,7 +162,7 @@ Combines markup + logic in one place.
 
 Works well with components and state.
 
-✅ 3. Functional vs Class Components
+## ✅ 3. Functional vs Class Components
 🔹 What is a Component in React?
 A component is a reusable piece of UI in React. It can be as small as a button or as big as an entire page.
 
@@ -255,7 +255,7 @@ export default Counter;
 
 ```
 
-✅ 4. Props (Properties)
+## ✅ 4. Props (Properties)
 🔹 What are Props?
 Props are short for “properties.” They are read-only inputs to a React component, used to pass data from parent to child.
 
