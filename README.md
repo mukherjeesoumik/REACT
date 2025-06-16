@@ -987,7 +987,9 @@ Use <Link> or useNavigate() to switch pages.
 You can also use dynamic routes with :params.
 
 ## ✅ 11. Forms and Controlled Inputs in React
+
 🔹 What are Controlled Components?
+
 In React, a controlled component is an input element (like <input>, <textarea>, or <select>) whose value is controlled by React state.
 
 Instead of letting the DOM handle the form elements directly, React keeps the data in the component's state and updates it using onChange.
