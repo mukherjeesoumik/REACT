@@ -15,9 +15,7 @@ Supported by a huge community
 Think of React like LEGO blocks. Each block (component) can be reused and combined to build a large structure (app).
 
 🔸 Example without React (Plain JS):
-html
-Copy
-Edit
+```ch
 <!-- index.html -->
 <!DOCTYPE html>
 <html>
@@ -31,12 +29,11 @@ Edit
     </script>
   </body>
 </html>
+```
 This works, but it's hard to manage as apps get bigger.
 
 🔸 Same Example with React:
-jsx
-Copy
-Edit
+```ch
 // index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -47,9 +44,8 @@ const App = () => {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
-html
-Copy
-Edit
+```
+```ch
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
@@ -62,6 +58,7 @@ Edit
     <script type="module" src="/index.js"></script>
   </body>
 </html>
+```
 ✅ React lets you define components (App) and renders them inside #root.
 
 🛠 Core Concepts Introduced:
