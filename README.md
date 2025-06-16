@@ -359,7 +359,7 @@ Use children to pass JSX content.
 
 Let me know when you're ready for the next topic:
 
-✅ 5. useState Hook
+## ✅ 5. useState Hook
 🔹 What is useState?
 The useState hook is used to add state to functional components.
 
@@ -464,7 +464,7 @@ You can track strings, numbers, arrays, objects—anything!
 
 Let me know when you’re ready for the next topic:
 
-✅ 6. Event Handling in React
+## ✅ 6. Event Handling in React
 🔹 What is Event Handling?
 Just like in plain HTML/JS, you can respond to user actions like clicks, typing, submitting a form, etc.
 
@@ -472,8 +472,7 @@ But in React, event handlers are written in camelCase and use functions, not str
 
 🔸 Example: Click Event
 jsx
-Copy
-Edit
+```ch
 function ClickExample() {
   const handleClick = () => {
     alert("Button was clicked!");
@@ -481,14 +480,14 @@ function ClickExample() {
 
   return <button onClick={handleClick}>Click Me</button>;
 }
+```
 onClick is a React event.
 
 handleClick is the function that runs on the event.
 
 🔸 Event Handlers with Parameters
 jsx
-Copy
-Edit
+```ch
 function GreetUser() {
   const sayHello = (name) => {
     alert(`Hello, ${name}`);
@@ -500,12 +499,12 @@ function GreetUser() {
     </button>
   );
 }
+```
 We use an arrow function so the function isn’t called immediately during render.
 
 🔸 Handling Input Change Event
 jsx
-Copy
-Edit
+```ch
 function InputExample() {
   const [text, setText] = useState("");
 
@@ -520,10 +519,10 @@ function InputExample() {
     </>
   );
 }
+```
 🔸 Handling Form Submit
 jsx
-Copy
-Edit
+```ch
 function FormExample() {
   const [email, setEmail] = useState("");
 
@@ -544,6 +543,7 @@ function FormExample() {
     </form>
   );
 }
+```
 🔹 Supported Events in React (Few Examples)
 Event	React Prop
 Click	onClick
@@ -560,21 +560,13 @@ Always use e.preventDefault() when handling forms.
 
 Avoid inline complex logic — keep logic inside a function.
 
-Let me know when you're ready for the next topic:
-
-👉 7. Conditional Rendering
-Just reply with "next".
-
-Awesome! Let’s move to the 7th topic:
-
-✅ 7. Conditional Rendering
+## ✅ 7. Conditional Rendering
 🔹 What is Conditional Rendering?
 In React, conditional rendering means showing different UI based on a condition—just like if, else, or switch in JavaScript.
 
 🔸 1. Using if or if-else Inside the Component
 jsx
-Copy
-Edit
+```ch
 function Greeting({ isLoggedIn }) {
   if (isLoggedIn) {
     return <h1>Welcome back!</h1>;
@@ -582,21 +574,21 @@ function Greeting({ isLoggedIn }) {
     return <h1>Please log in.</h1>;
   }
 }
+```
 🔸 2. Using the Ternary Operator (? :)
 jsx
-Copy
-Edit
+```ch
 function Greeting({ isLoggedIn }) {
   return (
     <h1>{isLoggedIn ? "Welcome back!" : "Please log in."}</h1>
   );
 }
+```
 ✅ This is most commonly used inside JSX.
 
 🔸 3. Using && (Short-circuit Rendering)
 jsx
-Copy
-Edit
+```ch
 function Alert({ isError }) {
   return (
     <div>
@@ -605,12 +597,12 @@ function Alert({ isError }) {
     </div>
   );
 }
+```
 If isError is true, the <p> tag is rendered.
 
 🔸 4. Conditional Rendering with State Example
 jsx
-Copy
-Edit
+```ch
 import React, { useState } from 'react';
 
 function LoginToggle() {
@@ -630,10 +622,10 @@ function LoginToggle() {
     </div>
   );
 }
+```
 🔹 Optional: Extract UI into Variables
 jsx
-Copy
-Edit
+```ch
 function Status({ isOnline }) {
   let statusMessage;
 
@@ -645,6 +637,7 @@ function Status({ isOnline }) {
 
   return <div>{statusMessage}</div>;
 }
+```
 ✅ Summary:
 Use if, ?:, or && to conditionally render content.
 
@@ -652,33 +645,14 @@ Conditional rendering makes your UI dynamic and responsive to state/props.
 
 Avoid deeply nested conditions—extract components or logic if it gets messy.
 
-Let me know when you're ready for the next topic:
 
-👉 8. Lists and Keys
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Awesome! Let’s move to the 8th topic:
-
-✅ 8. Lists and Keys in React
+## ✅ 8. Lists and Keys in React
 🔹 What are Lists?
 In React, when you want to render multiple elements from an array, you use JavaScript’s .map() function to generate a list of JSX elements.
 
 🔸 Example: Rendering a Simple List
 jsx
-Copy
-Edit
+```ch
 function FruitsList() {
   const fruits = ['Apple', 'Banana', 'Mango'];
 
@@ -690,6 +664,7 @@ function FruitsList() {
     </ul>
   );
 }
+```
 map() loops over the array.
 
 key helps React keep track of which items have changed.
@@ -706,8 +681,7 @@ The list is static
 Better: Use a unique ID.
 
 jsx
-Copy
-Edit
+```ch
 const users = [
   { id: 101, name: 'Soumik' },
   { id: 102, name: 'Hrithik' }
@@ -720,10 +694,10 @@ return (
     ))}
   </ul>
 );
+```
 🔸 List with Components
 jsx
-Copy
-Edit
+```ch
 function User({ name }) {
   return <li>{name}</li>;
 }
@@ -739,10 +713,10 @@ function UserList() {
     </ul>
   );
 }
+```
 🔹 Lists of Objects with Destructuring
 jsx
-Copy
-Edit
+```ch
 const products = [
   { id: 1, name: "Laptop", price: 49999 },
   { id: 2, name: "Phone", price: 19999 }
@@ -760,6 +734,7 @@ function ProductList() {
     </div>
   );
 }
+```
 ✅ Summary:
 Use .map() to render lists of JSX elements.
 
@@ -769,26 +744,8 @@ Keys help React update UI efficiently.
 
 You can render lists of text, JSX, or components.
 
-Let me know when you're ready for the next topic:
 
-👉 9. useEffect Hook
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Great! Let's move to the 9th topic, which is one of the most important hooks in React:
-
-✅ 9. useEffect Hook
+## ✅ 9. useEffect Hook
 🔹 What is useEffect?
 The useEffect hook allows you to perform side effects in your component.
 
@@ -806,8 +763,7 @@ In class components, this was done using lifecycle methods like componentDidMoun
 
 🔸 Syntax:
 jsx
-Copy
-Edit
+```ch
 useEffect(() => {
   // Side effect logic here
 
@@ -815,10 +771,10 @@ useEffect(() => {
     // Cleanup (optional)
   };
 }, [dependencies]);
+```
 🔹 Example 1: Run Once on Mount (like componentDidMount)
 jsx
-Copy
-Edit
+```ch
 import React, { useEffect } from 'react';
 
 function App() {
@@ -828,10 +784,10 @@ function App() {
 
   return <h1>Hello World</h1>;
 }
+```
 🔹 Example 2: Run When a State Changes
 jsx
-Copy
-Edit
+```ch
 import React, { useState, useEffect } from 'react';
 
 function Counter() {
@@ -848,10 +804,10 @@ function Counter() {
     </div>
   );
 }
+```
 🔹 Example 3: Cleanup Function (like componentWillUnmount)
 jsx
-Copy
-Edit
+```ch
 useEffect(() => {
   const interval = setInterval(() => {
     console.log('Interval running...');
@@ -862,6 +818,7 @@ useEffect(() => {
     console.log('Component unmounted or re-rendered!');
   };
 }, []);
+```
 🔸 Dependencies Explained
 Dependency Array	Behavior
 [] (empty)	Runs once on mount only
@@ -881,8 +838,7 @@ Dependency Array	Behavior
 
 🔹 Example 4: Fetching Data (basic)
 jsx
-Copy
-Edit
+```ch
 import React, { useEffect, useState } from 'react';
 
 function UserList() {
@@ -902,6 +858,7 @@ function UserList() {
     </ul>
   );
 }
+```
 ✅ Summary:
 useEffect is the go-to for side effects in functional components.
 
@@ -909,26 +866,8 @@ You control when it runs using the dependency array.
 
 You can include cleanup logic by returning a function.
 
-Let me know when you're ready for the next topic:
 
-👉 10. React Router
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Awesome! Now let’s dive into the 10th topic, which is essential for building multi-page applications:
-
-✅ 10. React Router
+## ✅ 10. React Router
 🔹 What is React Router?
 React Router is a standard library used in React to handle routing (navigation) in single-page applications (SPAs).
 It allows you to define different routes (URLs) and render specific components based on the URL.
@@ -937,15 +876,14 @@ Without React Router, React apps only show one page.
 
 🔸 Install React Router
 bash
-Copy
-Edit
+```ch
 npm install react-router-dom
+```
 Make sure you install version 6+ (the latest as of 2025).
 
 🔹 Basic Setup (React Router v6+)
 jsx
-Copy
-Edit
+```ch
 // index.js or main.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -957,10 +895,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </BrowserRouter>
 );
+```
 🔹 Example App with Routes
 jsx
-Copy
-Edit
+```ch
 // App.jsx
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
@@ -988,10 +926,10 @@ function App() {
 }
 
 export default App;
+```
 🔹 Example Components
 jsx
-Copy
-Edit
+```ch
 // pages/Home.jsx
 export default function Home() {
   return <h2>Welcome to the Home Page</h2>;
@@ -1006,10 +944,10 @@ export default function About() {
 export default function Contact() {
   return <h2>Contact Page</h2>;
 }
+```
 🔹 Navigate Programmatically
 jsx
-Copy
-Edit
+```ch
 import { useNavigate } from 'react-router-dom';
 
 function GoToContact() {
@@ -1021,23 +959,24 @@ function GoToContact() {
     </button>
   );
 }
+```
 🔹 Route Parameters (Dynamic URLs)
 jsx
-Copy
-Edit
+```cht
 // App.jsx
 <Route path="/user/:id" element={<UserProfile />} />
+```
 jsx
-Copy
-Edit
+```ch
 // UserProfile.jsx
 import { useParams } from 'react-router-dom';
 
 function UserProfile() {
   const { id } = useParams();
 
-  return <h2>User ID: {id}</h2>;
+  return <h2> User ID: {id}</h2>;
 }
+```
 ✅ Summary
 Use <BrowserRouter> at the root.
 
@@ -1047,26 +986,8 @@ Use <Link> or useNavigate() to switch pages.
 
 You can also use dynamic routes with :params.
 
-Let me know when you're ready for the next topic:
 
-👉 11. Forms and Controlled Inputs
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Perfect! Let's move on to the 11th topic:
-
-✅ 11. Forms and Controlled Inputs in React
+## ✅ 11. Forms and Controlled Inputs in React
 🔹 What are Controlled Components?
 In React, a controlled component is an input element (like <input>, <textarea>, or <select>) whose value is controlled by React state.
 
@@ -1074,8 +995,7 @@ Instead of letting the DOM handle the form elements directly, React keeps the da
 
 🔸 Example: Controlled Input
 jsx
-Copy
-Edit
+```ch
 import { useState } from 'react';
 
 function NameForm() {
@@ -1103,14 +1023,14 @@ function NameForm() {
     </form>
   );
 }
+```
 value={name} binds the input to state.
 
 onChange updates the state when the user types.
 
 🔸 Controlled Inputs: Multiple Fields
 jsx
-Copy
-Edit
+```ch
 function ContactForm() {
   const [form, setForm] = useState({
     name: '',
@@ -1150,10 +1070,10 @@ function ContactForm() {
     </form>
   );
 }
+```
 🔸 Example: Controlled Select and Textarea
 jsx
-Copy
-Edit
+```ch
 function FeedbackForm() {
   const [feedback, setFeedback] = useState('');
   const [rating, setRating] = useState('5');
@@ -1179,6 +1099,7 @@ function FeedbackForm() {
     </form>
   );
 }
+```
 🔹 Uncontrolled vs Controlled (at a glance)
 Type	Value Stored In	Code Controls?	Use Case
 Controlled	React state	✅ Yes	Most React forms
@@ -1186,8 +1107,7 @@ Uncontrolled	DOM (ref)	❌ No	Simple, quick forms
 
 🔸 Optional: Basic Validation
 jsx
-Copy
-Edit
+```ch
 const handleSubmit = (e) => {
   e.preventDefault();
   if (!form.name || !form.email) {
@@ -1196,6 +1116,7 @@ const handleSubmit = (e) => {
   }
   alert("Form submitted!");
 };
+```
 ✅ Summary
 Controlled components use value and onChange to keep input data in sync with state.
 
@@ -1203,26 +1124,9 @@ Always prevent default form submission to avoid page reload.
 
 Can be extended to include validation, error handling, etc.
 
-Let me know when you're ready for the next topic:
-
-👉 12. Lifting State Up
-Just reply with "next".
 
 
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Great! Let's move to the 12th topic:
-
-✅ 12. Lifting State Up
+## ✅ 12. Lifting State Up
 🔹 What is "Lifting State Up"?
 When two or more components need to share the same state, you lift the state up to their common parent.
 Instead of maintaining state in individual components, you move it to a common ancestor and pass it down via props.
@@ -1233,8 +1137,7 @@ Instead of each having their own state (which could conflict), the parent compon
 
 🔹 Example: Two Sibling Components
 jsx
-Copy
-Edit
+```ch
 import React, { useState } from 'react';
 
 function Parent() {
@@ -1256,12 +1159,12 @@ function IncrementButton({ onIncrement }) {
 function ResetButton({ onReset }) {
   return <button onClick={onReset}>Reset</button>;
 }
+```
 ✅ The Parent component "lifts up" the count state and shares it with both children.
 
 🔹 Example: Input Synchronization
 jsx
-Copy
-Edit
+```ch
 function ParentInputSync() {
   const [text, setText] = useState('');
 
@@ -1285,6 +1188,7 @@ function InputBox({ label, value, onChange }) {
     </div>
   );
 }
+```
 🧠 Typing in one input updates both—because they share the same state from the parent.
 
 ✅ When to Lift State Up
@@ -1303,26 +1207,8 @@ Pass both the state and its setter function via props.
 
 Helps manage shared or dependent state logic.
 
-Let me know when you're ready for the next topic:
 
-👉 13. Context API
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Awesome! Now let’s move to the 13th topic, which is extremely useful when your app grows:
-
-✅ 13. Context API in React
+## ✅ 13. Context API in React
 🔹 Why Context API?
 As your app scales, prop drilling (passing props through many levels) becomes painful.
 
@@ -1334,15 +1220,14 @@ Imagine a "Theme" or "Language" setting in your app. Instead of passing it from 
 🔹 Steps to Use Context API
 ✅ Step 1: Create a Context
 jsx
-Copy
-Edit
+```ch
 import { createContext } from 'react';
 
 export const ThemeContext = createContext();
+```
 ✅ Step 2: Create a Provider Component
 jsx
-Copy
-Edit
+```ch
 import { useState } from 'react';
 import { ThemeContext } from './ThemeContext';
 
@@ -1357,10 +1242,10 @@ export function ThemeProvider({ children }) {
     </ThemeContext.Provider>
   );
 }
+```
 ✅ Step 3: Wrap App with the Provider
 jsx
-Copy
-Edit
+```ch
 // main.jsx or index.js
 import ReactDOM from 'react-dom/client';
 import App from './App';
@@ -1371,10 +1256,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </ThemeProvider>
 );
+```
 ✅ Step 4: Consume Context Anywhere
 jsx
-Copy
-Edit
+```ch
 import { useContext } from 'react';
 import { ThemeContext } from './ThemeContext';
 
@@ -1388,10 +1273,10 @@ function ThemeSwitcher() {
     </div>
   );
 }
+```
 🔹 Example with User Context
 jsx
-Copy
-Edit
+```ch
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
@@ -1403,9 +1288,9 @@ export function UserProvider({ children }) {
     </UserContext.Provider>
   );
 }
+```
 jsx
-Copy
-Edit
+```ch
 import { useContext } from 'react';
 import { UserContext } from './UserContext';
 
@@ -1414,6 +1299,7 @@ function Profile() {
 
   return <h2>Welcome, {user.name}!</h2>;
 }
+```
 🔸 When to Use Context
 ✅ Good for:
 
@@ -1438,26 +1324,8 @@ useContext() accesses the value anywhere
 
 Helps avoid prop drilling in deep component trees
 
-Let me know when you're ready for the next topic:
 
-👉 14. Redux Toolkit (step-by-step)
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Awesome! Now let’s dive into one of the most powerful state management tools in the React ecosystem:
-
-✅ 14. Redux Toolkit (Step-by-Step)
+## ✅ 14. Redux Toolkit (Step-by-Step)
 🔹 What is Redux Toolkit?
 Redux Toolkit (RTK) is the official, modern way to use Redux in React apps.
 
@@ -1475,13 +1343,12 @@ Better than legacy redux + react-redux setup
 🔸 Step-by-Step Redux Toolkit Setup
 ✅ Step 1: Install Redux Toolkit & React-Redux
 bash
-Copy
-Edit
+```ch
 npm install @reduxjs/toolkit react-redux
+```
 ✅ Step 2: Create the Store
 js
-Copy
-Edit
+```ch
 // store.js
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './features/counterSlice';
@@ -1493,10 +1360,10 @@ const store = configureStore({
 });
 
 export default store;
+```
 ✅ Step 3: Create a Slice
 js
-Copy
-Edit
+```ch
 // features/counterSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -1522,10 +1389,10 @@ const counterSlice = createSlice({
 
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 export default counterSlice.reducer;
+```
 ✅ Step 4: Provide Store to App
 jsx
-Copy
-Edit
+```ch
 // main.jsx or index.js
 import ReactDOM from 'react-dom/client';
 import App from './App';
@@ -1537,10 +1404,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </Provider>
 );
+```
 ✅ Step 5: Use Redux State in Components
 jsx
-Copy
-Edit
+```ch
 // Counter.jsx
 import { useSelector, useDispatch } from 'react-redux';
 import { increment, decrement, incrementByAmount } from './features/counterSlice';
@@ -1560,12 +1427,12 @@ function Counter() {
 }
 
 export default Counter;
+```
 🧠 RTK Async Logic (Optional Intro)
 Use createAsyncThunk to fetch API data:
 
 js
-Copy
-Edit
+```ch
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const fetchData = createAsyncThunk('data/fetch', async () => {
@@ -1587,6 +1454,7 @@ const dataSlice = createSlice({
       });
   },
 });
+```
 ✅ Summary
 Use createSlice() to define state, reducers, and actions
 
@@ -1596,26 +1464,8 @@ Use useSelector() to read data and useDispatch() to trigger actions
 
 Avoids manual action types, action creators, and switch statements
 
-Let me know when you're ready for the next topic:
 
-👉 15. Fetching API Data (with Axios and Fetch)
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Perfect! Let’s now dive into the 15th topic, which is essential for connecting your React app to the backend:
-
-✅ 15. Fetching API Data (with Fetch & Axios)
+## ✅ 15. Fetching API Data (with Fetch & Axios)
 Fetching data is a core task in most React apps — getting user info, products, messages, etc., from a backend server.
 
 We’ll cover:
@@ -1631,8 +1481,7 @@ Displaying the result
 🔹 1. Using fetch()
 ✅ Basic GET Request Example
 jsx
-Copy
-Edit
+```ch
 import { useEffect, useState } from 'react';
 
 function Users() {
@@ -1664,18 +1513,18 @@ function Users() {
     </ul>
   );
 }
+```
 🔹 2. Using axios
 Axios is a popular promise-based HTTP client with better error handling, default headers, etc.
 
 ✅ Install Axios:
 bash
-Copy
-Edit
+```ch
 npm install axios
+```
 ✅ Axios GET Example
 jsx
-Copy
-Edit
+```ch
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -1708,10 +1557,10 @@ function Posts() {
     </ul>
   );
 }
+```
 🔹 3. POST Request (Form Submission)
 jsx
-Copy
-Edit
+```ch
 function AddUser() {
   const [name, setName] = useState('');
 
@@ -1738,6 +1587,7 @@ function AddUser() {
     </form>
   );
 }
+```
 ✅ When to Use Fetch vs Axios
 Feature	fetch	axios
 Native support	✅ Yes	❌ Need to install
@@ -1755,26 +1605,8 @@ Choose between fetch (native) and axios (powerful)
 
 Show loading UI and handle errors gracefully
 
-Let me know when you're ready for the next topic:
 
-👉 16. Styling in React (CSS Modules, Tailwind, Styled Components)
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Awesome! Let's move on to the 16th topic:
-
-✅ 16. Styling in React
+## ✅ 16. Styling in React
 Styling is crucial to make your app visually appealing. React supports several methods of styling, each with its own strengths.
 
 We’ll cover:
@@ -1792,8 +1624,7 @@ CSS Modules help scope CSS to a component, preventing global conflicts.
 Just rename your CSS file to ComponentName.module.css.
 
 css
-Copy
-Edit
+```ch
 /* Button.module.css */
 .btn {
   background-color: royalblue;
@@ -1802,15 +1633,16 @@ Edit
   border-radius: 8px;
   border: none;
 }
+```
 ✅ Usage in React
 jsx
-Copy
-Edit
+```ch
 import styles from './Button.module.css';
 
 function Button() {
   return <button className={styles.btn}>Click Me</button>;
 }
+```
 🎯 styles.btn is scoped only to this component.
 
 🔹 2. Tailwind CSS (Utility-First CSS)
@@ -1818,29 +1650,28 @@ Tailwind provides predefined utility classes (e.g., bg-red-500, text-xl, flex) f
 
 ✅ Install Tailwind (Vite Example)
 bash
-Copy
-Edit
+```ch
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
+```
 ✅ Configure tailwind.config.js
 js
-Copy
-Edit
+```ch
 content: [
   "./index.html",
   "./src/**/*.{js,ts,jsx,tsx}",
 ]
+```
 ✅ Add to index.css
 css
-Copy
-Edit
+```ch
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+```
 ✅ Use in Components
 jsx
-Copy
-Edit
+```ch
 function Card() {
   return (
     <div className="bg-white p-6 rounded-xl shadow-lg">
@@ -1849,6 +1680,7 @@ function Card() {
     </div>
   );
 }
+```
 🎉 No need to create separate CSS files. Fully responsive with mobile-first utilities.
 
 🔹 3. Styled Components (CSS-in-JS)
@@ -1856,13 +1688,12 @@ Allows writing real CSS in JavaScript files using template literals.
 
 ✅ Install
 bash
-Copy
-Edit
+```ch
 npm install styled-components
+```
 ✅ Usage
 jsx
-Copy
-Edit
+```ch
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
@@ -1877,6 +1708,7 @@ const StyledButton = styled.button`
 function MyButton() {
   return <StyledButton>Styled!</StyledButton>;
 }
+```
 🧠 Styled components are actual React components with scoped styles.
 
 🔸 Comparison
@@ -1894,26 +1726,9 @@ Tailwind: Fast, utility-first approach — great for design systems
 
 Styled Components: Best when you want logic + styling together in one file
 
-Let me know when you're ready for the next topic:
-
-👉 17. useRef, useMemo, useCallback
-Just reply with "next".
 
 
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Great! You're progressing really well. Now let's cover:
-
-✅ 17. useRef, useMemo, and useCallback in React
+## ✅ 17. useRef, useMemo, and useCallback in React
 These are performance optimization hooks and give more power to functional components.
 
 🔹 1. useRef()
@@ -1921,8 +1736,7 @@ A hook for referencing DOM elements or storing mutable values that don’t trigg
 
 ✅ Use Case 1: DOM Access
 jsx
-Copy
-Edit
+```ch
 import { useRef } from 'react';
 
 function FocusInput() {
@@ -1939,10 +1753,10 @@ function FocusInput() {
     </div>
   );
 }
+```
 ✅ Use Case 2: Persist Value Between Renders
 jsx
-Copy
-Edit
+```ch
 import { useRef, useState, useEffect } from 'react';
 
 function RenderCounter() {
@@ -1961,13 +1775,13 @@ function RenderCounter() {
     </div>
   );
 }
+```
 🔹 2. useMemo()
 Memoizes a computed value, so it's not recalculated on every render unless dependencies change.
 
 ✅ Example
 jsx
-Copy
-Edit
+```ch
 import { useMemo, useState } from 'react';
 
 function ExpensiveCalc() {
@@ -1991,6 +1805,7 @@ function ExpensiveCalc() {
     </div>
   );
 }
+```
 ✅ expensiveValue only recalculates when count changes, not on every keystroke.
 
 🔹 3. useCallback()
@@ -1998,8 +1813,7 @@ Returns a memoized version of a function to prevent re-creating it on each rende
 
 ✅ Example
 jsx
-Copy
-Edit
+```ch
 import { useCallback, useState } from 'react';
 
 const Child = ({ onClick }) => {
@@ -2022,6 +1836,7 @@ function Parent() {
     </div>
   );
 }
+```
 Without useCallback, the Child would re-render on every Parent render.
 
 🔸 Summary Table
@@ -2030,26 +1845,9 @@ useRef()	Access DOM or store mutable ref	❌ No	Focus, counters
 useMemo()	Memoize calculated value	❌ No	Expensive functions
 useCallback()	Memoize a function	❌ No	Prevent unnecessary child renders
 
-Let me know when you're ready for the next topic:
-
-👉 18. Custom Hooks
-Just reply with "next".
 
 
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Awesome! Let’s now explore one of the most powerful and reusable features in React:
-
-✅ 18. Custom Hooks
+## ✅ 18. Custom Hooks
 🔹 What is a Custom Hook?
 A Custom Hook is a function that starts with the word use and lets you reuse logic between components — like useState, useEffect, etc., but created by you.
 
@@ -2062,18 +1860,17 @@ Easy to test and share
 
 🔸 Syntax Example
 js
-Copy
-Edit
+```ch
 function useCustomName() {
   // your logic here
 }
+```
 ✅ A Custom Hook can use other hooks (useState, useEffect, etc.), but must not be called conditionally.
 
 📌 Example 1: useWindowWidth (custom hook to track window size)
 useWindowWidth.js
 jsx
-Copy
-Edit
+```ch
 import { useEffect, useState } from 'react';
 
 function useWindowWidth() {
@@ -2090,10 +1887,10 @@ function useWindowWidth() {
 }
 
 export default useWindowWidth;
+```
 ✅ Usage:
 jsx
-Copy
-Edit
+```ch
 import useWindowWidth from './useWindowWidth';
 
 function ResponsiveComponent() {
@@ -2106,13 +1903,13 @@ function ResponsiveComponent() {
     </div>
   );
 }
+```
 📌 Example 2: useLocalStorage
 Persist data in localStorage while syncing with React state.
 
 useLocalStorage.js
 jsx
-Copy
-Edit
+```ch
 import { useState, useEffect } from 'react';
 
 function useLocalStorage(key, initialValue) {
@@ -2129,10 +1926,10 @@ function useLocalStorage(key, initialValue) {
 }
 
 export default useLocalStorage;
+```
 ✅ Usage:
 jsx
-Copy
-Edit
+```ch
 import useLocalStorage from './useLocalStorage';
 
 function NameSaver() {
@@ -2149,6 +1946,7 @@ function NameSaver() {
     </div>
   );
 }
+```
 🎉 Your name is saved even after page refresh!
 
 📌 Summary
@@ -2160,26 +1958,8 @@ Composability	Can use built-in or other custom hooks
 🧠 Naming Rule
 Always start a custom hook name with use → useForm, useAuth, useScroll, etc.
 
-Let me know when you’re ready for the next topic:
 
-👉 19. Authentication (JWT, localStorage, private routes)
-Just reply with "next".
-
-
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Perfect! Now we’ll dive into one of the most essential parts of modern web apps:
-
-✅ 19. Authentication in React
+## ✅ 19. Authentication in React
 👉 (Using JWT, localStorage, and Private Routes)
 
 We’ll cover:
@@ -2205,8 +1985,7 @@ On logout → token is cleared.
 
 🔹 2. Store JWT in localStorage
 js
-Copy
-Edit
+```ch
 // On login success
 localStorage.setItem('token', jwtToken);
 
@@ -2215,11 +1994,11 @@ const token = localStorage.getItem('token');
 
 // To remove on logout
 localStorage.removeItem('token');
+```
 🔹 3. Create a Fake Login & Auth Context
 ✅ AuthContext.js
 jsx
-Copy
-Edit
+```ch
 import { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
@@ -2247,12 +2026,12 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+```
 🔹 4. Private Route Component
 Restricts access to authenticated users only.
 
 jsx
-Copy
-Edit
+```ch
 import { Navigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
@@ -2262,11 +2041,11 @@ const PrivateRoute = ({ children }) => {
 };
 
 export default PrivateRoute;
+```
 🔹 5. Simple Routing Setup (with React Router)
 ✅ App.jsx
 jsx
-Copy
-Edit
+```ch
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
@@ -2294,10 +2073,10 @@ function App() {
     </AuthProvider>
   );
 }
+```
 🔹 6. Login Page Example
 jsx
-Copy
-Edit
+```ch
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -2318,10 +2097,10 @@ function Login() {
     </div>
   );
 }
+```
 🔹 7. Dashboard Page
 jsx
-Copy
-Edit
+```ch
 import { useAuth } from '../AuthContext';
 
 function Dashboard() {
@@ -2334,6 +2113,7 @@ function Dashboard() {
     </div>
   );
 }
+```
 ✅ Summary
 Feature	Purpose
 JWT	Token-based backend authentication
@@ -2343,24 +2123,9 @@ PrivateRoute	Protect sensitive routes (e.g., /dashboard)
 
 Let me know when you're ready for the next topic:
 
-👉 20. Testing in React (Jest, React Testing Library)
-Just reply with "next".
 
 
-
-
-
-
-
-
-You said:
-move 22 no point 
-
-
-ChatGPT said:
-Got it! Skipping to the 22nd topic:
-
-✅ 22. Optional: TypeScript and Next.js
+## ✅ 20. Optional: TypeScript and Next.js
 We'll break this down into two parts:
 
 🔷 Part 1: TypeScript in React
@@ -2377,20 +2142,19 @@ Scalable Architecture	Better with large codebases
 For new projects:
 
 bash
-Copy
-Edit
+```ch
 npm create vite@latest my-app --template react-ts
+```
 Or for existing React projects:
 
 bash
-Copy
-Edit
+```ch
 npm install --save-dev typescript @types/react @types/react-dom
+```
 🔸 Basic Examples
 1. Typing Props
 tsx
-Copy
-Edit
+```ch
 type ButtonProps = {
   label: string;
   onClick: () => void;
@@ -2414,12 +2178,12 @@ type User = {
 };
 
 const [user, setUser] = useState<User | null>(null);
+```
 ✅ TypeScript with Redux Toolkit
 Redux Toolkit works well with TypeScript. Here's a minimal slice:
 
 tsx
-Copy
-Edit
+```ch
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type CounterState = {
@@ -2443,6 +2207,7 @@ const counterSlice = createSlice({
 
 export const { increment, addAmount } = counterSlice.actions;
 export default counterSlice.reducer;
+```
 🔷 Part 2: Next.js
 Next.js is a React framework that adds SSR (server-side rendering), routing, API support, and performance optimization.
 
@@ -2456,40 +2221,41 @@ Image Optimization	Automatic resizing & lazy loading
 
 📦 Setup
 bash
-Copy
-Edit
+```ch
 npx create-next-app@latest my-next-app
+```
 # Or with TypeScript
+```ch
 npx create-next-app@latest my-next-app --typescript
+```
 🔸 Routing
 In Next.js, every file in pages/ becomes a route.
 
 txt
-Copy
-Edit
+```ch
 /pages
   └── index.tsx        →  "/"
   └── about.tsx        →  "/about"
   └── blog/[slug].tsx  →  Dynamic route → "/blog/react"
+```
 🔸 API Routes (Backend in Next.js)
 ts
-Copy
-Edit
+```ch
 // pages/api/hello.ts
 export default function handler(req, res) {
   res.status(200).json({ message: 'Hello from API!' });
 }
+```
 🔸 Linking Pages
 tsx
-Copy
-Edit
+```ch
 import Link from 'next/link';
 
 <Link href="/about">About</Link>
+```
 🔸 Fetching Data (SSR, SSG, CSR)
 tsx
-Copy
-Edit
+```ch
 // Static Site Generation (SSG)
 export async function getStaticProps() {
   return {
@@ -2505,6 +2271,7 @@ export async function getServerSideProps() {
     props: { time: new Date().toISOString() },
   };
 }
+```
 ✅ Summary
 Feature	TypeScript	Next.js
 What it adds	Static typing	SSR, routing, API, and performance
@@ -2518,23 +2285,8 @@ Let me know if you want to:
 ✅ Start building a TypeScript-based React project
 ✅ Or go back and continue topic 20: Testing in React
 
-Just reply with what you'd like next!
 
-
-
-
-
-
-
-
-You said:
-next 
-
-
-ChatGPT said:
-Great! Let’s now explore a crucial part of professional React development:
-
-✅ 20. Testing in React
+## ✅ 21. Testing in React
 → Using Jest and React Testing Library (RTL)
 
 🔷 Why Testing?
@@ -2557,14 +2309,13 @@ If you used Create React App, Jest & RTL are already included.
 For Vite:
 
 bash
-Copy
-Edit
+```ch
 npm install --save-dev vitest @testing-library/react @testing-library/jest-dom
+```
 Then update vite.config.ts:
 
 ts
-Copy
-Edit
+```ch
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -2575,11 +2326,11 @@ export default defineConfig({
     environment: 'jsdom',
   },
 })
+```
 🔹 3. Writing Your First Test
 ✅ Component: Greeting.tsx
 tsx
-Copy
-Edit
+```ch
 type Props = { name: string };
 
 const Greeting = ({ name }: Props) => {
@@ -2587,10 +2338,10 @@ const Greeting = ({ name }: Props) => {
 };
 
 export default Greeting;
+```
 ✅ Test: Greeting.test.tsx
 tsx
-Copy
-Edit
+```ch
 import { render, screen } from '@testing-library/react';
 import Greeting from './Greeting';
 
@@ -2599,21 +2350,21 @@ test('renders greeting with name', () => {
   const heading = screen.getByText(/Hello, Soumik/i);
   expect(heading).toBeInTheDocument();
 });
+```
 🧪 Run tests:
 
 bash
-Copy
-Edit
+```ch
 # CRA
 npm test
 
 # Vite + Vitest
 npx vitest run
+```
 🔹 4. Simulating Events
 ✅ Component: Counter.tsx
 tsx
-Copy
-Edit
+```ch
 import { useState } from 'react';
 
 const Counter = () => {
@@ -2628,10 +2379,10 @@ const Counter = () => {
 };
 
 export default Counter;
+```
 ✅ Test: Counter.test.tsx
 tsx
-Copy
-Edit
+```ch
 import { render, screen, fireEvent } from '@testing-library/react';
 import Counter from './Counter';
 
@@ -2641,36 +2392,37 @@ test('increments counter on button click', () => {
   fireEvent.click(button);
   expect(screen.getByText('Count: 1')).toBeInTheDocument();
 });
+```
 🔹 5. Bonus: Custom Matchers with jest-dom
 tsx
-Copy
-Edit
+```ch
 import '@testing-library/jest-dom';
 
 expect(element).toBeInTheDocument();
 expect(button).toBeDisabled();
 expect(link).toHaveAttribute('href', '/about');
+```
 🔹 6. Folder Structure Best Practices
 css
-Copy
-Edit
+```ch
 src/
   components/
     Greeting.tsx
     Greeting.test.tsx
     Counter.tsx
     Counter.test.tsx
+```
 ✅ Co-locating test files with their components keeps things organized.
 
 🔹 7. Mocking Fetch/API Requests
 tsx
-Copy
-Edit
+```ch
 global.fetch = vi.fn(() =>
   Promise.resolve({
     json: () => Promise.resolve({ message: 'Hi!' }),
   })
 ) as jest.Mock;
+```
 🔹 Summary
 Tool	Purpose
 jest / vitest	Run and structure tests
@@ -2684,23 +2436,9 @@ Let me know if you'd like:
 ✅ Vite + React + RTL full config file
 ✅ Or proceed to the final topic:
 
-👉 21. Deployment (Vercel, Netlify) — reply with "next".
 
 
-
-
-
-
-
-
-You said:
-next
-
-
-ChatGPT said:
-Awesome! You’ve made it to the final core topic of this React roadmap:
-
-✅ 21. Deployment (Vercel & Netlify)
+## ✅ 21. Deployment (Vercel & Netlify)
 Let’s learn how to deploy your React app to the internet using two of the most popular platforms:
 🔸 Vercel and 🔸 Netlify — both are fast, free, and great for React projects.
 
@@ -2712,13 +2450,13 @@ If you don’t have a Vercel account, create one: https://vercel.com
 If it’s not already in a repo:
 
 bash
-Copy
-Edit
+```ch
 git init
 git remote add origin https://github.com/yourusername/your-repo-name
 git add .
 git commit -m "Initial commit"
 git push -u origin main
+```
 ✅ 3. Deploy via Vercel Dashboard
 Visit vercel.com
 
@@ -2753,27 +2491,28 @@ Select your repo
 For Vite + React:
 
 yaml
-Copy
-Edit
+```ch
 Build Command: npm run build
 Publish Directory: dist
+```
 For CRA:
 
 yaml
-Copy
-Edit
+```ch
 Build Command: npm run build
 Publish Directory: build
+```
 Click Deploy
 
 ✅ 3. Manual Deployment (No Git)
 You can also:
 
 bash
-Copy
-Edit
+```ch
 npm run build
+```
 Then drag the /dist or /build folder into Netlify's “Drag & Drop” deploy area.
+
 
 🔹 Environment Variables
 Both platforms support .env files for secrets like API keys:
@@ -2781,9 +2520,9 @@ Both platforms support .env files for secrets like API keys:
 Define in .env:
 
 env
-Copy
-Edit
+```ch
 VITE_API_URL=https://yourapi.com
+```
 On Vercel/Netlify:
 Go to Project Settings → Environment Variables → add them manually there.
 
