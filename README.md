@@ -985,7 +985,7 @@ Use <Routes> and <Route> to define paths and components.
 Use <Link> or useNavigate() to switch pages.
 
 You can also use dynamic routes with :params.
-```cs
+
 ## ✅ 11. Forms and Controlled Inputs in React
 
 🔹 What are Controlled Components?
@@ -995,7 +995,7 @@ Instead of letting the DOM handle the form elements directly, React keeps the da
 
 🔸 Example: Controlled Input
 jsx
-```ch
+```cs
 import { useState } from 'react';
 
 function NameForm() {
