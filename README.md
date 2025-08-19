@@ -88,12 +88,15 @@ function Counter() {
 ### Installation and Setup
 
 ```bash
-# Create a new React app
-npx create-react-app my-react-app
+# Create new project (Vite will show options)
+npm create vite@latest my-react-app // project name is "my-react-app"
+ 
+# When prompted, select:
+# ✔ Select a framework: › React
+# ✔ Select a variant: › TypeScript + SWC (or JavaScript + SWC for JS only)
+ 
 cd my-react-app
-
-# Start development server
-npm start
+npm install
 ```
 
 **Console Output:**
