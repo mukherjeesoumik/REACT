@@ -77,7 +77,7 @@ Think of React like a restaurant kitchen:
 
 ```bash
 # Create new project (Vite will show options)
-npm create vite@latest my-react-app # project name is my-react-app
+npm create vite@latest my-react-app # project name is "my-react-app"
  
 # When prompted, select:
 # ✔ Select a framework: › React
