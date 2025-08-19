@@ -1,664 +1,476 @@
-# React
-## ✅ 1. What is React?
-React is a JavaScript library developed by Facebook for building user interfaces—especially single-page applications (SPAs) where you want a dynamic, fast, and responsive user experience.
+# Complete React.js Course - Beginner Friendly 🚀
 
-🔹 Why use React?
-Reusable components
+[![React](https://img.shields.io/badge/React-18.0+-blue.svg)](https://reactjs.org/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-Fast updates using a Virtual DOM
+A comprehensive guide to learning React.js from scratch. This repository contains everything you need to become proficient in React development.
 
-Works well with stateful UIs
+## 📚 Table of Contents
 
-Supported by a huge community
+- [What is React?](#what-is-react)
+- [Getting Started](#getting-started)
+- [Core Concepts](#core-concepts)
+  - [JSX - JavaScript XML](#jsx---javascript-xml)
+  - [Components](#components)
+  - [Props](#props)
+  - [State](#state)
+  - [Event Handling](#event-handling)
+  - [Conditional Rendering](#conditional-rendering)
+  - [Lists and Keys](#lists-and-keys)
+  - [Forms](#forms)
+- [Advanced Concepts](#advanced-concepts)
+  - [Hooks](#hooks)
+  - [Component Lifecycle](#component-lifecycle)
+  - [Context API](#context-api)
+  - [Error Boundaries](#error-boundaries)
+  - [Higher-Order Components (HOCs)](#higher-order-components-hocs)
+  - [Render Props](#render-props)
+- [Routing](#routing)
+- [State Management](#state-management)
+- [Testing](#testing)
+- [Performance Optimization](#performance-optimization)
+- [Best Practices](#best-practices)
+- [Project Structure](#project-structure)
+- [Deployment](#deployment)
+- [Resources](#resources)
 
-🔸 Simple Analogy:
-Think of React like LEGO blocks. Each block (component) can be reused and combined to build a large structure (app).
+## What is React?
 
-🔸 Example without React (Plain JS):
-```cs
-<!-- index.html -->
-<!DOCTYPE html>
-<html>
-  <body>
-    <div id="root"></div>
-    <script>
-      const root = document.getElementById("root");
-      const heading = document.createElement("h1");
-      heading.textContent = "Hello, World!";
-      root.appendChild(heading);
-    </script>
-  </body>
-</html>
+React is a JavaScript library for building user interfaces, especially web applications. Think of it like building blocks for websites - you create small pieces (components) and combine them to build complex applications.
+
+### Why React?
+
+**Problem:** Traditional web development meant writing lots of repetitive code and manually updating the DOM (webpage elements) whenever data changed. This was slow and error-prone.
+
+**Solution:** React solves this by:
+- Creating reusable UI components (like Lego blocks)
+- Automatically updating the webpage when data changes
+- Making code easier to organize and maintain
+
+### Key Features
+
+- **Component-Based:** Build encapsulated components that manage their own state
+- **Virtual DOM:** React creates a virtual copy of your webpage in memory, compares changes, and updates only what's necessary - making it super fast!
+- **Reusable:** Write a component once, use it everywhere
+- **Declarative:** Just describe what you want the UI to look like, React handles the "how"
+
+### Real-World Analogy
+
+Think of React like a restaurant kitchen:
+- **Components** = Different stations (salad station, grill, dessert station)
+- **Props** = Ingredients passed between stations
+- **State** = Current status of each dish being prepared
+- **Virtual DOM** = The head chef who coordinates everything efficiently
+
+## Getting Started
+
+### Prerequisites
+
+- Basic knowledge of HTML, CSS, and JavaScript
+- Node.js (version 14 or higher)
+- Code editor (VS Code recommended)
+
+### Installation
+
+#### Option 1: Create React App (Recommended for beginners)
+
+```bash
+npx create-react-app my-first-app
+cd my-first-app
+npm start
 ```
-This works, but it's hard to manage as apps get bigger.
 
-🔸 Same Example with React:
-```cs
-// index.js
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+#### Option 2: Vite (Faster alternative)
 
-const App = () => {
-  return <h1>Hello, World!</h1>;
-};
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+```bash
+npm create vite@latest my-react-app -- --template react
+cd my-react-app
+npm install
+npm run dev
 ```
-```cs
-<!-- index.html -->
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>React App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/index.js"></script>
-  </body>
-</html>
+
+#### Option 3: Online Playground
+
+- [CodeSandbox](https://codesandbox.io)
+- [CodePen](https://codepen.io)
+- [StackBlitz](https://stackblitz.com)
+
+### Project Structure
+
 ```
-✅ React lets you define components (App) and renders them inside #root.
-
-🛠 Core Concepts Introduced:
-ReactDOM.createRoot() - tells React where to render.
-
-render(<App />) - renders a component.
-
-JSX: 
-```cs
-<h1> Hello </h1> 
+my-first-app/
+├── public/
+│   ├── index.html
+│   └── favicon.ico
+├── src/
+│   ├── components/
+│   ├── hooks/
+│   ├── utils/
+│   ├── App.js
+│   ├── App.css
+│   ├── index.js
+│   └── index.css
+├── package.json
+└── README.md
 ```
-(we'll cover next)
 
-Component: App is a functional component.
+## Core Concepts
 
+### JSX - JavaScript XML
 
-## ✅ 2. JSX (JavaScript XML)
-🔹 What is JSX?
-JSX is a syntax extension for JavaScript that looks similar to HTML. It's used with React to describe what the UI should look like.
+JSX lets you write HTML-like code in JavaScript. It's like mixing HTML and JavaScript together!
 
-Think of it like writing HTML inside JavaScript.
+#### Why JSX?
 
-🔸 Example:
-jsx
-```cs
-const element = <h1>Hello, JSX!</h1>;
+**Problem:** Creating HTML elements in JavaScript was messy and hard to read:
+
+```javascript
+const element = React.createElement('div', null, 
+  React.createElement('h1', null, 'Hello'),
+  React.createElement('p', null, 'Welcome to React')
+);
 ```
-This JSX code is converted by React tools (like Babel) into:
 
-js
-```cs
-const element = React.createElement('h1', null, 'Hello, JSX!');
-```
-So JSX is not HTML, but a syntax that React transforms into JavaScript.
+**Solution:** JSX makes it look like HTML:
 
-🔹 Rules of JSX
-One parent element
-✅ Good:
-jsx
-```cs
-return (
+```jsx
+const element = (
   <div>
     <h1>Hello</h1>
-    <p>World</p>
+    <p>Welcome to React</p>
   </div>
 );
 ```
-❌ Error:
-jsx
-```cs
-return (
-  <h1>Hello</h1>
-  <p>World</p>
+
+#### JSX Rules
+
+1. **Single Parent Element:** Wrap multiple elements in one parent
+
+```jsx
+// ❌ Wrong
+const element = (
+  <h1>Title</h1>
+  <p>Description</p>
+);
+
+// ✅ Correct
+const element = (
+  <div>
+    <h1>Title</h1>
+    <p>Description</p>
+  </div>
+);
+
+// ✅ Or use Fragment
+const element = (
+  <>
+    <h1>Title</h1>
+    <p>Description</p>
+  </>
 );
 ```
-Always wrap in a parent tag like <div> or use
-```cs
-<> ... </>
+
+2. **JavaScript Expressions:** Use curly braces `{}`
+
+```jsx
+const name = "John";
+const age = 25;
+
+const element = (
+  <div>
+    <h1>Hello, {name}!</h1>
+    <p>You are {age} years old</p>
+    <p>Next year you'll be {age + 1}</p>
+  </div>
+);
 ```
-(called a Fragment).
 
-Use className instead of class
+3. **HTML Attributes in camelCase**
 
-jsx
-```cs
-<div className="container">Hello</div>
+```jsx
+// ❌ HTML way
+<div class="container" onclick="handleClick()">
+
+// ✅ JSX way
+<div className="container" onClick={handleClick}>
 ```
-Use {} to embed JavaScript
 
-jsx
-```cs
-const name = "Soumik";
-return <h1>Hello, {name}!</h1>;
-```
-Self-closing tags must end with /
+### Components
 
-jsx
-```cs
-<img src="logo.png" />
-<input type="text" />
-```
-🔹 Full JSX Example
-jsx
-```cs
-function App() {
-  const user = {
-    name: 'Soumik',
-    age: 22,
-  };
+Components are like custom HTML elements. Think of them as reusable pieces of UI.
 
-  return (
-    <>
-      <h1>Hello, {user.name}!</h1>
-      <p>Age: {user.age}</p>
-    </>
-  );
-}
-```
-<> is a fragment shorthand (doesn't create a real DOM element, just wraps elements).
+#### Why Components?
 
-🧠 Why JSX is Great
-Easier to read and write UI code.
+**Problem:** Copying and pasting the same HTML code everywhere. If you need to change something, you have to update it in multiple places.
 
-Combines markup + logic in one place.
+**Solution:** Create a component once, use it anywhere. Change it once, updates everywhere!
 
-Works well with components and state.
+#### Types of Components
 
-## ✅ 3. Functional vs Class Components
-🔹 What is a Component in React?
-A component is a reusable piece of UI in React. It can be as small as a button or as big as an entire page.
+1. **Presentational Components** - Just show data (like a business card)
+2. **Container Components** - Handle logic and pass data to other components (like a form controller)
+3. **Reusable Components** - Can be used anywhere (like buttons, inputs)
 
-React supports two types of components:
+#### Functional Components (Modern Way)
 
-🔸 1. Functional Components (Modern)
-These are simple JavaScript functions that return JSX.
-
-jsx
-```cs
+```jsx
+// Simple component
 function Welcome() {
-  return <h1>Hello from Functional Component</h1>;
+  return <h1>Hello, World!</h1>;
 }
-```
-OR using ES6 arrow functions:
 
-jsx
-```cs
-const Welcome = () => <h1>Hello from Functional Component</h1>;
-```
-✅ Preferred in modern React, especially with Hooks (useState, useEffect, etc.)
+// Arrow function component
+const Welcome = () => {
+  return <h1>Hello, World!</h1>;
+};
 
-🔸 2. Class Components (Older)
-These are ES6 classes that extend React.Component and include a render() method.
-
-jsx
-```cs
-import React, { Component } from 'react';
-
-class Welcome extends Component {
-  render() {
-    return <h1>Hello from Class Component</h1>;
-  }
-}
-```
-🚫 Not recommended for new code unless you're maintaining older projects.
-
-🔹 Key Differences:
-Feature	Functional Component	Class Component
-Syntax	Function	Class with render() method
-State Management	useState Hook	this.state and this.setState()
-Lifecycle Methods	useEffect	componentDidMount, componentDidUpdate, etc.
-Simpler Syntax	✅ Yes	❌ No (more boilerplate)
-Modern React Style	✅ Yes (with Hooks)	❌ Old-style
-
-🔹 Example Side by Side:
-✅ Functional Component
-jsx
-```cs
-import React, { useState } from 'react';
-
-const Counter = () => {
-  const [count, setCount] = useState(0);
-
+// Using the component
+function App() {
   return (
     <div>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <Welcome />
+      <Welcome />
+      <Welcome />
     </div>
   );
-};
-```
-export default Counter;
-🆚 Class Component
-jsx
-```cs
-import React, { Component } from 'react';
-
-class Counter extends Component {
-  constructor() {
-    super();
-    this.state = { count: 0 };
-  }
-
-  increment = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
-
-  render() {
-    return (
-      <div>
-        <p>Count: {this.state.count}</p>
-        <button onClick={this.increment}>Increment</button>
-      </div>
-    );
-  }
 }
-
-export default Counter;
-
 ```
 
-## ✅ 4. Props (Properties)
-🔹 What are Props?
-Props are short for “properties.” They are read-only inputs to a React component, used to pass data from parent to child.
+#### Real-World Example: User Card
 
-Props help make components reusable and dynamic.
-
-🔸 Example: Passing Props to a Component
-jsx
-```cs
-// Parent Component
-function App() {
-  return <Greeting name="Soumik" />;
+```jsx
+function UserCard() {
+  return (
+    <div className="user-card">
+      <img src="https://via.placeholder.com/100" alt="User Avatar" />
+      <h3>John Doe</h3>
+      <p>Software Developer</p>
+      <button>Follow</button>
+    </div>
+  );
 }
 
-// Child Component
+// CSS
+.user-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  max-width: 200px;
+}
+```
+
+### Props
+
+Props (properties) are how you pass data from parent to child components. Think of them like function parameters.
+
+#### Why Props?
+
+**Problem:** Components need different data to display. A UserCard component should show different users, not the same person every time!
+
+**Solution:** Props let you pass data into components, making them flexible and reusable.
+
+#### Key Points
+
+- Props flow downward (parent → child)
+- Props are read-only (child cannot change them)
+- Props make components reusable
+
+#### Basic Props Example
+
+```jsx
+// Child component that receives props
 function Greeting(props) {
   return <h1>Hello, {props.name}!</h1>;
 }
-```
-Output: Hello, Soumik!
 
-🔸 How Props Work:
-Props are passed as attributes (like HTML).
-
-Inside the component, they are accessed via the props object.
-
-Props are read-only (you can’t modify them inside the child).
-
-🔹 Destructuring Props (Cleaner Syntax)
-Instead of this:
-
-jsx
-```cs
-function Greeting(props) {
-  return <h1>Hello, {props.name}</h1>;
-}
-```
-You can do this:
-
-jsx
-```cs
-function Greeting({ name }) {
-  return <h1>Hello, {name}</h1>;
-}
-```
-Both are the same, but destructuring makes it neater.
-
-🔸 Passing Multiple Props
-jsx
-```cs
+// Parent component that passes props
 function App() {
   return (
-    <Profile name="Soumik" age={22} isStudent={true} />
-  );
-}
-
-function Profile({ name, age, isStudent }) {
-  return (
     <div>
-      <h2>Name: {name}</h2>
-      <p>Age: {age}</p>
-      <p>Status: {isStudent ? "Student" : "Not a Student"}</p>
+      <Greeting name="Alice" />
+      <Greeting name="Bob" />
+      <Greeting name="Charlie" />
     </div>
   );
 }
 ```
-🔸 Props Can Be Anything:
-Type	Example
-String	name="Soumik"
-Number	age={22}
-Boolean	isAdmin={true}
-Array	items={[1, 2, 3]}
-Object	user={{ name: "Soumik" }}
-Function	onClick={handleClick}
-JSX/Component	children (explained below)
 
-🔸 Special Prop: children
-React automatically sends anything between the opening and closing tags as a children prop.
+#### Props with Destructuring
 
-jsx
-```cs
-function Wrapper({ children }) {
-  return <div className="box">{children}</div>;
+```jsx
+// Instead of props.name, props.age
+function UserInfo({ name, age, city }) {
+  return (
+    <div>
+      <h2>{name}</h2>
+      <p>Age: {age}</p>
+      <p>City: {city}</p>
+    </div>
+  );
 }
 
 function App() {
   return (
-    <Wrapper>
-      <p>This content is passed as children.</p>
-    </Wrapper>
+    <UserInfo 
+      name="Sarah" 
+      age={28} 
+      city="New York" 
+    />
   );
 }
 ```
-✅ Recap:
-Props help make components dynamic and reusable.
 
-Props flow one-way: from parent to child.
+### State
 
-Props can be destructured for cleaner code.
+State is data that can change over time. When state changes, React re-renders the component.
 
-Use children to pass JSX content.
+#### Why State?
 
-Let me know when you're ready for the next topic:
+**Problem:** Web applications need to respond to user interactions. Clicking buttons, typing in forms, loading data - the webpage needs to update!
 
-## ✅ 5. useState Hook
-🔹 What is useState?
-The useState hook is used to add state to functional components.
+**Solution:** State lets components "remember" information and update the UI when that information changes.
 
-In plain terms:
-It allows your component to remember values and reactively update the UI when those values change.
+#### When to Use State
 
-🔸 Syntax:
-jsx
-```cs
-const [state, setState] = useState(initialValue);
-```
-state – current value
+- User input (form fields, checkboxes)
+- Current selection (active tab, selected item)
+- Loading status (is data being fetched?)
+- Toggle states (show/hide, on/off)
 
-setState – function to update that value
+#### useState Hook
 
-initialValue – starting value (string, number, boolean, array, etc.)
-
-🔹 Example 1: Counter App
-jsx
-```cs
+```jsx
 import React, { useState } from 'react';
 
 function Counter() {
-  const [count, setCount] = useState(0); // count is the state
+  // useState returns [currentValue, functionToUpdateValue]
+  const [count, setCount] = useState(0); // 0 is initial value
 
   return (
     <div>
       <h2>Count: {count}</h2>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-    </div>
-  );
-}
-
-export default Counter;
-```
-Each time you click the button, setCount updates count, and React re-renders the component.
-
-🔹 Example 2: Toggle Text
-jsx
-```cs
-function ToggleMessage() {
-  const [show, setShow] = useState(true);
-
-  return (
-    <div>
-      {show && <p>Welcome to React!</p>}
-      <button onClick={() => setShow(!show)}>
-        {show ? 'Hide' : 'Show'}
+      <button onClick={() => setCount(count + 1)}>
+        Increase
+      </button>
+      <button onClick={() => setCount(count - 1)}>
+        Decrease
+      </button>
+      <button onClick={() => setCount(0)}>
+        Reset
       </button>
     </div>
   );
 }
 ```
-🔹 Things to Remember:
-✅ You can use multiple useState() calls:
 
-jsx
-```cs
-const [name, setName] = useState('');
-const [age, setAge] = useState(0);
-```
-✅ setState is asynchronous – changes happen on the next render.
+### Event Handling
 
-✅ Don't modify state directly! ❌
+React handles events using synthetic events, which work the same across all browsers.
 
-js
-```cs
-// ❌ Wrong
-count++;
+#### Common Events
 
-// ✅ Correct
-setCount(count + 1);
+- `onClick` - Mouse clicks
+- `onChange` - Input field changes
+- `onSubmit` - Form submissions
+- `onMouseOver/onMouseOut` - Hover effects
+- `onKeyPress` - Keyboard input
 
-```
-🔹 Example 3: Handling Input Field
-jsx
-```cs
-function NameInput() {
-  const [name, setName] = useState('');
+#### Click Events
+
+```jsx
+function ButtonExample() {
+  const handleClick = () => {
+    alert("Button clicked!");
+  };
+
+  const handleClickWithParameter = (message) => {
+    alert(message);
+  };
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Enter name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <p>Your name is: {name}</p>
+      <button onClick={handleClick}>
+        Simple Click
+      </button>
+      
+      <button onClick={() => handleClickWithParameter("Hello!")}>
+        Click with Parameter
+      </button>
     </div>
   );
 }
 ```
-As you type, state updates and reflects instantly.
 
-✅ Summary:
-useState is a Hook that lets functional components hold and update data.
+#### Form Events
 
-It helps React re-render the component when the state changes.
-
-You can track strings, numbers, arrays, objects—anything!
-
-Let me know when you’re ready for the next topic:
-
-## ✅ 6. Event Handling in React
-🔹 What is Event Handling?
-Just like in plain HTML/JS, you can respond to user actions like clicks, typing, submitting a form, etc.
-
-But in React, event handlers are written in camelCase and use functions, not strings.
-
-🔸 Example: Click Event
-jsx
-```cs
-function ClickExample() {
-  const handleClick = () => {
-    alert("Button was clicked!");
-  };
-
-  return <button onClick={handleClick}>Click Me</button>;
-}
-```
-onClick is a React event.
-
-handleClick is the function that runs on the event.
-
-🔸 Event Handlers with Parameters
-jsx
-```cs
-function GreetUser() {
-  const sayHello = (name) => {
-    alert(`Hello, ${name}`);
-  };
-
-  return (
-    <button onClick={() => sayHello("Soumik")}>
-      Greet Me
-    </button>
-  );
-}
-```
-We use an arrow function so the function isn’t called immediately during render.
-
-🔸 Handling Input Change Event
-jsx
-```cs
-function InputExample() {
-  const [text, setText] = useState("");
-
-  const handleChange = (e) => {
-    setText(e.target.value);
-  };
-
-  return (
-    <>
-      <input type="text" onChange={handleChange} />
-      <p>You typed: {text}</p>
-    </>
-  );
-}
-```
-🔸 Handling Form Submit
-jsx
-```cs
+```jsx
 function FormExample() {
-  const [email, setEmail] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent page reload
-    alert(`Email submitted: ${email}`);
+  const handleSubmit = (event) => {
+    event.preventDefault(); // Prevent page refresh
+    console.log("Submitted:", inputValue);
+  };
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter email"
+      <input 
+        type="text"
+        value={inputValue}
+        onChange={handleChange}
+        placeholder="Enter something..."
       />
       <button type="submit">Submit</button>
+      <p>You typed: {inputValue}</p>
     </form>
   );
 }
 ```
-🔹 Supported Events in React (Few Examples)
-Event	React Prop
-Click	onClick
-Form Submit	onSubmit
-Input Change	onChange
-Mouse Over	onMouseOver
-Key Press	onKeyDown, onKeyUp
-Focus/Blur	onFocus, onBlur
 
-✅ Best Practices
-Define handler functions outside of JSX for cleaner code.
+### Conditional Rendering
 
-Always use e.preventDefault() when handling forms.
+Show different content based on conditions, like if-else statements for your UI.
 
-Avoid inline complex logic — keep logic inside a function.
+#### If-Else with &&
 
-## ✅ 7. Conditional Rendering
-🔹 What is Conditional Rendering?
-In React, conditional rendering means showing different UI based on a condition—just like if, else, or switch in JavaScript.
-
-🔸 1. Using if or if-else Inside the Component
-jsx
-```cs
-function Greeting({ isLoggedIn }) {
-  if (isLoggedIn) {
-    return <h1>Welcome back!</h1>;
-  } else {
-    return <h1>Please log in.</h1>;
-  }
-}
-```
-🔸 2. Using the Ternary Operator (? :)
-jsx
-```cs
-function Greeting({ isLoggedIn }) {
-  return (
-    <h1>{isLoggedIn ? "Welcome back!" : "Please log in."}</h1>
-  );
-}
-```
-✅ This is most commonly used inside JSX.
-
-🔸 3. Using && (Short-circuit Rendering)
-jsx
-```cs
-function Alert({ isError }) {
+```jsx
+function WelcomeMessage({ isLoggedIn, username }) {
   return (
     <div>
-      <h2>Dashboard</h2>
-      {isError && <p style={{ color: "red" }}>Something went wrong!</p>}
+      {isLoggedIn && <h1>Welcome back, {username}!</h1>}
+      {!isLoggedIn && <h1>Please log in</h1>}
     </div>
   );
 }
 ```
-If isError is true, the <p> tag is rendered.
 
-🔸 4. Conditional Rendering with State Example
-jsx
-```cs
-import React, { useState } from 'react';
+#### Ternary Operator
 
-function LoginToggle() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+```jsx
+function LoginButton({ isLoggedIn, onLogin, onLogout }) {
   return (
-    <div>
-      {isLoggedIn ? (
-        <h2>Welcome, Soumik!</h2>
-      ) : (
-        <h2>Please login to continue.</h2>
-      )}
-
-      <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
-        {isLoggedIn ? "Logout" : "Login"}
-      </button>
-    </div>
+    <button onClick={isLoggedIn ? onLogout : onLogin}>
+      {isLoggedIn ? "Logout" : "Login"}
+    </button>
   );
 }
 ```
-🔹 Optional: Extract UI into Variables
-jsx
-```cs
-function Status({ isOnline }) {
-  let statusMessage;
 
-  if (isOnline) {
-    statusMessage = <p>You are online ✅</p>;
-  } else {
-    statusMessage = <p>You are offline ❌</p>;
-  }
+### Lists and Keys
 
-  return <div>{statusMessage}</div>;
-}
-```
-✅ Summary:
-Use if, ?:, or && to conditionally render content.
+Render arrays of data as lists. Keys help React identify which items have changed.
 
-Conditional rendering makes your UI dynamic and responsive to state/props.
+#### Basic List
 
-Avoid deeply nested conditions—extract components or logic if it gets messy.
-
-
-## ✅ 8. Lists and Keys in React
-🔹 What are Lists?
-In React, when you want to render multiple elements from an array, you use JavaScript’s .map() function to generate a list of JSX elements.
-
-🔸 Example: Rendering a Simple List
-jsx
-```cs
-function FruitsList() {
-  const fruits = ['Apple', 'Banana', 'Mango'];
+```jsx
+function FruitList() {
+  const fruits = ["Apple", "Banana", "Orange", "Grape"];
 
   return (
     <ul>
@@ -669,723 +481,600 @@ function FruitsList() {
   );
 }
 ```
-map() loops over the array.
 
-key helps React keep track of which items have changed.
+#### List with Objects
 
-🔹 Why is the key Important?
-A key is a unique identifier for each list item. React uses it to optimize rendering and avoid unnecessary re-renders.
-
-⚠️ Don't use array index as key unless:
-
-You’re not reordering items
-
-The list is static
-
-Better: Use a unique ID.
-
-jsx
-```cs
-const users = [
-  { id: 101, name: 'Soumik' },
-  { id: 102, name: 'Hrithik' }
-];
-
-return (
-  <ul>
-    {users.map((user) => (
-      <li key={user.id}>{user.name}</li>
-    ))}
-  </ul>
-);
-```
-🔸 List with Components
-jsx
-```cs
-function User({ name }) {
-  return <li>{name}</li>;
-}
-
+```jsx
 function UserList() {
-  const names = ['Soumik', 'Hrithik', 'Priya'];
+  const users = [
+    { id: 1, name: "Alice", age: 25 },
+    { id: 2, name: "Bob", age: 30 },
+    { id: 3, name: "Charlie", age: 28 }
+  ];
 
-  return (
-    <ul>
-      {names.map((n, i) => (
-        <User key={i} name={n} />
-      ))}
-    </ul>
-  );
-}
-```
-🔹 Lists of Objects with Destructuring
-jsx
-```cs
-const products = [
-  { id: 1, name: "Laptop", price: 49999 },
-  { id: 2, name: "Phone", price: 19999 }
-];
-
-function ProductList() {
   return (
     <div>
-      {products.map(({ id, name, price }) => (
-        <div key={id} className="border p-2 m-2">
-          <h3>{name}</h3>
-          <p>Price: ₹{price}</p>
+      {users.map(user => (
+        <div key={user.id} className="user-card">
+          <h3>{user.name}</h3>
+          <p>Age: {user.age}</p>
         </div>
       ))}
     </div>
   );
 }
 ```
-✅ Summary:
-Use .map() to render lists of JSX elements.
 
-Always include a unique key prop.
+### Forms
 
-Keys help React update UI efficiently.
+Handle user input with controlled components.
 
-You can render lists of text, JSX, or components.
+#### Controlled Components
 
+```jsx
+function ContactForm() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+    subscribe: false
+  });
 
-## ✅ 9. useEffect Hook
-🔹 What is useEffect?
-The useEffect hook allows you to perform side effects in your component.
-
-🧠 Think of side effects as anything outside the component like:
-
-Fetching API data
-
-Setting up subscriptions
-
-Updating the DOM
-
-Setting timers
-
-In class components, this was done using lifecycle methods like componentDidMount, componentDidUpdate, and componentWillUnmount.
-
-🔸 Syntax:
-jsx
-```cs
-useEffect(() => {
-  // Side effect logic here
-
-  return () => {
-    // Cleanup (optional)
-  };
-}, [dependencies]);
-```
-🔹 Example 1: Run Once on Mount (like componentDidMount)
-jsx
-```cs
-import React, { useEffect } from 'react';
-
-function App() {
-  useEffect(() => {
-    console.log('Component mounted!');
-  }, []); // Empty dependency array = run once
-
-  return <h1>Hello World</h1>;
-}
-```
-🔹 Example 2: Run When a State Changes
-jsx
-```cs
-import React, { useState, useEffect } from 'react';
-
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    console.log(`Count changed to ${count}`);
-  }, [count]); // Runs every time count changes
-
-  return (
-    <div>
-      <h2>Count: {count}</h2>
-      <button onClick={() => setCount(count + 1)}>+1</button>
-    </div>
-  );
-}
-```
-🔹 Example 3: Cleanup Function (like componentWillUnmount)
-jsx
-```cs
-useEffect(() => {
-  const interval = setInterval(() => {
-    console.log('Interval running...');
-  }, 1000);
-
-  return () => {
-    clearInterval(interval); // Cleanup
-    console.log('Component unmounted or re-rendered!');
-  };
-}, []);
-```
-🔸 Dependencies Explained
-Dependency Array	Behavior
-[] (empty)	Runs once on mount only
-[state]	Runs when the specified state/prop changes
-(no array)	Runs on every re-render (rarely used)
-
-✅ Common Use Cases
-✅ Fetching data from an API
-
-✅ Listening for events (e.g., scroll, resize)
-
-✅ Setting a timer or interval
-
-✅ Interacting with localStorage
-
-✅ Cleanup when component unmounts
-
-🔹 Example 4: Fetching Data (basic)
-jsx
-```cs
-import React, { useEffect, useState } from 'react';
-
-function UserList() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users') // fake API
-      .then((res) => res.json())
-      .then((data) => setUsers(data));
-  }, []); // Run once on mount
-
-  return (
-    <ul>
-      {users.map((user) => (
-        <li key={user.id}>{user.name}</li>
-      ))}
-    </ul>
-  );
-}
-```
-✅ Summary:
-useEffect is the go-to for side effects in functional components.
-
-You control when it runs using the dependency array.
-
-You can include cleanup logic by returning a function.
-
-
-## ✅ 10. React Router
-🔹 What is React Router?
-React Router is a standard library used in React to handle routing (navigation) in single-page applications (SPAs).
-It allows you to define different routes (URLs) and render specific components based on the URL.
-
-Without React Router, React apps only show one page.
-
-🔸 Install React Router
-bash
-```ch
-npm install react-router-dom
-```
-Make sure you install version 6+ (the latest as of 2025).
-
-🔹 Basic Setup (React Router v6+)
-jsx
-```cs
-// index.js or main.jsx
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import { BrowserRouter } from 'react-router-dom';
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-);
-```
-🔹 Example App with Routes
-jsx
-```cs
-// App.jsx
-import { Routes, Route, Link } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
-import Contact from './pages/Contact';
-
-function App() {
-  return (
-    <div>
-      {/* Navigation */}
-      <nav className="space-x-4">
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/contact">Contact</Link>
-      </nav>
-
-      {/* Define Routes */}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
-    </div>
-  );
-}
-
-export default App;
-```
-🔹 Example Components
-jsx
-```cs
-// pages/Home.jsx
-export default function Home() {
-  return <h2>Welcome to the Home Page</h2>;
-}
-
-// pages/About.jsx
-export default function About() {
-  return <h2>About Us</h2>;
-}
-
-// pages/Contact.jsx
-export default function Contact() {
-  return <h2>Contact Page</h2>;
-}
-```
-🔹 Navigate Programmatically
-jsx
-```cs
-import { useNavigate } from 'react-router-dom';
-
-function GoToContact() {
-  const navigate = useNavigate();
-
-  return (
-    <button onClick={() => navigate('/contact')}>
-      Go to Contact
-    </button>
-  );
-}
-```
-🔹 Route Parameters (Dynamic URLs)
-jsx
-```cs
-// App.jsx
-<Route path="/user/:id" element={<UserProfile />} />
-```
-jsx
-```cs
-// UserProfile.jsx
-import { useParams } from 'react-router-dom';
-
-function UserProfile() {
-  const { id } = useParams();
-
-  return <h2> User ID: {id}</h2>;
-}
-```
-✅ Summary
-Use <BrowserRouter> at the root.
-
-Use <Routes> and <Route> to define paths and components.
-
-Use <Link> or useNavigate() to switch pages.
-
-You can also use dynamic routes with :params.
-
-## ✅ 11. Forms and Controlled Inputs in React
-```cs
-🔹 What are Controlled Components?
-In React, a controlled component is an input element (like <input>, <textarea>, or <select>) whose value is controlled by React state.
-
-Instead of letting the DOM handle the form elements directly, React keeps the data in the component's state and updates it using onChange.
-
-🔸 Example: Controlled Input
-jsx
-```cs
-import { useState } from 'react';
-
-function NameForm() {
-  const [name, setName] = useState('');
-
-  const handleChange = (e) => {
-    setName(e.target.value);
+  const handleInputChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`Submitted name: ${name}`);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Form submitted:", formData);
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>Your Name: </label>
-      <input
-        type="text"
-        value={name}
-        onChange={handleChange}
-        placeholder="Enter your name"
-      />
+      <div>
+        <label>
+          Name:
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Email:
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          Message:
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleInputChange}
+            rows="4"
+          />
+        </label>
+      </div>
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            name="subscribe"
+            checked={formData.subscribe}
+            onChange={handleInputChange}
+          />
+          Subscribe to newsletter
+        </label>
+      </div>
       <button type="submit">Submit</button>
     </form>
   );
 }
 ```
-value={name} binds the input to state.
 
-onChange updates the state when the user types.
+## Advanced Concepts
 
-🔸 Controlled Inputs: Multiple Fields
-jsx
-```cs
-function ContactForm() {
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-  });
+### Hooks
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+Hooks let you use state and other React features in functional components.
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(form);
-  };
+#### Hook Rules (Very Important!)
+
+1. Only call hooks at the top level - Not inside loops, conditions, or nested functions
+2. Only call hooks from React functions - Functional components or custom hooks
+
+#### useEffect Hook
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+// Effect that runs after every render
+function Timer() {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(prev => prev + 1);
+    }, 1000);
+
+    // Cleanup function
+    return () => clearInterval(interval);
+  }, []); // Empty dependency array means effect runs once
+
+  return <h1>Timer: {seconds} seconds</h1>;
+}
+```
+
+#### Custom Hooks
+
+```jsx
+// Custom hook for fetching data
+function useApi(url) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error);
+        setLoading(false);
+      });
+  }, [url]);
+
+  return { data, loading, error };
+}
+
+// Using the custom hook
+function PostList() {
+  const { data, loading, error } = useApi('https://jsonplaceholder.typicode.com/posts');
+
+  if (loading) return <p>Loading posts...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-2">
-      <input
-        type="text"
-        name="name"
-        value={form.name}
-        onChange={handleChange}
-        placeholder="Name"
-      />
-      <input
-        type="email"
-        name="email"
-        value={form.email}
-        onChange={handleChange}
-        placeholder="Email"
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      {data.slice(0, 5).map(post => (
+        <div key={post.id}>
+          <h3>{post.title}</h3>
+          <p>{post.body}</p>
+        </div>
+      ))}
+    </div>
   );
 }
 ```
-🔸 Example: Controlled Select and Textarea
 
-jsx
-```cs
-function FeedbackForm() {
-  const [feedback, setFeedback] = useState('');
-  const [rating, setRating] = useState('5');
+### Component Lifecycle
 
-  return (
-    <form onSubmit={(e) => e.preventDefault()}>
-      <textarea
-        value={feedback}
-        onChange={(e) => setFeedback(e.target.value)}
-        placeholder="Write your feedback"
-      />
-      <select
-        value={rating}
-        onChange={(e) => setRating(e.target.value)}
-      >
-        <option value="5">Excellent</option>
-        <option value="4">Good</option>
-        <option value="3">Okay</option>
-        <option value="2">Bad</option>
-        <option value="1">Terrible</option>
-      </select>
-      <p>Rating: {rating}</p>
-    </form>
-  );
-}
-```
-🔹 Uncontrolled vs Controlled (at a glance)
+Understanding when components mount, update, and unmount.
 
-Type	Value Stored In	Code Controls?	Use Case
+#### The Three Phases
 
-Controlled	React state	✅ Yes	Most React forms
+1. **Mounting** = Birth 👶 - Component is created and added to the DOM
+2. **Updating** = Growing/Living 🌱 - Component receives new props or state changes
+3. **Unmounting** = Death 💀 - Component is removed from the DOM
 
-Uncontrolled	DOM (ref)	❌ No	Simple, quick forms
+#### Lifecycle with useEffect
 
-🔸 Optional: Basic Validation
-jsx
-```cs
-const handleSubmit = (e) => {
-  e.preventDefault();
-  if (!form.name || !form.email) {
-    alert("Please fill all fields!");
-    return;
-  }
-  alert("Form submitted!");
-};
-```
-✅ Summary
-Controlled components use value and onChange to keep input data in sync with state.
-
-Always prevent default form submission to avoid page reload.
-
-Can be extended to include validation, error handling, etc.
-
-
-
-## ✅ 12. Lifting State Up
-
-
-🔹 What is "Lifting State Up"?
-When two or more components need to share the same state, you lift the state up to their common parent.
-
-
-Instead of maintaining state in individual components, you move it to a common ancestor and pass it down via props.
-
-🔸 Real-Life Analogy
-Imagine a light switch and a bulb. Both need to know whether the light is ON or OFF.
-Instead of each having their own state (which could conflict), the parent component stores the state and shares it.
-
-🔹 Example: Two Sibling Components
-jsx
-```cs
-import React, { useState } from 'react';
-
-function Parent() {
+```jsx
+function LifecycleExample({ name }) {
   const [count, setCount] = useState(0);
 
-  return (
-    <div>
-      <h2>Count: {count}</h2>
-      <IncrementButton onIncrement={() => setCount(count + 1)} />
-      <ResetButton onReset={() => setCount(0)} />
-    </div>
-  );
-}
+  // Component did mount (runs once)
+  useEffect(() => {
+    console.log("Component mounted");
+    
+    // Component will unmount (cleanup)
+    return () => {
+      console.log("Component will unmount");
+    };
+  }, []);
 
-function IncrementButton({ onIncrement }) {
-  return <button onClick={onIncrement}>+1</button>;
-}
-
-function ResetButton({ onReset }) {
-  return <button onClick={onReset}>Reset</button>;
-}
-```
-✅ The Parent component "lifts up" the count state and shares it with both children.
-
-🔹 Example: Input Synchronization
-jsx
-```ch
-function ParentInputSync() {
-  const [text, setText] = useState('');
+  // Component did update (runs when count changes)
+  useEffect(() => {
+    console.log("Count updated to:", count);
+  }, [count]);
 
   return (
     <div>
-      <InputBox label="Input A" value={text} onChange={setText} />
-      <InputBox label="Input B" value={text} onChange={setText} />
-    </div>
-  );
-}
-
-function InputBox({ label, value, onChange }) {
-  return (
-    <div>
-      <label>{label}</label>
-      <input
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder="Type something..."
-      />
+      <h2>Hello, {name}</h2>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
     </div>
   );
 }
 ```
-🧠 Typing in one input updates both—because they share the same state from the parent.
 
-✅ When to Lift State Up
-Lift state when:
+### Context API
 
-Two sibling components need the same state
+Share data between components without passing props down manually.
 
-One child updates data, another reads it
+#### Complete Context Example
 
-You want to avoid duplicate state or sync issues
+```jsx
+import React, { createContext, useContext, useReducer } from 'react';
 
-✅ Summary
-"Lifting state up" means moving state to the closest common parent.
+// Create contexts
+const UserContext = createContext();
+const CartContext = createContext();
 
-Pass both the state and its setter function via props.
-
-Helps manage shared or dependent state logic.
-
-
-## ✅ 13. Context API in React
-🔹 Why Context API?
-As your app scales, prop drilling (passing props through many levels) becomes painful.
-
-Context API lets you share global data (like user info, theme, language, etc.) without manually passing props at every level.
-
-🔸 Real-Life Analogy
-Imagine a "Theme" or "Language" setting in your app. Instead of passing it from App → Header → Navbar → Button, you put it in a Context, and any component can access it directly.
-
-🔹 Steps to Use Context API
-✅ Step 1: Create a Context
-jsx
-```cs
-import { createContext } from 'react';
-
-export const ThemeContext = createContext();
-```
-✅ Step 2: Create a Provider Component
-jsx
-```cs
-import { useState } from 'react';
-import { ThemeContext } from './ThemeContext';
-
-export function ThemeProvider({ children }) {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleTheme = () => setDarkMode((prev) => !prev);
-
-  return (
-    <ThemeContext.Provider value={{ darkMode, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+// Reducer for cart
+function cartReducer(state, action) {
+  switch (action.type) {
+    case 'ADD_ITEM':
+      return {
+        ...state,
+        items: [...state.items, action.payload],
+        total: state.total + action.payload.price
+      };
+    case 'REMOVE_ITEM':
+      const itemToRemove = state.items.find(item => item.id === action.payload);
+      return {
+        ...state,
+        items: state.items.filter(item => item.id !== action.payload),
+        total: state.total - (itemToRemove ? itemToRemove.price : 0)
+      };
+    default:
+      return state;
+  }
 }
-```
-✅ Step 3: Wrap App with the Provider
-jsx
-```cs
-// main.jsx or index.js
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import { ThemeProvider } from './ThemeProvider';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <ThemeProvider>
-    <App />
-  </ThemeProvider>
-);
-```
-✅ Step 4: Consume Context Anywhere
-jsx
-```cs
-import { useContext } from 'react';
-import { ThemeContext } from './ThemeContext';
-
-function ThemeSwitcher() {
-  const { darkMode, toggleTheme } = useContext(ThemeContext);
-
-  return (
-    <div>
-      <p>Current Theme: {darkMode ? 'Dark' : 'Light'}</p>
-      <button onClick={toggleTheme}>Toggle Theme</button>
-    </div>
-  );
-}
-```
-🔹 Example with User Context
-jsx
-```cs
-export const UserContext = createContext();
-
-export function UserProvider({ children }) {
-  const [user, setUser] = useState({ name: 'Soumik', loggedIn: true });
+// Providers
+function AppProvider({ children }) {
+  const [user, setUser] = useState({ name: "John Doe", email: "john@example.com" });
+  const [cart, dispatch] = useReducer(cartReducer, { items: [], total: 0 });
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      {children}
+      <CartContext.Provider value={{ cart, dispatch }}>
+        {children}
+      </CartContext.Provider>
     </UserContext.Provider>
   );
 }
-```
-jsx
-```cs
-import { useContext } from 'react';
-import { UserContext } from './UserContext';
 
-function Profile() {
+// Components using context
+function UserProfile() {
   const { user } = useContext(UserContext);
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <p>{user.email}</p>
+    </div>
+  );
+}
 
-  return <h2>Welcome, {user.name}!</h2>;
+function ShoppingCart() {
+  const { cart, dispatch } = useContext(CartContext);
+
+  const addItem = () => {
+    dispatch({
+      type: 'ADD_ITEM',
+      payload: { id: Date.now(), name: 'New Item', price: 10 }
+    });
+  };
+
+  return (
+    <div>
+      <h3>Cart ({cart.items.length} items)</h3>
+      <p>Total: ${cart.total}</p>
+      <button onClick={addItem}>Add Item</button>
+      <ul>
+        {cart.items.map(item => (
+          <li key={item.id}>
+            {item.name} - ${item.price}
+            <button onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: item.id })}>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 ```
-🔸 When to Use Context
-✅ Good for:
 
-Theme toggling
+### Error Boundaries
 
-User authentication info
+Error boundaries are React components that catch JavaScript errors in their child component tree.
 
-App-wide settings
+```jsx
+import React, { Component } from 'react';
 
-Language/locale support
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null, errorInfo: null };
+  }
 
-❌ Not for:
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
 
-Frequently changing UI state (use props/useState instead)
+  componentDidCatch(error, errorInfo) {
+    this.setState({
+      error: error,
+      errorInfo: errorInfo
+    });
+  }
 
-✅ Summary
-createContext() defines a context
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ padding: '20px', border: '1px solid red', borderRadius: '5px' }}>
+          <h2>Something went wrong!</h2>
+          <details style={{ whiteSpace: 'pre-wrap' }}>
+            {this.state.error && this.state.error.toString()}
+            <br />
+            {this.state.errorInfo.componentStack}
+          </details>
+        </div>
+      );
+    }
 
-Provider wraps your app and shares values
+    return this.props.children;
+  }
+}
 
-useContext() accesses the value anywhere
+// Usage
+function App() {
+  return (
+    <ErrorBoundary>
+      <Header />
+      <MainContent />
+      <Footer />
+    </ErrorBoundary>
+  );
+}
+```
 
-Helps avoid prop drilling in deep component trees
+### Higher-Order Components (HOCs)
 
+A higher-order component is a function that takes a component and returns a new component with additional functionality.
 
-## ✅ 14. Redux Toolkit (Step-by-Step)
-🔹 What is Redux Toolkit?
-Redux Toolkit (RTK) is the official, modern way to use Redux in React apps.
+```jsx
+// HOC for authentication
+function withAuth(WrappedComponent) {
+  return function AuthenticatedComponent(props) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-It simplifies boilerplate code, offers best practices by default, and makes Redux easier and cleaner to use.
+    useEffect(() => {
+      // Check authentication status
+      checkAuth().then(user => {
+        setUser(user);
+        setLoading(false);
+      });
+    }, []);
 
-✅ Why Redux Toolkit?
-Simple & clean syntax
+    if (loading) {
+      return <div>Loading...</div>;
+    }
 
-Built-in createSlice, configureStore
+    if (!user) {
+      return <div>Please log in to access this content.</div>;
+    }
 
-Handles async logic with createAsyncThunk
+    return <WrappedComponent {...props} user={user} />;
+  };
+}
 
-Better than legacy redux + react-redux setup
+// Usage
+const ProtectedDashboard = withAuth(Dashboard);
 
-🔸 Step-by-Step Redux Toolkit Setup
-✅ Step 1: Install Redux Toolkit & React-Redux
-bash
-```cs
+function App() {
+  return (
+    <div>
+      <ProtectedDashboard />
+    </div>
+  );
+}
+```
+
+### Render Props
+
+A component with a render prop takes a function that returns a React element and calls it.
+
+```jsx
+// Mouse tracker component using render props
+function Mouse({ render }) {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (event) => {
+    setPosition({
+      x: event.clientX,
+      y: event.clientY
+    });
+  };
+
+  return (
+    <div onMouseMove={handleMouseMove} style={{ height: '100vh' }}>
+      {render(position)}
+    </div>
+  );
+}
+
+// Usage
+function App() {
+  return (
+    <Mouse
+      render={({ x, y }) => (
+        <h1>The mouse position is ({x}, {y})</h1>
+      )}
+    />
+  );
+}
+```
+
+## Routing
+
+Navigate between different pages/views in your app using React Router.
+
+### Installation
+
+```bash
+npm install react-router-dom
+```
+
+### Basic Routing Setup
+
+```jsx
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useParams, Navigate } from 'react-router-dom';
+
+// Page components
+function Home() {
+  return (
+    <div>
+      <h1>Home Page</h1>
+      <p>Welcome to our website!</p>
+    </div>
+  );
+}
+
+function About() {
+  return (
+    <div>
+      <h1>About Page</h1>
+      <p>Learn more about us!</p>
+    </div>
+  );
+}
+
+function Contact() {
+  return (
+    <div>
+      <h1>Contact Page</h1>
+      <p>Get in touch with us!</p>
+    </div>
+  );
+}
+
+function UserProfile() {
+  const { userId } = useParams();
+  return (
+    <div>
+      <h1>User Profile</h1>
+      <p>Viewing profile for user: {userId}</p>
+    </div>
+  );
+}
+
+function NotFound() {
+  return (
+    <div>
+      <h1>404 - Page Not Found</h1>
+      <Link to="/">Go Home</Link>
+    </div>
+  );
+}
+
+// Navigation component
+function Navigation() {
+  return (
+    <nav style={{ padding: '20px', backgroundColor: '#f0f0f0', marginBottom: '20px' }}>
+      <Link to="/" style={{ marginRight: '20px' }}>Home</Link>
+      <Link to="/about" style={{ marginRight: '20px' }}>About</Link>
+      <Link to="/contact" style={{ marginRight: '20px' }}>Contact</Link>
+      <Link to="/user/123">User Profile</Link>
+    </nav>
+  );
+}
+
+// Main App with routing
+function App() {
+  return (
+    <Router>
+      <div>
+        <Navigation />
+        <div style={{ padding: '20px' }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/user/:userId" element={<UserProfile />} />
+            <Route path="/404" element={<NotFound />} />
+            <Route path="*" element={<Navigate to="/404" />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
+  );
+}
+```
+
+### Protected Routes
+
+```jsx
+function ProtectedRoute({ children }) {
+  const isAuthenticated = useAuth(); // Custom hook for auth
+
+  return isAuthenticated ? children : <Navigate to="/login" />;
+}
+
+// Usage
+<Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
+```
+
+## State Management
+
+### Local State vs Global State
+
+- **Local State**: Data that only one component needs (form inputs, toggles)
+- **Global State**: Data that multiple components need (user info, theme, shopping cart)
+
+### Options for Global State
+
+1. **Context API** - Built into React, good for medium apps
+2. **Redux** - Most popular, best for large apps
+3. **Zustand** - Lightweight alternative to Redux
+4. **Recoil** - Facebook's experimental state management
+
+### Redux Example
+
+#### Installation
+```bash
 npm install @reduxjs/toolkit react-redux
 ```
-✅ Step 2: Create the Store
-js
-```cs
+
+#### Setting up Redux
+
+```jsx
 // store.js
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './features/counterSlice';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
-
-export default store;
-```
-✅ Step 3: Create a Slice
-js
-```cs
-// features/counterSlice.js
-import { createSlice } from '@reduxjs/toolkit';
-
-const initialState = {
-  value: 0,
-};
-
+// Create a slice
 const counterSlice = createSlice({
   name: 'counter',
-  initialState,
+  initialState: { value: 0 },
   reducers: {
     increment: (state) => {
       state.value += 1;
@@ -1395,1151 +1084,831 @@ const counterSlice = createSlice({
     },
     incrementByAmount: (state, action) => {
       state.value += action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-export default counterSlice.reducer;
-```
-✅ Step 4: Provide Store to App
-jsx
-```cs
-// main.jsx or index.js
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import { Provider } from 'react-redux';
-import store from './store';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <Provider store={store}>
-    <App />
-  </Provider>
-);
+// Configure store
+export const store = configureStore({
+  reducer: {
+    counter: counterSlice.reducer
+  }
+});
 ```
-✅ Step 5: Use Redux State in Components
-jsx
-```cs
-// Counter.jsx
+
+```jsx
+// App.js
+import { Provider } from 'react-redux';
+import { store } from './store';
+import Counter from './Counter';
+
+function App() {
+  return (
+    <Provider store={store}>
+      <Counter />
+    </Provider>
+  );
+}
+```
+
+```jsx
+// Counter.js
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement, incrementByAmount } from './features/counterSlice';
+import { increment, decrement, incrementByAmount } from './store';
 
 function Counter() {
-  const count = useSelector((state) => state.counter.value);
+  const count = useSelector(state => state.counter.value);
   const dispatch = useDispatch();
 
   return (
-    <div className="space-y-2">
-      <h2 className="text-xl font-bold">Count: {count}</h2>
-      <button onClick={() => dispatch(increment())}>+1</button>
-      <button onClick={() => dispatch(decrement())}>-1</button>
+    <div>
+      <span>{count}</span>
+      <button onClick={() => dispatch(increment())}>+</button>
+      <button onClick={() => dispatch(decrement())}>-</button>
       <button onClick={() => dispatch(incrementByAmount(5))}>+5</button>
     </div>
   );
 }
-
-export default Counter;
 ```
-🧠 RTK Async Logic (Optional Intro)
-Use createAsyncThunk to fetch API data:
 
-js
-```cs
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+## Testing
 
-export const fetchData = createAsyncThunk('data/fetch', async () => {
-  const response = await fetch('https://api.example.com/data');
-  return await response.json();
+### Testing Libraries
+
+- **Jest**: JavaScript testing framework (comes with Create React App)
+- **React Testing Library**: Simple utilities for testing React components
+- **Enzyme**: Alternative to React Testing Library (older)
+
+### Installation
+
+```bash
+npm install --save-dev @testing-library/react @testing-library/jest-dom
+```
+
+### Basic Component Test
+
+```jsx
+// Button.test.js
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import Button from './Button';
+
+describe('Button Component', () => {
+  test('renders button with correct text', () => {
+    render(<Button>Click me</Button>);
+    const buttonElement = screen.getByText(/click me/i);
+    expect(buttonElement).toBeInTheDocument();
+  });
+
+  test('calls onClick handler when clicked', () => {
+    const handleClick = jest.fn();
+    render(<Button onClick={handleClick}>Click me</Button>);
+    
+    const buttonElement = screen.getByText(/click me/i);
+    fireEvent.click(buttonElement);
+    
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  test('is disabled when disabled prop is true', () => {
+    render(<Button disabled>Click me</Button>);
+    const buttonElement = screen.getByText(/click me/i);
+    expect(buttonElement).toBeDisabled();
+  });
+});
+```
+
+### Testing Hooks
+
+```jsx
+// useCounter.test.js
+import { renderHook, act } from '@testing-library/react';
+import useCounter from './useCounter';
+
+describe('useCounter', () => {
+  test('should initialize with 0', () => {
+    const { result } = renderHook(() => useCounter());
+    expect(result.current.count).toBe(0);
+  });
+
+  test('should increment counter', () => {
+    const { result } = renderHook(() => useCounter());
+
+    act(() => {
+      result.current.increment();
+    });
+
+    expect(result.current.count).toBe(1);
+  });
+});
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run tests with coverage
+npm test -- --coverage
+```
+
+## Performance Optimization
+
+### React.memo
+
+Memoize components to prevent unnecessary re-renders:
+
+```jsx
+import React, { memo } from 'react';
+
+const ExpensiveComponent = memo(function ExpensiveComponent({ name, age }) {
+  console.log('ExpensiveComponent rendered');
+  return (
+    <div>
+      <h3>{name}</h3>
+      <p>Age: {age}</p>
+    </div>
+  );
 });
 
-const dataSlice = createSlice({
-  name: 'data',
-  initialState: { items: [], loading: false },
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchData.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchData.fulfilled, (state, action) => {
-        state.items = action.payload;
-        state.loading = false;
-      });
-  },
-});
+// Only re-renders if name or age changes
 ```
-✅ Summary
-Use createSlice() to define state, reducers, and actions
 
-Use configureStore() to create the Redux store
+### useMemo
 
-Use useSelector() to read data and useDispatch() to trigger actions
+Memoize expensive calculations:
 
-Avoids manual action types, action creators, and switch statements
+```jsx
+import { useMemo } from 'react';
 
-
-## ✅ 15. Fetching API Data (with Fetch & Axios)
-Fetching data is a core task in most React apps — getting user info, products, messages, etc., from a backend server.
-
-We’ll cover:
-
-Using fetch()
-
-Using axios
-
-Managing loading & error states
-
-Displaying the result
-
-🔹 1. Using fetch()
-✅ Basic GET Request Example
-jsx
-```cs
-import { useEffect, useState } from 'react';
-
-function Users() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error('Fetch error:', err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
+function ExpensiveList({ items, filter }) {
+  const filteredItems = useMemo(() => {
+    console.log('Filtering items...');
+    return items.filter(item => 
+      item.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  }, [items, filter]);
 
   return (
     <ul>
-      {users.map((user) => (
-        <li key={user.id}>
-          {user.name} ({user.email})
-        </li>
+      {filteredItems.map(item => (
+        <li key={item.id}>{item.name}</li>
       ))}
     </ul>
   );
 }
 ```
-🔹 2. Using axios
-Axios is a popular promise-based HTTP client with better error handling, default headers, etc.
 
-✅ Install Axios:
-bash
-```cs
-npm install axios
-```
-✅ Axios GET Example
-jsx
-```cs
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+### useCallback
 
-function Posts() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
+Memoize callback functions:
 
-  useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
-      .then((res) => {
-        setPosts(res.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Axios error:', error);
-        setLoading(false);
-      });
-  }, []);
+```jsx
+import { useCallback } from 'react';
 
-  if (loading) return <p>Loading posts...</p>;
+function TodoList({ todos, onToggle }) {
+  const handleToggle = useCallback((id) => {
+    onToggle(id);
+  }, [onToggle]);
 
   return (
-    <ul>
-      {posts.slice(0, 5).map((post) => (
-        <li key={post.id}>
-          <strong>{post.title}</strong>
-          <p>{post.body}</p>
-        </li>
+    <div>
+      {todos.map(todo => (
+        <TodoItem 
+          key={todo.id} 
+          todo={todo} 
+          onToggle={handleToggle} 
+        />
       ))}
-    </ul>
-  );
-}
-```
-🔹 3. POST Request (Form Submission)
-jsx
-```cs
-function AddUser() {
-  const [name, setName] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await axios.post('https://jsonplaceholder.typicode.com/users', {
-        name,
-      });
-      console.log('User created:', res.data);
-    } catch (err) {
-      console.error('Error creating user:', err);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <button type="submit">Create User</button>
-    </form>
-  );
-}
-```
-✅ When to Use Fetch vs Axios
-Feature	fetch	axios
-Native support	✅ Yes	❌ Need to install
-Simplicity	🟡 Minimal	✅ Cleaner syntax
-JSON handling	❌ Manual	✅ Built-in
-Error handling	❌ Must handle	✅ Simple and reliable
-Interceptors	❌ No	✅ Great for auth headers
-
-✅ Summary
-Use useEffect() to run data fetching on mount
-
-Use useState() for storing data, loading, and errors
-
-Choose between fetch (native) and axios (powerful)
-
-Show loading UI and handle errors gracefully
-
-
-## ✅ 16. Styling in React
-Styling is crucial to make your app visually appealing. React supports several methods of styling, each with its own strengths.
-
-We’ll cover:
-
-CSS Modules
-
-Tailwind CSS
-
-Styled Components
-
-🔹 1. CSS Modules
-CSS Modules help scope CSS to a component, preventing global conflicts.
-
-✅ Setup
-Just rename your CSS file to ComponentName.module.css.
-
-css
-```cs
-/* Button.module.css */
-.btn {
-  background-color: royalblue;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: none;
-}
-```
-✅ Usage in React
-jsx
-```cs
-import styles from './Button.module.css';
-
-function Button() {
-  return <button className={styles.btn}>Click Me</button>;
-}
-```
-🎯 styles.btn is scoped only to this component.
-
-🔹 2. Tailwind CSS (Utility-First CSS)
-Tailwind provides predefined utility classes (e.g., bg-red-500, text-xl, flex) for fast styling without writing CSS.
-
-✅ Install Tailwind (Vite Example)
-bash
-```cs
-npm install -D tailwindcss postcss autoprefixer
-npx tailwindcss init -p
-```
-✅ Configure tailwind.config.js
-js
-```cs
-content: [
-  "./index.html",
-  "./src/**/*.{js,ts,jsx,tsx}",
-]
-```
-✅ Add to index.css
-css
-```cs
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-✅ Use in Components
-jsx
-```ch
-function Card() {
-  return (
-    <div className="bg-white p-6 rounded-xl shadow-lg">
-      <h2 className="text-2xl font-bold">Tailwind Card</h2>
-      <p className="text-gray-500">Quick styling with classes!</p>
     </div>
   );
 }
 ```
-🎉 No need to create separate CSS files. Fully responsive with mobile-first utilities.
 
-🔹 3. Styled Components (CSS-in-JS)
-Allows writing real CSS in JavaScript files using template literals.
+### Code Splitting
 
-✅ Install
-bash
-```cs
-npm install styled-components
-```
-✅ Usage
-jsx
-```cs
-import styled from 'styled-components';
+Split your code into smaller chunks for better performance:
 
-const StyledButton = styled.button`
-  background: #4f46e5;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 12px;
-  border: none;
-  font-weight: bold;
-`;
+```jsx
+import { lazy, Suspense } from 'react';
 
-function MyButton() {
-  return <StyledButton>Styled!</StyledButton>;
-}
-```
-🧠 Styled components are actual React components with scoped styles.
-
-🔸 Comparison
-Feature	CSS Modules	Tailwind CSS	Styled Components
-Learning Curve	Low	Medium	Low
-Scoped Styles	✅ Yes	✅ (By design)	✅ Yes
-Reusability	✅ Medium	✅ High	✅ High
-Custom Design	Full Control	Utility-Driven	Full Control
-Performance	High	Very High (JIT)	Slightly lower
-
-✅ Summary
-CSS Modules: Local styles using .module.css
-
-Tailwind: Fast, utility-first approach — great for design systems
-
-Styled Components: Best when you want logic + styling together in one file
-
-
-
-## ✅ 17. useRef, useMemo, and useCallback in React
-These are performance optimization hooks and give more power to functional components.
-
-🔹 1. useRef()
-A hook for referencing DOM elements or storing mutable values that don’t trigger re-renders.
-
-✅ Use Case 1: DOM Access
-jsx
-```cs
-import { useRef } from 'react';
-
-function FocusInput() {
-  const inputRef = useRef();
-
-  const handleClick = () => {
-    inputRef.current.focus(); // Direct DOM access
-  };
-
-  return (
-    <div>
-      <input ref={inputRef} placeholder="Type here..." />
-      <button onClick={handleClick}>Focus Input</button>
-    </div>
-  );
-}
-```
-✅ Use Case 2: Persist Value Between Renders
-jsx
-```cs
-import { useRef, useState, useEffect } from 'react';
-
-function RenderCounter() {
-  const [count, setCount] = useState(0);
-  const renderCount = useRef(1);
-
-  useEffect(() => {
-    renderCount.current += 1;
-  });
-
-  return (
-    <div>
-      <p>Count: {count}</p>
-      <p>Component Rendered: {renderCount.current} times</p>
-      <button onClick={() => setCount(count + 1)}>Increase</button>
-    </div>
-  );
-}
-```
-🔹 2. useMemo()
-Memoizes a computed value, so it's not recalculated on every render unless dependencies change.
-
-✅ Example
-jsx
-```cs
-import { useMemo, useState } from 'react';
-
-function ExpensiveCalc() {
-  const [count, setCount] = useState(0);
-  const [input, setInput] = useState('');
-
-  const expensiveValue = useMemo(() => {
-    console.log('Calculating...');
-    return count * 1000;
-  }, [count]);
-
-  return (
-    <div>
-      <p>Expensive value: {expensiveValue}</p>
-      <button onClick={() => setCount(count + 1)}>Increase</button>
-      <input
-        placeholder="Type..."
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
-    </div>
-  );
-}
-```
-✅ expensiveValue only recalculates when count changes, not on every keystroke.
-
-🔹 3. useCallback()
-Returns a memoized version of a function to prevent re-creating it on each render — useful when passing to child components.
-
-✅ Example
-jsx
-```cs
-import { useCallback, useState } from 'react';
-
-const Child = ({ onClick }) => {
-  console.log('Child rendered');
-  return <button onClick={onClick}>Click Child</button>;
-};
-
-function Parent() {
-  const [count, setCount] = useState(0);
-
-  const memoizedClick = useCallback(() => {
-    console.log('Child clicked');
-  }, []);
-
-  return (
-    <div>
-      <p>Parent Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <Child onClick={memoizedClick} />
-    </div>
-  );
-}
-```
-Without useCallback, the Child would re-render on every Parent render.
-
-🔸 Summary Table
-Hook	Purpose	Triggers Re-render?	Common Use
-useRef()	Access DOM or store mutable ref	❌ No	Focus, counters
-useMemo()	Memoize calculated value	❌ No	Expensive functions
-useCallback()	Memoize a function	❌ No	Prevent unnecessary child renders
-
-
-
-## ✅ 18. Custom Hooks
-🔹 What is a Custom Hook?
-A Custom Hook is a function that starts with the word use and lets you reuse logic between components — like useState, useEffect, etc., but created by you.
-
-✅ Why Use Custom Hooks?
-Eliminate duplicate logic across components
-
-Keep components clean and focused
-
-Easy to test and share
-
-🔸 Syntax Example
-js
-```cs
-function useCustomName() {
-  // your logic here
-}
-```
-✅ A Custom Hook can use other hooks (useState, useEffect, etc.), but must not be called conditionally.
-
-📌 Example 1: useWindowWidth (custom hook to track window size)
-useWindowWidth.js
-jsx
-```cs
-import { useEffect, useState } from 'react';
-
-function useWindowWidth() {
-  const [width, setWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return width;
-}
-
-export default useWindowWidth;
-```
-✅ Usage:
-jsx
-```cs
-import useWindowWidth from './useWindowWidth';
-
-function ResponsiveComponent() {
-  const width = useWindowWidth();
-
-  return (
-    <div>
-      <h1>Current Width: {width}px</h1>
-      {width > 768 ? <p>Desktop View</p> : <p>Mobile View</p>}
-    </div>
-  );
-}
-```
-📌 Example 2: useLocalStorage
-Persist data in localStorage while syncing with React state.
-
-useLocalStorage.js
-jsx
-```cs
-import { useState, useEffect } from 'react';
-
-function useLocalStorage(key, initialValue) {
-  const [value, setValue] = useState(() => {
-    const stored = localStorage.getItem(key);
-    return stored ? JSON.parse(stored) : initialValue;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(value));
-  }, [key, value]);
-
-  return [value, setValue];
-}
-
-export default useLocalStorage;
-```
-✅ Usage:
-jsx
-```cs
-import useLocalStorage from './useLocalStorage';
-
-function NameSaver() {
-  const [name, setName] = useLocalStorage('name', '');
-
-  return (
-    <div>
-      <input
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Enter your name"
-      />
-      <p>Hello, {name || 'Guest'}!</p>
-    </div>
-  );
-}
-```
-🎉 Your name is saved even after page refresh!
-
-📌 Summary
-Feature	Custom Hook Benefit
-Reusability	Encapsulates logic in a single reusable function
-Clean Code	Keeps components free of repetitive logic
-Composability	Can use built-in or other custom hooks
-
-🧠 Naming Rule
-Always start a custom hook name with use → useForm, useAuth, useScroll, etc.
-
-
-## ✅ 19. Authentication in React
-👉 (Using JWT, localStorage, and Private Routes)
-
-We’ll cover:
-
-🔐 How JWT-based authentication works
-
-🧠 Storing tokens in localStorage
-
-✅ Creating private/protected routes
-
-🛡️ A simple login-flow example with React
-
-🔹 1. How JWT Authentication Works (Simplified)
-User logs in → sends credentials to backend.
-
-Backend verifies → returns a JWT token.
-
-React stores that token (usually in localStorage or sessionStorage).
-
-Future API calls include that token in headers for authentication.
-
-On logout → token is cleared.
-
-🔹 2. Store JWT in localStorage
-js
-```cs
-// On login success
-localStorage.setItem('token', jwtToken);
-
-// To retrieve
-const token = localStorage.getItem('token');
-
-// To remove on logout
-localStorage.removeItem('token');
-```
-🔹 3. Create a Fake Login & Auth Context
-✅ AuthContext.js
-jsx
-```cs
-import { createContext, useContext, useState } from 'react';
-
-const AuthContext = createContext();
-
-export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() =>
-    JSON.parse(localStorage.getItem('user'))
-  );
-
-  const login = (userData) => {
-    localStorage.setItem('user', JSON.stringify(userData));
-    setUser(userData);
-  };
-
-  const logout = () => {
-    localStorage.removeItem('user');
-    setUser(null);
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
-
-export const useAuth = () => useContext(AuthContext);
-```
-🔹 4. Private Route Component
-Restricts access to authenticated users only.
-
-jsx
-```cs
-import { Navigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
-
-const PrivateRoute = ({ children }) => {
-  const { user } = useAuth();
-  return user ? children : <Navigate to="/login" />;
-};
-
-export default PrivateRoute;
-```
-🔹 5. Simple Routing Setup (with React Router)
-✅ App.jsx
-jsx
-```cs
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
-import PrivateRoute from './PrivateRoute';
-import { AuthProvider } from './AuthContext';
+// Lazy load components
+const LazyComponent = lazy(() => import('./LazyComponent'));
+const Dashboard = lazy(() => import('./Dashboard'));
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
+    <div>
+      <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/lazy" element={<LazyComponent />} />
         </Routes>
-      </Router>
-    </AuthProvider>
-  );
-}
-```
-🔹 6. Login Page Example
-jsx
-```cs
-import { useAuth } from '../AuthContext';
-import { useNavigate } from 'react-router-dom';
-
-function Login() {
-  const { login } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogin = () => {
-    const fakeUser = { name: 'Soumik', token: 'abc123' };
-    login(fakeUser);
-    navigate('/dashboard');
-  };
-
-  return (
-    <div>
-      <h1>Login</h1>
-      <button onClick={handleLogin}>Login as Soumik</button>
+      </Suspense>
     </div>
   );
 }
 ```
-🔹 7. Dashboard Page
-jsx
-```cs
-import { useAuth } from '../AuthContext';
 
-function Dashboard() {
-  const { user, logout } = useAuth();
+### Virtual Scrolling
+
+For large lists, use virtual scrolling:
+
+```jsx
+import { FixedSizeList as List } from 'react-window';
+
+function VirtualizedList({ items }) {
+  const Row = ({ index, style }) => (
+    <div style={style}>
+      {items[index].name}
+    </div>
+  );
 
   return (
-    <div>
-      <h1>Welcome, {user.name}</h1>
-      <button onClick={logout}>Logout</button>
+    <List
+      height={400}
+      itemCount={items.length}
+      itemSize={50}
+    >
+      {Row}
+    </List>
+  );
+}
+```
+
+## Best Practices
+
+### 1. Component Structure
+
+```jsx
+// Good: Small, focused components
+function Button({ onClick, children, variant = 'primary', disabled = false }) {
+  const className = `btn btn-${variant} ${disabled ? 'btn-disabled' : ''}`;
+  
+  return (
+    <button 
+      className={className} 
+      onClick={onClick} 
+      disabled={disabled}
+      aria-label={typeof children === 'string' ? children : 'Button'}
+    >
+      {children}
+    </button>
+  );
+}
+
+// Good: Separate concerns
+function UserCard({ user, onEdit, onDelete }) {
+  return (
+    <div className="user-card">
+      <UserAvatar src={user.avatar} alt={`${user.name}'s avatar`} />
+      <UserInfo name={user.name} email={user.email} />
+      <UserActions 
+        onEdit={() => onEdit(user.id)} 
+        onDelete={() => onDelete(user.id)} 
+      />
     </div>
   );
 }
 ```
-✅ Summary
-Feature	Purpose
-JWT	Token-based backend authentication
-localStorage	Store token/user between refreshes
-Auth Context	Share login state across components
-PrivateRoute	Protect sensitive routes (e.g., /dashboard)
 
-Let me know when you're ready for the next topic:
+### 2. State Management
 
+```jsx
+// Good: Keep state as simple as possible
+function TodoList() {
+  const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState('all');
+  const [newTodo, setNewTodo] = useState('');
 
-
-## ✅ 20. Optional: TypeScript and Next.js
-We'll break this down into two parts:
-
-🔷 Part 1: TypeScript in React
-TypeScript brings static typing to JavaScript, making your React code more robust, error-resistant, and IDE-friendly.
-
-✅ Why Use TypeScript in React?
-Feature	Benefit
-Static Typing	Catch bugs before runtime
-IntelliSense	Autocomplete & inline docs
-Safer Refactoring	Know what breaks when code changes
-Scalable Architecture	Better with large codebases
-
-📦 Setup
-For new projects:
-
-bash
-```cs
-npm create vite@latest my-app --template react-ts
-```
-Or for existing React projects:
-
-bash
-```cs
-npm install --save-dev typescript @types/react @types/react-dom
-```
-🔸 Basic Examples
-1. Typing Props
-tsx
-```cs
-type ButtonProps = {
-  label: string;
-  onClick: () => void;
-};
-
-const MyButton: React.FC<ButtonProps> = ({ label, onClick }) => (
-  <button onClick={onClick}>{label}</button>
-);
-2. Typing useState
-tsx
-Copy
-Edit
-const [count, setCount] = useState<number>(0);
-3. Typing Component State/Object
-tsx
-Copy
-Edit
-type User = {
-  name: string;
-  age: number;
-};
-
-const [user, setUser] = useState<User | null>(null);
-```
-✅ TypeScript with Redux Toolkit
-Redux Toolkit works well with TypeScript. Here's a minimal slice:
-
-tsx
-```cs
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-type CounterState = {
-  value: number;
-};
-
-const initialState: CounterState = { value: 0 };
-
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState,
-  reducers: {
-    increment(state) {
-      state.value += 1;
-    },
-    addAmount(state, action: PayloadAction<number>) {
-      state.value += action.payload;
-    },
-  },
-});
-
-export const { increment, addAmount } = counterSlice.actions;
-export default counterSlice.reducer;
-```
-🔷 Part 2: Next.js
-Next.js is a React framework that adds SSR (server-side rendering), routing, API support, and performance optimization.
-
-✅ Why Next.js?
-Feature	Benefit
-File-based Routing	No need to set up React Router
-SSR / SSG	Better SEO and faster page loads
-API Routes	Backend logic in the same project
-Built-in CSS, Sass	No extra config needed
-Image Optimization	Automatic resizing & lazy loading
-
-📦 Setup
-bash
-```cs
-npx create-next-app@latest my-next-app
-```
-# Or with TypeScript
-```cs
-npx create-next-app@latest my-next-app --typescript
-```
-🔸 Routing
-In Next.js, every file in pages/ becomes a route.
-
-txt
-```cs
-/pages
-  └── index.tsx        →  "/"
-  └── about.tsx        →  "/about"
-  └── blog/[slug].tsx  →  Dynamic route → "/blog/react"
-```
-🔸 API Routes (Backend in Next.js)
-ts
-```cs
-// pages/api/hello.ts
-export default function handler(req, res) {
-  res.status(200).json({ message: 'Hello from API!' });
-}
-```
-🔸 Linking Pages
-tsx
-```cs
-import Link from 'next/link';
-
-<Link href="/about">About</Link>
-```
-🔸 Fetching Data (SSR, SSG, CSR)
-tsx
-```cs
-// Static Site Generation (SSG)
-export async function getStaticProps() {
-  return {
-    props: { message: 'Hello from Static Props' },
+  // Good: Use functional updates
+  const addTodo = (text) => {
+    if (text.trim()) {
+      setTodos(prev => [
+        ...prev, 
+        { id: Date.now(), text: text.trim(), completed: false }
+      ]);
+      setNewTodo('');
+    }
   };
-}
-tsx
-Copy
-Edit
-// Server-Side Rendering (SSR)
-export async function getServerSideProps() {
-  return {
-    props: { time: new Date().toISOString() },
-  };
-}
-```
-✅ Summary
-Feature	TypeScript	Next.js
-What it adds	Static typing	SSR, routing, API, and performance
-Use case	Bug prevention, safe refactors	Production-ready React apps
-Learning curve	Medium	Medium
-Popular combo	React + TypeScript + Next.js	Full-stack, SEO-optimized React apps
 
-Let me know if you want to:
-
-✅ Deep-dive into Next.js with examples
-✅ Start building a TypeScript-based React project
-✅ Or go back and continue topic 20: Testing in React
-
-
-## ✅ 21. Testing in React
-→ Using Jest and React Testing Library (RTL)
-
-🔷 Why Testing?
-🐛 Catch bugs early
-
-🔄 Refactor code confidently
-
-✅ Ensure components behave as expected
-
-📈 Build trust in your UI for users and team
-
-🔹 1. Tools We'll Use
-Tool	Purpose
-Jest	Test runner & assertion library
-React Testing Library	Test React components as users see them
-
-🔹 2. Install Setup
-If you used Create React App, Jest & RTL are already included.
-
-For Vite:
-
-bash
-```cs
-npm install --save-dev vitest @testing-library/react @testing-library/jest-dom
-```
-Then update vite.config.ts:
-
-ts
-```cs
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-export default defineConfig({
-  plugins: [react()],
-  test: {
-    globals: true,
-    environment: 'jsdom',
-  },
-})
-```
-🔹 3. Writing Your First Test
-✅ Component: Greeting.tsx
-tsx
-```cs
-type Props = { name: string };
-
-const Greeting = ({ name }: Props) => {
-  return <h1>Hello, {name}!</h1>;
-};
-
-export default Greeting;
-```
-✅ Test: Greeting.test.tsx
-tsx
-```cs
-import { render, screen } from '@testing-library/react';
-import Greeting from './Greeting';
-
-test('renders greeting with name', () => {
-  render(<Greeting name="Soumik" />);
-  const heading = screen.getByText(/Hello, Soumik/i);
-  expect(heading).toBeInTheDocument();
-});
-```
-🧪 Run tests:
-
-bash
-```cs
-# CRA
-npm test
-
-# Vite + Vitest
-npx vitest run
-```
-🔹 4. Simulating Events
-✅ Component: Counter.tsx
-tsx
-```cs
-import { useState } from 'react';
-
-const Counter = () => {
-  const [count, setCount] = useState(0);
+  // Good: Compute derived state
+  const filteredTodos = useMemo(() => {
+    return todos.filter(todo => {
+      if (filter === 'completed') return todo.completed;
+      if (filter === 'active') return !todo.completed;
+      return true;
+    });
+  }, [todos, filter]);
 
   return (
-    <>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-    </>
+    <div className="todo-app">
+      <TodoInput value={newTodo} onChange={setNewTodo} onSubmit={addTodo} />
+      <TodoFilter currentFilter={filter} onFilterChange={setFilter} />
+      <TodoItems todos={filteredTodos} onToggle={toggleTodo} />
+    </div>
   );
-};
-
-export default Counter;
+}
 ```
-✅ Test: Counter.test.tsx
-tsx
-```cs
-import { render, screen, fireEvent } from '@testing-library/react';
-import Counter from './Counter';
 
-test('increments counter on button click', () => {
-  render(<Counter />);
-  const button = screen.getByText('Increment');
-  fireEvent.click(button);
-  expect(screen.getByText('Count: 1')).toBeInTheDocument();
-});
-```
-🔹 5. Bonus: Custom Matchers with jest-dom
-tsx
-```cs
-import '@testing-library/jest-dom';
+### 3. Error Handling
 
-expect(element).toBeInTheDocument();
-expect(button).toBeDisabled();
-expect(link).toHaveAttribute('href', '/about');
+```jsx
+// Good: Handle errors gracefully
+function DataFetcher({ url }) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const result = await response.json();
+        setData(result);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [url]);
+
+  if (loading) return <LoadingSpinner />;
+  if (error) return <ErrorMessage message={error} onRetry={() => window.location.reload()} />;
+  if (!data) return <EmptyState />;
+
+  return <DataDisplay data={data} />;
+}
 ```
-🔹 6. Folder Structure Best Practices
-css
-```cs
+
+### 4. Accessibility
+
+```jsx
+// Good: Accessible components
+function Modal({ isOpen, onClose, title, children }) {
+  const modalRef = useRef();
+
+  useEffect(() => {
+    if (isOpen) {
+      modalRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape') {
+      onClose();
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div 
+      className="modal-overlay" 
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div 
+        className="modal-content" 
+        onClick={(e) => e.stopPropagation()}
+        ref={modalRef}
+        tabIndex={-1}
+        onKeyDown={handleKeyDown}
+      >
+        <div className="modal-header">
+          <h2 id="modal-title">{title}</h2>
+          <button 
+            onClick={onClose}
+            aria-label="Close modal"
+            className="modal-close"
+          >
+            ×
+          </button>
+        </div>
+        <div className="modal-body">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+### 5. Code Organization
+
+```jsx
+// Good: Custom hooks for reusable logic
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error(`Error reading localStorage key "${key}":`, error);
+      return initialValue;
+    }
+  });
+
+  const setValue = useCallback((value) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      window.localStorage.setItem(key, JSON.stringify(valueToStore));
+    } catch (error) {
+      console.error(`Error setting localStorage key "${key}":`, error);
+    }
+  }, [key, storedValue]);
+
+  return [storedValue, setValue];
+}
+
+// Usage
+function Settings() {
+  const [theme, setTheme] = useLocalStorage('theme', 'light');
+  const [language, setLanguage] = useLocalStorage('language', 'en');
+
+  return (
+    <div>
+      <ThemeSelector value={theme} onChange={setTheme} />
+      <LanguageSelector value={language} onChange={setLanguage} />
+    </div>
+  );
+}
+```
+
+## Project Structure
+
+### Recommended Folder Structure
+
+```
 src/
-  components/
-    Greeting.tsx
-    Greeting.test.tsx
-    Counter.tsx
-    Counter.test.tsx
+├── components/           # Reusable UI components
+│   ├── common/          # Common components (Button, Input, Modal)
+│   ├── forms/           # Form-specific components
+│   └── layout/          # Layout components (Header, Footer, Sidebar)
+├── pages/               # Page components
+│   ├── Home/
+│   ├── About/
+│   └── Contact/
+├── hooks/               # Custom hooks
+│   ├── useAuth.js
+│   ├── useApi.js
+│   └── useLocalStorage.js
+├── context/             # Context providers
+│   ├── AuthContext.js
+│   └── ThemeContext.js
+├── services/            # API calls and external services
+│   ├── api.js
+│   └── auth.js
+├── utils/               # Utility functions
+│   ├── helpers.js
+│   ├── constants.js
+│   └── validators.js
+├── styles/              # Global styles
+│   ├── globals.css
+│   ├── variables.css
+│   └── components.css
+├── assets/              # Static assets
+│   ├── images/
+│   ├── icons/
+│   └── fonts/
+├── types/               # TypeScript type definitions (if using TS)
+├── __tests__/           # Test files
+├── App.js
+├── index.js
+└── setupTests.js
 ```
-✅ Co-locating test files with their components keeps things organized.
 
-🔹 7. Mocking Fetch/API Requests
-tsx
-```cs
-global.fetch = vi.fn(() =>
-  Promise.resolve({
-    json: () => Promise.resolve({ message: 'Hi!' }),
-  })
-) as jest.Mock;
+### Component File Structure
+
+```jsx
+// components/UserCard/index.js
+export { default } from './UserCard';
+
+// components/UserCard/UserCard.js
+import React from 'react';
+import './UserCard.css';
+import { useUser } from '../../hooks/useUser';
+import Button from '../common/Button';
+
+function UserCard({ userId, onEdit, onDelete }) {
+  const { user, loading, error } = useUser(userId);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
+  return (
+    <div className="user-card">
+      <div className="user-card__header">
+        <img 
+          src={user.avatar} 
+          alt={`${user.name}'s avatar`}
+          className="user-card__avatar"
+        />
+        <h3 className="user-card__name">{user.name}</h3>
+      </div>
+      <div className="user-card__body">
+        <p className="user-card__email">{user.email}</p>
+        <p className="user-card__role">{user.role}</p>
+      </div>
+      <div className="user-card__actions">
+        <Button variant="secondary" onClick={() => onEdit(user.id)}>
+          Edit
+        </Button>
+        <Button variant="danger" onClick={() => onDelete(user.id)}>
+          Delete
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+export default UserCard;
+
+// components/UserCard/UserCard.css
+.user-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-card__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.user-card__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.user-card__name {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.user-card__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
 ```
-🔹 Summary
-Tool	Purpose
-jest / vitest	Run and structure tests
-@testing-library/react	Test UI the way users use it
-fireEvent	Simulate user interactions
-jest-dom	Extra matchers like toBeVisible()
 
-Let me know if you'd like:
+## Deployment
 
-✅ A full test suite example (login form, API fetch, etc.)
-✅ Vite + React + RTL full config file
-✅ Or proceed to the final topic:
+### Build for Production
 
-
-
-## ✅ 21. Deployment (Vercel & Netlify)
-Let’s learn how to deploy your React app to the internet using two of the most popular platforms:
-🔸 Vercel and 🔸 Netlify — both are fast, free, and great for React projects.
-
-🔹 Step-by-Step: Deploying to Vercel
-✅ 1. Setup
-If you don’t have a Vercel account, create one: https://vercel.com
-
-✅ 2. Push Your Code to GitHub
-If it’s not already in a repo:
-
-bash
-```cs
-git init
-git remote add origin https://github.com/yourusername/your-repo-name
-git add .
-git commit -m "Initial commit"
-git push -u origin main
-```
-✅ 3. Deploy via Vercel Dashboard
-Visit vercel.com
-
-Click "Add New Project"
-
-Import your GitHub repo
-
-Keep default settings for React (or Vite + React)
-
-Click "Deploy"
-
-🔁 It will auto-deploy on every git push after that.
-
-✅ 4. Custom Domain
-Go to “Settings > Domains”
-
-Add your custom domain (or buy one)
-
-Follow DNS steps to connect
-
-🔹 Step-by-Step: Deploying to Netlify
-✅ 1. Push Code to GitHub (same as above)
-✅ 2. Deploy via Netlify Dashboard
-Visit: https://netlify.com
-
-Click "Add New Site → Import from Git"
-
-Connect your GitHub account
-
-Select your repo
-
-For Vite + React:
-
-yaml
-```cs
-Build Command: npm run build
-Publish Directory: dist
-```
-For CRA:
-
-yaml
-```cs
-Build Command: npm run build
-Publish Directory: build
-```
-Click Deploy
-
-✅ 3. Manual Deployment (No Git)
-You can also:
-
-bash
-```cs
+```bash
+# Create optimized production build
 npm run build
+
+# Serve production build locally (for testing)
+npx serve -s build
 ```
-Then drag the /dist or /build folder into Netlify's “Drag & Drop” deploy area.
 
+### Deployment Options
 
-🔹 Environment Variables
-Both platforms support .env files for secrets like API keys:
+#### 1. Netlify (Easy)
 
-Define in .env:
+1. Build your app: `npm run build`
+2. Drag and drop the `build` folder to [Netlify](https://netlify.com)
+3. Or connect your GitHub repository for automatic deployments
 
-env
-```cs
-VITE_API_URL=https://yourapi.com
+#### 2. Vercel (Easy)
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+
+# Or connect GitHub repository at vercel.com
 ```
-On Vercel/Netlify:
-Go to Project Settings → Environment Variables → add them manually there.
 
-✅ Summary
-Platform	Pros	Notes
-Vercel	Blazing fast, great for Vite/Next.js	Used by Next.js team
-Netlify	Simpler UI, drag-drop support	Built-in form handling
+#### 3. GitHub Pages
+
+```bash
+# Install gh-pages
+npm install --save-dev gh-pages
+
+# Add to package.json
+"homepage": "https://yourusername.github.io/your-repo-name",
+"scripts": {
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d build"
+}
+
+# Deploy
+npm run deploy
 ```
+
+#### 4. AWS S3 + CloudFront
+
+```bash
+# Install AWS CLI and configure credentials
+aws configure
+
+# Build and sync to S3
+npm run build
+aws s3 sync build/ s3://your-bucket-name --delete
+
+# Invalidate CloudFront cache
+aws cloudfront create-invalidation --distribution-id YOUR_ID --paths "/*"
+```
+
+#### 5. Docker
+
+```dockerfile
+# Dockerfile
+FROM node:16-alpine as build
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY . ./
+RUN npm run build
+
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+```bash
+# Build and run Docker container
+docker build -t my-react-app .
+docker run -p 80:80 my-react-app
+```
+
+### Environment Variables
+
+```bash
+# .env.local
+REACT_APP_API_URL=https://api.example.com
+REACT_APP_API_KEY=your-api-key
+REACT_APP_VERSION=1.0.0
+```
+
+```jsx
+// Using environment variables
+const apiUrl = process.env.REACT_APP_API_URL;
+const apiKey = process.env.REACT_APP_API_KEY;
+
+console.log('App version:', process.env.REACT_APP_VERSION);
+```
+
+## Resources
+
+### Official Documentation
+
+- [React Official Docs](https://react.dev/)
+- [Create React App](https://create-react-app.dev/)
+- [React Router](https://reactrouter.com/)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+
+### Popular Libraries
+
+- **State Management**: [Redux Toolkit](https://redux-toolkit.js.org/), [Zustand](https://github.com/pmndrs/zustand), [Recoil](https://recoiljs.org/)
+- **UI Libraries**: [Material-UI](https://mui.com/), [Ant Design](https://ant.design/), [Chakra UI](https://chakra-ui.com/)
+- **Styling**: [Styled Components](https://styled-components.com/), [Emotion](https://emotion.sh/), [Tailwind CSS](https://tailwindcss.com/)
+- **Forms**: [Formik](https://formik.org/), [React Hook Form](https://react-hook-form.com/)
+- **HTTP Client**: [Axios](https://axios-http.com/), [React Query](https://tanstack.com/query/)
+- **Animation**: [Framer Motion](https://www.framer.com/motion/), [React Spring](https://react-spring.io/)
+
+### Learning Resources
+
+- **Interactive**: [React Tutorial](https://react.dev/learn/tutorial-tic-tac-toe)
+- **Video Courses**: [freeCodeCamp](https://www.freecodecamp.org/), [The Odin Project](https://www.theodinproject.com/)
+- **Practice**: [Frontend Mentor](https://www.frontendmentor.io/), [Codewars](https://www.codewars.com/)
+- **Books**: "Learning React" by Alex Banks & Eve Porcello
+
+### Tools and Extensions
+
+#### VS Code Extensions
+- ES7+ React/Redux/React-Native snippets
+- Bracket Pair Colorizer
+- Auto Rename Tag
+- Prettier - Code formatter
+- ESLint
+- GitLens
+
+#### Browser Extensions
+- React Developer Tools
+- Redux DevTools
+
+#### Development Tools
+- [Storybook](https://storybook.js.org/) - Component development environment
+- [React Devtools Profiler](https://react.dev/reference/react/Profiler) - Performance profiling
+- [Why Did You Render](https://github.com/welldone-software/why-did-you-render) - Performance debugging
+
+### TypeScript with React
+
+```bash
+# Create React app with TypeScript
+npx create-react-app my-app --template typescript
+
+# Or add TypeScript to existing project
+npm install --save-dev typescript @types/node @types/react @types/react-dom
+```
+
+```tsx
+// TypeScript component example
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+interface UserCardProps {
+  user: User;
+  onEdit: (id: number) => void;
+  onDelete: (id: number) => void;
+}
+
+const UserCard: React.FC<UserCardProps> = ({ user, onEdit, onDelete }) => {
+  return (
+    <div className="user-card">
+      <h3>{user.name}</h3>
+      <p>{user.email}</p>
+      <button onClick={() => onEdit(user.id)}>Edit</button>
+      <button onClick={() => onDelete(user.id)}>Delete</button>
+    </div>
+  );
+};
+
+export default UserCard;
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Make your changes
+4. Add tests for your changes
+5. Ensure all tests pass: `npm test`
+6. Commit your changes: `git commit -am 'Add some feature'`
+7. Push to the branch: `git push origin feature-name`
+8. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- React team for creating an amazing library
+- The open-source community for continuous contributions
+- All the developers who have shared their knowledge and experiences
+
+---
+
+## Quick Start Checklist
+
+- [ ] Install Node.js (version 14+)
+- [ ] Create a new React app: `npx create-react-app my-app`
+- [ ] Navigate to the project: `cd my-app`
+- [ ] Start development server: `npm start`
+- [ ] Open http://localhost:3000 in your browser
+- [ ] Start building your first component!
+
+## Next Steps
+
+1. Complete the official [React tutorial](https://react.dev/learn/tutorial-tic-tac-tac-toe)
+2. Build a small project (Todo app, Calculator, Weather app)
+3. Learn React Router for multi-page applications
+4. Explore state management solutions (Context API, Redux)
+5. Learn testing with Jest and React Testing Library
+6. Deploy your first React application
+7. Join the React community and contribute to open source!
+
+**Happy Coding! 🚀**
+
+---
+
+*If you find this guide helpful, please give it a ⭐ and share it with others!*
