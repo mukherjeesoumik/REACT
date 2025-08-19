@@ -1907,3 +1907,193 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 *If you find this guide helpful, please give it a ⭐ and share it with others!*
+
+```base
+my-react-app/
+
+├── 📁 public/
+
+│   ├── 🖼️ favicon.ico
+
+│   ├── 🖼️ logo192.png
+
+│   └── 🖼️ logo512.png
+
+├── 📁 src/
+
+│   ├── 📁 components/           # All reusable components
+
+│   │   ├── 📁 common/          # Layout & shared components
+
+│   │   │   ├── ⚛️ Header.jsx
+
+│   │   │   ├── ⚛️ Navbar.jsx
+
+│   │   │   ├── ⚛️ Footer.jsx
+
+│   │   │   ├── ⚛️ Sidebar.jsx
+
+│   │   │   ├── ⚛️ Layout.jsx
+
+│   │   │   ├── ⚛️ Modal.jsx
+
+│   │   │   ├── ⚛️ Loading.jsx
+
+│   │   │   └── ⚛️ ErrorBoundary.jsx
+
+│   │   ├── 📁 ui/              # Basic UI building blocks
+
+│   │   │   ├── ⚛️ Button.jsx
+
+│   │   │   ├── ⚛️ Input.jsx
+
+│   │   │   ├── ⚛️ Card.jsx
+
+│   │   │   ├── ⚛️ Badge.jsx
+
+│   │   │   ├── ⚛️ Alert.jsx
+
+│   │   │   ├── ⚛️ Dropdown.jsx
+
+│   │   │   ├── ⚛️ Table.jsx
+
+│   │   │   ├── ⚛️ Tooltip.jsx
+
+│   │   │   ├── ⚛️ Tabs.jsx
+
+│   │   │   └── 📄 index.js     # Barrel exports
+
+│   │   └── 📁 features/        # Feature-specific components
+
+│   │       ├── 📁 auth/
+
+│   │       │   ├── ⚛️ LoginForm.jsx
+
+│   │       │   ├── ⚛️ RegisterForm.jsx
+
+│   │       │   ├── ⚛️ AuthLayout.jsx
+
+│   │       │   └── ⚛️ ProtectedRoute.jsx
+
+│   │       ├── 📁 dashboard/
+
+│   │       │   ├── ⚛️ DashboardStats.jsx
+
+│   │       │   ├── ⚛️ DashboardChart.jsx
+
+│   │       │   └── ⚛️ DashboardTable.jsx
+
+│   │       └── 📁 profile/
+
+│   │           ├── ⚛️ ProfileCard.jsx
+
+│   │           ├── ⚛️ ProfileForm.jsx
+
+│   │           └── ⚛️ ProfileSettings.jsx
+
+│   ├── 📁 pages/               # Route components (page level)
+
+│   │   ├── ⚛️ Home.jsx
+
+│   │   ├── ⚛️ About.jsx
+
+│   │   ├── ⚛️ Contact.jsx
+
+│   │   ├── ⚛️ Dashboard.jsx
+
+│   │   ├── ⚛️ Profile.jsx
+
+│   │   ├── ⚛️ Login.jsx
+
+│   │   ├── ⚛️ Register.jsx
+
+│   │   ├── ⚛️ Settings.jsx
+
+│   │   └── ⚛️ NotFound.jsx
+
+│   ├── 📁 hooks/               # Custom React hooks
+
+│   │   ├── 🔧 useApi.js
+
+│   │   ├── 🔧 useAuth.js
+
+│   │   ├── 🔧 useLocalStorage.js
+
+│   │   ├── 🔧 useDebounce.js
+
+│   │   ├── 🔧 useTheme.js
+
+│   │   ├── 🔧 useToggle.js
+
+│   │   ├── 🔧 useFetch.js
+
+│   │   └── 📄 index.js         # Barrel exports
+
+│   ├── 📁 context/             # React Context providers
+
+│   │   ├── ⚛️ AuthContext.jsx
+
+│   │   ├── ⚛️ ThemeContext.jsx
+
+│   │   ├── ⚛️ AppContext.jsx
+
+│   │   └── 📄 index.js         # Barrel exports
+
+│   ├── 📁 services/            # API calls & external services
+
+│   │   ├── 🌐 api.js           # Main API configuration
+
+│   │   ├── 🌐 authService.js   # Authentication API calls
+
+│   │   ├── 🌐 userService.js   # User-related API calls
+
+│   │   └── 🌐 httpClient.js    # HTTP client setup (axios)
+
+│   ├── 📁 utils/               # Utility functions & helpers
+
+│   │   ├── 🔧 helpers.js       # General helper functions
+
+│   │   ├── 🔧 constants.js     # App-wide constants
+
+│   │   ├── 🔧 validators.js    # Form validation functions
+
+│   │   ├── 🔧 formatters.js    # Data formatting functions
+
+│   │   ├── 🔧 cn.js            # className utility (clsx)
+
+│   │   └── 🔧 storage.js       # localStorage helpers
+
+│   ├── 📁 lib/                 # External library configurations
+
+│   │   ├── 🔧 axios.js         # Axios configuration
+
+│   │   └── 🔧 utils.js         # Library utilities
+
+│   ├── 📁 assets/              # Static assets
+
+│   │   ├── 📁 images/          # Image files
+
+│   │   ├── 📁 icons/           # Icon files
+
+│   │   ├── 📁 fonts/           # Custom fonts
+
+│   │   └── 📁 data/            # Static JSON data
+
+│   ├── ⚛️ App.jsx              # Main App component with routes
+
+│   ├── ⚛️ main.jsx             # Application entry point
+
+│   └── 🎨 index.css            # Global styles & Tailwind imports
+
+├── 📄 index.html               # HTML template
+
+├── ⚙️ tailwind.config.js       # Tailwind configuration
+
+├── ⚙️ vite.config.js           # Vite configuration
+
+├── ⚙️ package.json             # Dependencies & scripts
+
+├── 📄 README.md                # Project documentation
+
+└── 📄 .gitignore               # Git ignore rules
+ ```
