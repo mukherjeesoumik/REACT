@@ -1,4 +1,4 @@
-# Complete React.js Course - Beginner Friendly 🚀
+# Complete React.js Course 🚀
 
 [![React](https://img.shields.io/badge/React-18.0+-blue.svg)](https://reactjs.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
