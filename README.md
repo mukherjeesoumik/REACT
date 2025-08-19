@@ -73,7 +73,7 @@ Think of React like a restaurant kitchen:
 
 ### Installation
 
-#### Option 1: Create React App (Recommended for beginners)
+#### Option 1: Create React App Vite (Faster alternative)
 
 ```bash
 # Create new project (Vite will show options)
@@ -87,16 +87,7 @@ cd my-react-app
 npm install # npm i
 ```
 
-#### Option 2: Vite (Faster alternative)
-
-```bash
-npm create vite@latest my-react-app -- --template react
-cd my-react-app
-npm install
-npm run dev
-```
-
-#### Option 3: Online Playground
+#### Option 2: Online Playground
 
 - [CodeSandbox](https://codesandbox.io)
 - [CodePen](https://codepen.io)
