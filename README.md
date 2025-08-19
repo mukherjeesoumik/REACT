@@ -4,8 +4,6 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-A comprehensive guide to learning React.js from scratch. This repository contains everything you need to become proficient in React development.
-
 ## 📚 Table of Contents
 
 - [What is React?](#what-is-react)
