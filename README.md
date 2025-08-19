@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-A comprehensive guide to learning React.js from scratch. This repository contains everything you need to become proficient in React development.
+A comprehensive guide to learning React.js from scratch with real code examples, console outputs, and practical debugging tips.
 
 ## 📚 Table of Contents
 
@@ -24,15 +24,14 @@ A comprehensive guide to learning React.js from scratch. This repository contain
   - [Component Lifecycle](#component-lifecycle)
   - [Context API](#context-api)
   - [Error Boundaries](#error-boundaries)
-  - [Higher-Order Components (HOCs)](#higher-order-components-hocs)
-  - [Render Props](#render-props)
+  - [Higher-Order Components](#higher-order-components)
 - [Routing](#routing)
 - [State Management](#state-management)
 - [Testing](#testing)
 - [Performance Optimization](#performance-optimization)
 - [Best Practices](#best-practices)
-- [Project Structure](#project-structure)
 - [Deployment](#deployment)
+- [Debugging Tips](#debugging-tips)
 - [Resources](#resources)
 
 ## What is React?
@@ -41,794 +40,813 @@ React is a JavaScript library for building user interfaces, especially web appli
 
 ### Why React?
 
-**Problem:** Traditional web development meant writing lots of repetitive code and manually updating the DOM (webpage elements) whenever data changed. This was slow and error-prone.
+**Problem:** Traditional web development meant writing lots of repetitive code and manually updating the DOM (webpage elements) whenever data changed.
 
 **Solution:** React solves this by:
 - Creating reusable UI components (like Lego blocks)
-- Automatically updating the webpage when data changes
+- Automatically updating the webpage when data changes (Virtual DOM)
 - Making code easier to organize and maintain
 
-### Key Features
+### Key Features with Examples
 
-- **Component-Based:** Build encapsulated components that manage their own state
-- **Virtual DOM:** React creates a virtual copy of your webpage in memory, compares changes, and updates only what's necessary - making it super fast!
-- **Reusable:** Write a component once, use it everywhere
-- **Declarative:** Just describe what you want the UI to look like, React handles the "how"
+```jsx
+// Component-Based Architecture
+function WelcomeCard({ name, role }) {
+  console.log(`Rendering WelcomeCard for ${name}`);
+  // Output: Rendering WelcomeCard for John Doe
+  
+  return (
+    <div className="welcome-card">
+      <h2>Welcome, {name}!</h2>
+      <p>Role: {role}</p>
+    </div>
+  );
+}
 
-### Real-World Analogy
-
-Think of React like a restaurant kitchen:
-- **Components** = Different stations (salad station, grill, dessert station)
-- **Props** = Ingredients passed between stations
-- **State** = Current status of each dish being prepared
-- **Virtual DOM** = The head chef who coordinates everything efficiently
+// Virtual DOM in Action
+function Counter() {
+  const [count, setCount] = useState(0);
+  
+  console.log(`Counter component rendered. Current count: ${count}`);
+  // Output: Counter component rendered. Current count: 0
+  // Output: Counter component rendered. Current count: 1
+  // Output: Counter component rendered. Current count: 2
+  
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </div>
+  );
+}
+```
 
 ## Getting Started
 
-### Prerequisites
-
-- Basic knowledge of HTML, CSS, and JavaScript
-- Node.js (version 14 or higher)
-- Code editor (VS Code recommended)
-
-### Installation
-
-#### Option 1: Create React App (Recommended for beginners)
+### Installation and Setup
 
 ```bash
-npx create-react-app my-first-app
-cd my-first-app
+# Create a new React app
+npx create-react-app my-react-app
+cd my-react-app
+
+# Start development server
 npm start
 ```
 
-#### Option 2: Vite (Faster alternative)
+**Console Output:**
+```
+Compiled successfully!
 
-```bash
-npm create vite@latest my-react-app -- --template react
-cd my-react-app
-npm install
-npm run dev
+You can now view my-react-app in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://192.168.1.100:3000
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+webpack compiled with 1 warning
 ```
 
-#### Option 3: Online Playground
-
-- [CodeSandbox](https://codesandbox.io)
-- [CodePen](https://codepen.io)
-- [StackBlitz](https://stackblitz.com)
-
-### Project Structure
+### Project Structure with Explanations
 
 ```
-my-first-app/
+my-react-app/
 ├── public/
-│   ├── index.html
-│   └── favicon.ico
+│   ├── index.html          # Main HTML file
+│   └── favicon.ico         # Browser tab icon
 ├── src/
-│   ├── components/
-│   ├── hooks/
-│   ├── utils/
-│   ├── App.js
-│   ├── App.css
-│   ├── index.js
-│   └── index.css
-├── package.json
-└── README.md
+│   ├── App.js             # Main component
+│   ├── App.css            # App styles
+│   ├── index.js           # Entry point
+│   └── index.css          # Global styles
+├── package.json           # Dependencies and scripts
+└── README.md             # Project documentation
 ```
 
 ## Core Concepts
 
 ### JSX - JavaScript XML
 
-JSX lets you write HTML-like code in JavaScript. It's like mixing HTML and JavaScript together!
-
-#### Why JSX?
-
-**Problem:** Creating HTML elements in JavaScript was messy and hard to read:
-
-```javascript
-const element = React.createElement('div', null, 
-  React.createElement('h1', null, 'Hello'),
-  React.createElement('p', null, 'Welcome to React')
-);
-```
-
-**Solution:** JSX makes it look like HTML:
+JSX lets you write HTML-like code in JavaScript. It gets compiled to regular JavaScript.
 
 ```jsx
-const element = (
-  <div>
-    <h1>Hello</h1>
-    <p>Welcome to React</p>
-  </div>
-);
+// JSX Code
+const element = <h1>Hello, World!</h1>;
+
+// Compiles to:
+const element = React.createElement('h1', null, 'Hello, World!');
+
+console.log(element);
+// Output: 
+// {
+//   type: 'h1',
+//   props: { children: 'Hello, World!' },
+//   key: null,
+//   ref: null
+// }
 ```
 
-#### JSX Rules
-
-1. **Single Parent Element:** Wrap multiple elements in one parent
+#### JSX with JavaScript Expressions
 
 ```jsx
-// ❌ Wrong
-const element = (
-  <h1>Title</h1>
-  <p>Description</p>
-);
+function UserGreeting() {
+  const user = {
+    firstName: 'John',
+    lastName: 'Doe',
+    age: 25
+  };
+  
+  const isAdult = user.age >= 18;
+  
+  console.log('User data:', user);
+  console.log('Is adult:', isAdult);
+  // Output: User data: {firstName: 'John', lastName: 'Doe', age: 25}
+  // Output: Is adult: true
+  
+  return (
+    <div>
+      <h1>Hello, {user.firstName} {user.lastName}!</h1>
+      <p>Age: {user.age}</p>
+      <p>Status: {isAdult ? 'Adult' : 'Minor'}</p>
+      <p>Birth Year: {new Date().getFullYear() - user.age}</p>
+    </div>
+  );
+}
+```
 
-// ✅ Correct
-const element = (
-  <div>
+**Rendered Output:**
+```html
+<div>
+  <h1>Hello, John Doe!</h1>
+  <p>Age: 25</p>
+  <p>Status: Adult</p>
+  <p>Birth Year: 1999</p>
+</div>
+```
+
+#### JSX Rules and Common Mistakes
+
+```jsx
+// ❌ WRONG: Multiple elements without wrapper
+function WrongComponent() {
+  return (
     <h1>Title</h1>
     <p>Description</p>
-  </div>
-);
+  );
+}
+// Error: Adjacent JSX elements must be wrapped in an enclosing tag
 
-// ✅ Or use Fragment
-const element = (
-  <>
-    <h1>Title</h1>
-    <p>Description</p>
-  </>
-);
-```
+// ✅ CORRECT: Using Fragment
+function CorrectComponent() {
+  return (
+    <>
+      <h1>Title</h1>
+      <p>Description</p>
+    </>
+  );
+}
 
-2. **JavaScript Expressions:** Use curly braces `{}`
+// ❌ WRONG: Using 'class' instead of 'className'
+<div class="container">Content</div>
+// Warning: Invalid DOM property `class`. Did you mean `className`?
 
-```jsx
-const name = "John";
-const age = 25;
-
-const element = (
-  <div>
-    <h1>Hello, {name}!</h1>
-    <p>You are {age} years old</p>
-    <p>Next year you'll be {age + 1}</p>
-  </div>
-);
-```
-
-3. **HTML Attributes in camelCase**
-
-```jsx
-// ❌ HTML way
-<div class="container" onclick="handleClick()">
-
-// ✅ JSX way
-<div className="container" onClick={handleClick}>
+// ✅ CORRECT: Using 'className'
+<div className="container">Content</div>
 ```
 
 ### Components
 
-Components are like custom HTML elements. Think of them as reusable pieces of UI.
-
-#### Why Components?
-
-**Problem:** Copying and pasting the same HTML code everywhere. If you need to change something, you have to update it in multiple places.
-
-**Solution:** Create a component once, use it anywhere. Change it once, updates everywhere!
-
-#### Types of Components
-
-1. **Presentational Components** - Just show data (like a business card)
-2. **Container Components** - Handle logic and pass data to other components (like a form controller)
-3. **Reusable Components** - Can be used anywhere (like buttons, inputs)
-
-#### Functional Components (Modern Way)
+Components are reusable pieces of UI. Think of them as custom HTML elements.
 
 ```jsx
-// Simple component
-function Welcome() {
-  return <h1>Hello, World!</h1>;
+// Simple Functional Component
+function Button({ text, onClick, disabled = false }) {
+  console.log(`Button component rendered with text: "${text}"`);
+  // Output: Button component rendered with text: "Click Me"
+  
+  const handleClick = () => {
+    console.log(`Button "${text}" was clicked!`);
+    // Output: Button "Click Me" was clicked!
+    onClick && onClick();
+  };
+  
+  return (
+    <button 
+      onClick={handleClick} 
+      disabled={disabled}
+      className={`btn ${disabled ? 'btn-disabled' : 'btn-active'}`}
+    >
+      {text}
+    </button>
+  );
 }
 
-// Arrow function component
-const Welcome = () => {
-  return <h1>Hello, World!</h1>;
-};
-
-// Using the component
+// Using the Button component
 function App() {
+  const handleSave = () => {
+    console.log('Save operation triggered');
+    // Output: Save operation triggered
+  };
+  
+  const handleDelete = () => {
+    console.log('Delete operation triggered');
+    // Output: Delete operation triggered
+  };
+  
   return (
     <div>
-      <Welcome />
-      <Welcome />
-      <Welcome />
+      <Button text="Save" onClick={handleSave} />
+      <Button text="Delete" onClick={handleDelete} />
+      <Button text="Disabled Button" disabled={true} />
     </div>
   );
 }
 ```
 
-#### Real-World Example: User Card
+#### Component Composition Example
 
 ```jsx
-function UserCard() {
+// Card Component
+function Card({ children, title, className = '' }) {
+  console.log(`Rendering Card with title: ${title}`);
+  // Output: Rendering Card with title: User Profile
+  
   return (
-    <div className="user-card">
-      <img src="https://via.placeholder.com/100" alt="User Avatar" />
-      <h3>John Doe</h3>
-      <p>Software Developer</p>
-      <button>Follow</button>
+    <div className={`card ${className}`}>
+      {title && <div className="card-header">{title}</div>}
+      <div className="card-body">
+        {children}
+      </div>
     </div>
   );
 }
 
-// CSS
-.user-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-  text-align: center;
-  max-width: 200px;
+// UserProfile Component
+function UserProfile({ user }) {
+  console.log('User profile data:', user);
+  // Output: User profile data: {name: 'Alice', email: 'alice@example.com', role: 'Developer'}
+  
+  return (
+    <Card title="User Profile" className="user-card">
+      <div className="user-info">
+        <h3>{user.name}</h3>
+        <p>Email: {user.email}</p>
+        <p>Role: {user.role}</p>
+      </div>
+    </Card>
+  );
+}
+
+// Usage
+function Dashboard() {
+  const userData = {
+    name: 'Alice Johnson',
+    email: 'alice@example.com',
+    role: 'Senior Developer'
+  };
+  
+  return (
+    <div className="dashboard">
+      <UserProfile user={userData} />
+    </div>
+  );
 }
 ```
 
 ### Props
 
-Props (properties) are how you pass data from parent to child components. Think of them like function parameters.
-
-#### Why Props?
-
-**Problem:** Components need different data to display. A UserCard component should show different users, not the same person every time!
-
-**Solution:** Props let you pass data into components, making them flexible and reusable.
-
-#### Key Points
-
-- Props flow downward (parent → child)
-- Props are read-only (child cannot change them)
-- Props make components reusable
-
-#### Basic Props Example
+Props are how you pass data from parent to child components.
 
 ```jsx
-// Child component that receives props
-function Greeting(props) {
-  return <h1>Hello, {props.name}!</h1>;
-}
-
-// Parent component that passes props
-function App() {
-  return (
-    <div>
-      <Greeting name="Alice" />
-      <Greeting name="Bob" />
-      <Greeting name="Charlie" />
-    </div>
-  );
-}
-```
-
-#### Props with Destructuring
-
-```jsx
-// Instead of props.name, props.age
-function UserInfo({ name, age, city }) {
-  return (
-    <div>
-      <h2>{name}</h2>
-      <p>Age: {age}</p>
-      <p>City: {city}</p>
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <UserInfo 
-      name="Sarah" 
-      age={28} 
-      city="New York" 
-    />
-  );
-}
-```
-
-### State
-
-State is data that can change over time. When state changes, React re-renders the component.
-
-#### Why State?
-
-**Problem:** Web applications need to respond to user interactions. Clicking buttons, typing in forms, loading data - the webpage needs to update!
-
-**Solution:** State lets components "remember" information and update the UI when that information changes.
-
-#### When to Use State
-
-- User input (form fields, checkboxes)
-- Current selection (active tab, selected item)
-- Loading status (is data being fetched?)
-- Toggle states (show/hide, on/off)
-
-#### useState Hook
-
-```jsx
-import React, { useState } from 'react';
-
-function Counter() {
-  // useState returns [currentValue, functionToUpdateValue]
-  const [count, setCount] = useState(0); // 0 is initial value
-
-  return (
-    <div>
-      <h2>Count: {count}</h2>
-      <button onClick={() => setCount(count + 1)}>
-        Increase
-      </button>
-      <button onClick={() => setCount(count - 1)}>
-        Decrease
-      </button>
-      <button onClick={() => setCount(0)}>
-        Reset
-      </button>
-    </div>
-  );
-}
-```
-
-### Event Handling
-
-React handles events using synthetic events, which work the same across all browsers.
-
-#### Common Events
-
-- `onClick` - Mouse clicks
-- `onChange` - Input field changes
-- `onSubmit` - Form submissions
-- `onMouseOver/onMouseOut` - Hover effects
-- `onKeyPress` - Keyboard input
-
-#### Click Events
-
-```jsx
-function ButtonExample() {
-  const handleClick = () => {
-    alert("Button clicked!");
+// Child Component
+function ProductCard({ product, onAddToCart, onViewDetails }) {
+  console.log('Product received via props:', product);
+  // Output: Product received via props: {id: 1, name: 'Laptop', price: 999, inStock: true}
+  
+  const handleAddToCart = () => {
+    console.log(`Adding ${product.name} to cart`);
+    // Output: Adding Laptop to cart
+    onAddToCart(product.id);
   };
-
-  const handleClickWithParameter = (message) => {
-    alert(message);
+  
+  const handleViewDetails = () => {
+    console.log(`Viewing details for ${product.name}`);
+    // Output: Viewing details for Laptop
+    onViewDetails(product.id);
   };
-
+  
   return (
-    <div>
-      <button onClick={handleClick}>
-        Simple Click
-      </button>
+    <div className="product-card">
+      <h3>{product.name}</h3>
+      <p className="price">${product.price}</p>
+      <p className={`stock ${product.inStock ? 'in-stock' : 'out-of-stock'}`}>
+        {product.inStock ? 'In Stock' : 'Out of Stock'}
+      </p>
+      <div className="actions">
+        <button 
+          onClick={handleAddToCart} 
+          disabled={!product.inStock}
+        >
+          Add to Cart
+        </button>
+                  <button onClick={handleCheckout} className="checkout-btn">
+            Checkout
+          </button>
+        </>
+      )}
+    </div>
+  );
+}
+
+// Header component using context
+function Header() {
+  const { user, isAuthenticated, logout, cart, theme, setTheme } = useApp();
+  
+  console.log('Header rendered for user:', user?.name || 'Guest');
+  // Output: Header rendered for user: John Doe
+  // Output: Header rendered for user: Guest
+  
+  const handleThemeToggle = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    console.log('Toggling theme to:', newTheme);
+    // Output: Toggling theme to: dark
+    setTheme(newTheme);
+  };
+  
+  return (
+    <header className={`app-header theme-${theme}`}>
+      <div className="header-left">
+        <h1>My Store</h1>
+      </div>
       
-      <button onClick={() => handleClickWithParameter("Hello!")}>
-        Click with Parameter
-      </button>
-    </div>
-  );
-}
-```
-
-#### Form Events
-
-```jsx
-function FormExample() {
-  const [inputValue, setInputValue] = useState("");
-
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent page refresh
-    console.log("Submitted:", inputValue);
-  };
-
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input 
-        type="text"
-        value={inputValue}
-        onChange={handleChange}
-        placeholder="Enter something..."
-      />
-      <button type="submit">Submit</button>
-      <p>You typed: {inputValue}</p>
-    </form>
-  );
-}
-```
-
-### Conditional Rendering
-
-Show different content based on conditions, like if-else statements for your UI.
-
-#### If-Else with &&
-
-```jsx
-function WelcomeMessage({ isLoggedIn, username }) {
-  return (
-    <div>
-      {isLoggedIn && <h1>Welcome back, {username}!</h1>}
-      {!isLoggedIn && <h1>Please log in</h1>}
-    </div>
-  );
-}
-```
-
-#### Ternary Operator
-
-```jsx
-function LoginButton({ isLoggedIn, onLogin, onLogout }) {
-  return (
-    <button onClick={isLoggedIn ? onLogout : onLogin}>
-      {isLoggedIn ? "Logout" : "Login"}
-    </button>
-  );
-}
-```
-
-### Lists and Keys
-
-Render arrays of data as lists. Keys help React identify which items have changed.
-
-#### Basic List
-
-```jsx
-function FruitList() {
-  const fruits = ["Apple", "Banana", "Orange", "Grape"];
-
-  return (
-    <ul>
-      {fruits.map((fruit, index) => (
-        <li key={index}>{fruit}</li>
-      ))}
-    </ul>
-  );
-}
-```
-
-#### List with Objects
-
-```jsx
-function UserList() {
-  const users = [
-    { id: 1, name: "Alice", age: 25 },
-    { id: 2, name: "Bob", age: 30 },
-    { id: 3, name: "Charlie", age: 28 }
-  ];
-
-  return (
-    <div>
-      {users.map(user => (
-        <div key={user.id} className="user-card">
-          <h3>{user.name}</h3>
-          <p>Age: {user.age}</p>
+      <div className="header-center">
+        <nav>
+          <a href="/">Home</a>
+          <a href="/products">Products</a>
+          <a href="/about">About</a>
+        </nav>
+      </div>
+      
+      <div className="header-right">
+        <button onClick={handleThemeToggle}>
+          {theme === 'light' ? '🌙' : '☀️'}
+        </button>
+        
+        <div className="cart-icon">
+          🛒 ({cart.items.length})
         </div>
-      ))}
-    </div>
+        
+        {isAuthenticated ? (
+          <div className="user-menu">
+            <span>Welcome, {user.name}</span>
+            <button onClick={logout}>Logout</button>
+          </div>
+        ) : (
+          <button onClick={() => console.log('Navigate to login')}>
+            Login
+          </button>
+        )}
+      </div>
+    </header>
   );
 }
 ```
 
-### Forms
+## Performance Optimization
 
-Handle user input with controlled components.
-
-#### Controlled Components
+### React.memo and Optimization Patterns
 
 ```jsx
-function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-    subscribe: false
-  });
-
-  const handleInputChange = (event) => {
-    const { name, value, type, checked } = event.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Form submitted:", formData);
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          Message:
-          <textarea
-            name="message"
-            value={formData.message}
-            onChange={handleInputChange}
-            rows="4"
-          />
-        </label>
-      </div>
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            name="subscribe"
-            checked={formData.subscribe}
-            onChange={handleInputChange}
-          />
-          Subscribe to newsletter
-        </label>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
-  );
-}
-```
-
-## Advanced Concepts
-
-### Hooks
-
-Hooks let you use state and other React features in functional components.
-
-#### Hook Rules (Very Important!)
-
-1. Only call hooks at the top level - Not inside loops, conditions, or nested functions
-2. Only call hooks from React functions - Functional components or custom hooks
-
-#### useEffect Hook
-
-```jsx
-import React, { useState, useEffect } from 'react';
-
-// Effect that runs after every render
-function Timer() {
-  const [seconds, setSeconds] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds(prev => prev + 1);
-    }, 1000);
-
-    // Cleanup function
-    return () => clearInterval(interval);
-  }, []); // Empty dependency array means effect runs once
-
-  return <h1>Timer: {seconds} seconds</h1>;
-}
-```
-
-#### Custom Hooks
-
-```jsx
-// Custom hook for fetching data
-function useApi(url) {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        setError(error);
-        setLoading(false);
-      });
-  }, [url]);
-
-  return { data, loading, error };
-}
-
-// Using the custom hook
-function PostList() {
-  const { data, loading, error } = useApi('https://jsonplaceholder.typicode.com/posts');
-
-  if (loading) return <p>Loading posts...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  return (
-    <div>
-      {data.slice(0, 5).map(post => (
-        <div key={post.id}>
-          <h3>{post.title}</h3>
-          <p>{post.body}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-```
-
-### Component Lifecycle
-
-Understanding when components mount, update, and unmount.
-
-#### The Three Phases
-
-1. **Mounting** = Birth 👶 - Component is created and added to the DOM
-2. **Updating** = Growing/Living 🌱 - Component receives new props or state changes
-3. **Unmounting** = Death 💀 - Component is removed from the DOM
-
-#### Lifecycle with useEffect
-
-```jsx
-function LifecycleExample({ name }) {
-  const [count, setCount] = useState(0);
-
-  // Component did mount (runs once)
-  useEffect(() => {
-    console.log("Component mounted");
+// Expensive component that should be memoized
+const ExpensiveUserList = memo(function ExpensiveUserList({ users, onUserClick, sortOrder }) {
+  console.log('ExpensiveUserList rendered with', users.length, 'users, sort:', sortOrder);
+  // Output: ExpensiveUserList rendered with 1000 users, sort: name
+  // This will only log when users or sortOrder actually changes
+  
+  const sortedUsers = useMemo(() => {
+    console.log('Computing sorted users...');
+    // Output: Computing sorted users...
+    // This expensive computation only runs when users or sortOrder changes
     
-    // Component will unmount (cleanup)
-    return () => {
-      console.log("Component will unmount");
-    };
-  }, []);
-
-  // Component did update (runs when count changes)
-  useEffect(() => {
-    console.log("Count updated to:", count);
-  }, [count]);
-
-  return (
-    <div>
-      <h2>Hello, {name}</h2>
-      <p>Count: {count}</p>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-    </div>
-  );
-}
-```
-
-### Context API
-
-Share data between components without passing props down manually.
-
-#### Complete Context Example
-
-```jsx
-import React, { createContext, useContext, useReducer } from 'react';
-
-// Create contexts
-const UserContext = createContext();
-const CartContext = createContext();
-
-// Reducer for cart
-function cartReducer(state, action) {
-  switch (action.type) {
-    case 'ADD_ITEM':
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-        total: state.total + action.payload.price
-      };
-    case 'REMOVE_ITEM':
-      const itemToRemove = state.items.find(item => item.id === action.payload);
-      return {
-        ...state,
-        items: state.items.filter(item => item.id !== action.payload),
-        total: state.total - (itemToRemove ? itemToRemove.price : 0)
-      };
-    default:
-      return state;
-  }
-}
-
-// Providers
-function AppProvider({ children }) {
-  const [user, setUser] = useState({ name: "John Doe", email: "john@example.com" });
-  const [cart, dispatch] = useReducer(cartReducer, { items: [], total: 0 });
-
-  return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <CartContext.Provider value={{ cart, dispatch }}>
-        {children}
-      </CartContext.Provider>
-    </UserContext.Provider>
-  );
-}
-
-// Components using context
-function UserProfile() {
-  const { user } = useContext(UserContext);
-  return (
-    <div>
-      <h2>{user.name}</h2>
-      <p>{user.email}</p>
-    </div>
-  );
-}
-
-function ShoppingCart() {
-  const { cart, dispatch } = useContext(CartContext);
-
-  const addItem = () => {
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: { id: Date.now(), name: 'New Item', price: 10 }
+    return users.sort((a, b) => {
+      switch (sortOrder) {
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'email':
+          return a.email.localeCompare(b.email);
+        case 'joinDate':
+          return new Date(b.joinDate) - new Date(a.joinDate);
+        default:
+          return 0;
+      }
     });
-  };
-
+  }, [users, sortOrder]);
+  
   return (
-    <div>
-      <h3>Cart ({cart.items.length} items)</h3>
-      <p>Total: ${cart.total}</p>
-      <button onClick={addItem}>Add Item</button>
-      <ul>
-        {cart.items.map(item => (
-          <li key={item.id}>
-            {item.name} - ${item.price}
-            <button onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: item.id })}>
-              Remove
-            </button>
-          </li>
-        ))}
-      </ul>
+    <div className="user-list">
+      <p>Displaying {sortedUsers.length} users</p>
+      {sortedUsers.map(user => (
+        <UserCard
+          key={user.id}
+          user={user}
+          onClick={onUserClick}
+        />
+      ))}
+    </div>
+  );
+});
+
+// Memoized user card component
+const UserCard = memo(function UserCard({ user, onClick }) {
+  console.log('UserCard rendered for:', user.name);
+  // Output: UserCard rendered for: John Doe
+  // This only logs when user prop actually changes
+  
+  const handleClick = useCallback(() => {
+    console.log('User card clicked:', user.id);
+    // Output: User card clicked: 123
+    onClick(user.id);
+  }, [user.id, onClick]);
+  
+  return (
+    <div className="user-card" onClick={handleClick}>
+      <h3>{user.name}</h3>
+      <p>{user.email}</p>
+      <span className="join-date">{user.joinDate}</span>
+    </div>
+  );
+});
+
+// Parent component with optimized callbacks
+function UserManagement() {
+  const [users, setUsers] = useState([]);
+  const [sortOrder, setSortOrder] = useState('name');
+  const [selectedUser, setSelectedUser] = useState(null);
+  
+  console.log('UserManagement rendered, users:', users.length, 'selected:', selectedUser?.id);
+  // Output: UserManagement rendered, users: 1000 selected: undefined
+  // Output: UserManagement rendered, users: 1000 selected: 123
+  
+  // Memoized callback to prevent unnecessary re-renders
+  const handleUserClick = useCallback((userId) => {
+    console.log('Parent handling user click:', userId);
+    // Output: Parent handling user click: 123
+    
+    const user = users.find(u => u.id === userId);
+    setSelectedUser(user);
+  }, [users]);
+  
+  // Memoized callback for sort change
+  const handleSortChange = useCallback((newSort) => {
+    console.log('Sort order changed:', newSort);
+    // Output: Sort order changed: email
+    setSortOrder(newSort);
+  }, []);
+  
+  return (
+    <div className="user-management">
+      <div className="controls">
+        <label>
+          Sort by:
+          <select value={sortOrder} onChange={(e) => handleSortChange(e.target.value)}>
+            <option value="name">Name</option>
+            <option value="email">Email</option>
+            <option value="joinDate">Join Date</option>
+          </select>
+        </label>
+      </div>
+      
+      <div className="content">
+        <ExpensiveUserList
+          users={users}
+          onUserClick={handleUserClick}
+          sortOrder={sortOrder}
+        />
+        
+        {selectedUser && (
+          <UserDetails user={selectedUser} />
+        )}
+      </div>
     </div>
   );
 }
 ```
 
-### Error Boundaries
-
-Error boundaries are React components that catch JavaScript errors in their child component tree.
+### Code Splitting and Lazy Loading
 
 ```jsx
-import React, { Component } from 'react';
+import { lazy, Suspense, useState } from 'react';
 
+// Lazy load components
+const Dashboard = lazy(() => {
+  console.log('Loading Dashboard component...');
+  // Output: Loading Dashboard component...
+  return import('./Dashboard');
+});
+
+const UserProfile = lazy(() => {
+  console.log('Loading UserProfile component...');
+  // Output: Loading UserProfile component...
+  return import('./UserProfile');
+});
+
+const AdminPanel = lazy(() => {
+  console.log('Loading AdminPanel component...');
+  // Output: Loading AdminPanel component...
+  return import('./AdminPanel');
+});
+
+function App() {
+  const [currentView, setCurrentView] = useState('home');
+  const [user] = useState({ role: 'admin' });
+  
+  console.log('App rendered, current view:', currentView);
+  // Output: App rendered, current view: home
+  // Output: App rendered, current view: dashboard
+  
+  const renderView = () => {
+    console.log('Rendering view:', currentView);
+    // Output: Rendering view: dashboard
+    
+    switch (currentView) {
+      case 'dashboard':
+        return <Dashboard />;
+      case 'profile':
+        return <UserProfile />;
+      case 'admin':
+        return user.role === 'admin' ? <AdminPanel /> : <div>Access denied</div>;
+      default:
+        return <div>Welcome to the Home Page</div>;
+    }
+  };
+  
+  return (
+    <div className="app">
+      <nav>
+        <button onClick={() => setCurrentView('home')}>Home</button>
+        <button onClick={() => setCurrentView('dashboard')}>Dashboard</button>
+        <button onClick={() => setCurrentView('profile')}>Profile</button>
+        {user.role === 'admin' && (
+          <button onClick={() => setCurrentView('admin')}>Admin</button>
+        )}
+      </nav>
+      
+      <main>
+        <Suspense
+          fallback={
+            <div className="loading">
+              <p>Loading component...</p>
+              <div className="spinner"></div>
+            </div>
+          }
+        >
+          {renderView()}
+        </Suspense>
+      </main>
+    </div>
+  );
+}
+
+// Example of preloading components
+function NavigationWithPreload() {
+  const [hoveredButton, setHoveredButton] = useState(null);
+  
+  const handleMouseEnter = (componentName) => {
+    console.log('Preloading component:', componentName);
+    // Output: Preloading component: dashboard
+    
+    setHoveredButton(componentName);
+    
+    // Preload component on hover
+    switch (componentName) {
+      case 'dashboard':
+        import('./Dashboard');
+        break;
+      case 'profile':
+        import('./UserProfile');
+        break;
+      case 'admin':
+        import('./AdminPanel');
+        break;
+    }
+  };
+  
+  return (
+    <nav className="preload-nav">
+      <button
+        onMouseEnter={() => handleMouseEnter('dashboard')}
+        onMouseLeave={() => setHoveredButton(null)}
+        className={hoveredButton === 'dashboard' ? 'preloading' : ''}
+      >
+        Dashboard
+      </button>
+      <button
+        onMouseEnter={() => handleMouseEnter('profile')}
+        onMouseLeave={() => setHoveredButton(null)}
+        className={hoveredButton === 'profile' ? 'preloading' : ''}
+      >
+        Profile
+      </button>
+    </nav>
+  );
+}
+```
+
+### Virtual Scrolling for Large Lists
+
+```jsx
+import { FixedSizeList as List } from 'react-window';
+
+function VirtualizedDataGrid({ data }) {
+  console.log('VirtualizedDataGrid with', data.length, 'items');
+  // Output: VirtualizedDataGrid with 50000 items
+  
+  const [visibleRange, setVisibleRange] = useState({ start: 0, end: 0 });
+  
+  const Row = ({ index, style }) => {
+    const item = data[index];
+    
+    // Only log for first few items to avoid console spam
+    if (index < 5) {
+      console.log('Rendering virtual row', index, ':', item.name);
+      // Output: Rendering virtual row 0 : Item 1
+      // Output: Rendering virtual row 1 : Item 2
+    }
+    
+    return (
+      <div style={style} className="virtual-row">
+        <div className="item-id">#{item.id}</div>
+        <div className="item-name">{item.name}</div>
+        <div className="item-value">${item.value}</div>
+        <div className="item-date">{item.date}</div>
+      </div>
+    );
+  };
+  
+  const handleItemsRendered = ({ visibleStartIndex, visibleStopIndex }) => {
+    console.log(`Visible items: ${visibleStartIndex} to ${visibleStopIndex}`);
+    // Output: Visible items: 0 to 15
+    // Output: Visible items: 10 to 25 (when scrolling)
+    
+    setVisibleRange({ start: visibleStartIndex, end: visibleStopIndex });
+  };
+  
+  return (
+    <div className="virtualized-grid">
+      <div className="grid-header">
+        <h2>Data Grid ({data.length.toLocaleString()} items)</h2>
+        <p>Showing rows {visibleRange.start + 1} - {visibleRange.end + 1}</p>
+      </div>
+      
+      <List
+        height={600}
+        itemCount={data.length}
+        itemSize={50}
+        onItemsRendered={handleItemsRendered}
+        className="virtual-list"
+      >
+        {Row}
+      </List>
+    </div>
+  );
+}
+
+// Generate large dataset for testing
+function generateLargeDataset(count = 50000) {
+  console.log('Generating dataset with', count, 'items');
+  // Output: Generating dataset with 50000 items
+  
+  const startTime = performance.now();
+  
+  const data = Array.from({ length: count }, (_, index) => ({
+    id: index + 1,
+    name: `Item ${index + 1}`,
+    value: Math.floor(Math.random() * 1000),
+    date: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toLocaleDateString()
+  }));
+  
+  const endTime = performance.now();
+  console.log(`Dataset generated in ${endTime - startTime}ms`);
+  // Output: Dataset generated in 45.2ms
+  
+  return data;
+}
+```
+
+## Error Boundaries and Error Handling
+
+```jsx
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false, error: null, errorInfo: null };
+    this.state = { 
+      hasError: false, 
+      error: null, 
+      errorInfo: null,
+      errorId: null 
+    };
   }
 
   static getDerivedStateFromError(error) {
+    console.log('ErrorBoundary: Error caught by getDerivedStateFromError');
+    // Output: ErrorBoundary: Error caught by getDerivedStateFromError
+    
     return { hasError: true };
   }
 
   componentDidCatch(error, errorInfo) {
+    console.error('ErrorBoundary: Full error details:');
+    console.error('Error:', error);
+    console.error('Error Info:', errorInfo);
+    // Output: ErrorBoundary: Full error details:
+    // Output: Error: Cannot read property 'name' of undefined
+    // Output: Error Info: {componentStack: '    in BuggyComponent...'}
+    
+    const errorId = Date.now().toString();
+    console.log('Generated error ID:', errorId);
+    // Output: Generated error ID: 1642601234567
+    
     this.setState({
       error: error,
-      errorInfo: errorInfo
+      errorInfo: errorInfo,
+      errorId: errorId
     });
+
+    // Log to error reporting service
+    this.logErrorToService(error, errorInfo, errorId);
   }
+
+  logErrorToService = (error, errorInfo, errorId) => {
+    console.log('Logging error to monitoring service...');
+    // Output: Logging error to monitoring service...
+    
+    const errorData = {
+      id: errorId,
+      message: error.message,
+      stack: error.stack,
+      componentStack: errorInfo.componentStack,
+      timestamp: new Date().toISOString(),
+      url: window.location.href,
+      userAgent: navigator.userAgent
+    };
+    
+    console.log('Error data to be sent:', errorData);
+    // Output: Error data to be sent: {id: '1642601234567', message: 'Cannot read...', ...}
+    
+    // In real app, send to service like Sentry, LogRocket, etc.
+    // fetch('/api/errors', { method: 'POST', body: JSON.stringify(errorData) });
+  };
+
+  handleReset = () => {
+    console.log('Resetting error boundary');
+    // Output: Resetting error boundary
+    
+    this.setState({
+      hasError: false,
+      error: null,
+      errorInfo: null,
+      errorId: null
+    });
+  };
 
   render() {
     if (this.state.hasError) {
+      console.log('ErrorBoundary: Rendering error UI');
+      // Output: ErrorBoundary: Rendering error UI
+      
       return (
-        <div style={{ padding: '20px', border: '1px solid red', borderRadius: '5px' }}>
-          <h2>Something went wrong!</h2>
-          <details style={{ whiteSpace: 'pre-wrap' }}>
-            {this.state.error && this.state.error.toString()}
-            <br />
-            {this.state.errorInfo.componentStack}
-          </details>
+        <div className="error-boundary">
+          <div className="error-container">
+            <h1>🚨 Something went wrong!</h1>
+            <p>We're sorry, but something unexpected happened.</p>
+            
+            <details className="error-details">
+              <summary>Error Details (Error ID: {this.state.errorId})</summary>
+              <div className="error-info">
+                <h3>Error Message:</h3>
+                <p>{this.state.error?.message}</p>
+                
+                <h3>Stack Trace:</h3>
+                <pre>{this.state.error?.stack}</pre>
+                
+                <h3>Component Stack:</h3>
+                <pre>{this.state.errorInfo?.componentStack}</pre>
+              </div>
+            </details>
+            
+            <div className="error-actions">
+              <button onClick={this.handleReset} className="retry-button">
+                Try Again
+              </button>
+              <button onClick={() => window.location.reload()} className="reload-button">
+                Reload Page
+              </button>
+            </div>
+          </div>
         </div>
       );
     }
@@ -837,1078 +855,1916 @@ class ErrorBoundary extends Component {
   }
 }
 
-// Usage
-function App() {
+// Component that might throw errors
+function BuggyCounter() {
+  const [count, setCount] = useState(0);
+  const [user, setUser] = useState(null);
+  
+  console.log('BuggyCounter rendered with count:', count);
+  // Output: BuggyCounter rendered with count: 0
+  // Output: BuggyCounter rendered with count: 5
+  
+  const handleClick = () => {
+    console.log('Button clicked, incrementing count');
+    // Output: Button clicked, incrementing count
+    setCount(count + 1);
+  };
+  
+  const handleBuggyAction = () => {
+    console.log('Triggering intentional error...');
+    // Output: Triggering intentional error...
+    
+    // This will throw an error and be caught by ErrorBoundary
+    console.log(user.name); // user is null, so this throws
+  };
+  
+  // Simulate random errors
+  if (count === 5) {
+    console.error('Simulated error: Count reached 5!');
+    // Output: Simulated error: Count reached 5!
+    throw new Error('I crashed when count reached 5!');
+  }
+  
   return (
-    <ErrorBoundary>
-      <Header />
-      <MainContent />
-      <Footer />
-    </ErrorBoundary>
+    <div className="buggy-counter">
+      <h2>Buggy Counter: {count}</h2>
+      <p>Click 5 times to see error boundary in action</p>
+      <button onClick={handleClick}>Increment</button>
+      <button onClick={handleBuggyAction} className="danger-button">
+        Trigger Error
+      </button>
+    </div>
+  );
+}
+
+// Safe wrapper component
+function SafeApp() {
+  return (
+    <div className="app">
+      <h1>Error Boundary Demo</h1>
+      
+      <ErrorBoundary>
+        <div className="safe-section">
+          <h2>Safe Section</h2>
+          <p>This section won't be affected by errors below.</p>
+        </div>
+      </ErrorBoundary>
+      
+      <ErrorBoundary>
+        <div className="risky-section">
+          <h2>Risky Section</h2>
+          <BuggyCounter />
+        </div>
+      </ErrorBoundary>
+      
+      <ErrorBoundary>
+        <div className="another-section">
+          <h2>Another Safe Section</h2>
+          <p>This section has its own error boundary.</p>
+        </div>
+      </ErrorBoundary>
+    </div>
   );
 }
 ```
 
-### Higher-Order Components (HOCs)
+## Debugging Tips and Console Techniques
 
-A higher-order component is a function that takes a component and returns a new component with additional functionality.
+### React DevTools Usage
 
 ```jsx
-// HOC for authentication
-function withAuth(WrappedComponent) {
-  return function AuthenticatedComponent(props) {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-      // Check authentication status
-      checkAuth().then(user => {
-        setUser(user);
+// Component with debugging helpers
+function DebuggableComponent({ userId, theme }) {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  
+  // Add display names for better DevTools experience
+  DebuggableComponent.displayName = 'DebuggableComponent';
+  
+  console.group('🔍 DebuggableComponent Debug Info');
+  console.log('Props received:', { userId, theme });
+  console.log('Current state:', { user, loading });
+  console.log('Render timestamp:', new Date().toLocaleTimeString());
+  console.groupEnd();
+  
+  useEffect(() => {
+    console.group('🔄 useEffect - User Data Fetch');
+    console.log('Effect triggered for userId:', userId);
+    
+    const fetchUser = async () => {
+      try {
+        console.log('📡 Fetching user data...');
+        setLoading(true);
+        
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        const userData = {
+          id: userId,
+          name: `User ${userId}`,
+          email: `user${userId}@example.com`,
+          preferences: { theme }
+        };
+        
+        console.log('✅ User data received:', userData);
+        setUser(userData);
+      } catch (error) {
+        console.error('❌ Failed to fetch user:', error);
+      } finally {
         setLoading(false);
-      });
-    }, []);
-
-    if (loading) {
-      return <div>Loading...</div>;
-    }
-
-    if (!user) {
-      return <div>Please log in to access this content.</div>;
-    }
-
-    return <WrappedComponent {...props} user={user} />;
-  };
-}
-
-// Usage
-const ProtectedDashboard = withAuth(Dashboard);
-
-function App() {
-  return (
-    <div>
-      <ProtectedDashboard />
-    </div>
-  );
-}
-```
-
-### Render Props
-
-A component with a render prop takes a function that returns a React element and calls it.
-
-```jsx
-// Mouse tracker component using render props
-function Mouse({ render }) {
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (event) => {
-    setPosition({
-      x: event.clientX,
-      y: event.clientY
+        console.log('🏁 Loading state set to false');
+      }
+    };
+    
+    fetchUser();
+    
+    return () => {
+      console.log('🧹 Cleanup: User fetch effect');
+    };
+    
+    console.groupEnd();
+  }, [userId, theme]);
+  
+  // Performance measurement
+  useEffect(() => {
+    const renderStart = performance.now();
+    
+    return () => {
+      const renderEnd = performance.now();
+      console.log(`⏱️ Component render time: ${(renderEnd - renderStart).toFixed(2)}ms`);
+    };
+  });
+  
+  // Debug component updates
+  useEffect(() => {
+    console.table({
+      'Component': 'DebuggableComponent',
+      'User ID': userId,
+      'Theme': theme,
+      'Has User': !!user,
+      'Is Loading': loading,
+      'Timestamp': new Date().toISOString()
     });
-  };
-
+  });
+  
   return (
-    <div onMouseMove={handleMouseMove} style={{ height: '100vh' }}>
-      {render(position)}
-    </div>
-  );
-}
-
-// Usage
-function App() {
-  return (
-    <Mouse
-      render={({ x, y }) => (
-        <h1>The mouse position is ({x}, {y})</h1>
-      )}
-    />
-  );
-}
-```
-
-## Routing
-
-Navigate between different pages/views in your app using React Router.
-
-### Installation
-
-```bash
-npm install react-router-dom
-```
-
-### Basic Routing Setup
-
-```jsx
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useParams, Navigate } from 'react-router-dom';
-
-// Page components
-function Home() {
-  return (
-    <div>
-      <h1>Home Page</h1>
-      <p>Welcome to our website!</p>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <div>
-      <h1>About Page</h1>
-      <p>Learn more about us!</p>
-    </div>
-  );
-}
-
-function Contact() {
-  return (
-    <div>
-      <h1>Contact Page</h1>
-      <p>Get in touch with us!</p>
-    </div>
-  );
-}
-
-function UserProfile() {
-  const { userId } = useParams();
-  return (
-    <div>
-      <h1>User Profile</h1>
-      <p>Viewing profile for user: {userId}</p>
-    </div>
-  );
-}
-
-function NotFound() {
-  return (
-    <div>
-      <h1>404 - Page Not Found</h1>
-      <Link to="/">Go Home</Link>
-    </div>
-  );
-}
-
-// Navigation component
-function Navigation() {
-  return (
-    <nav style={{ padding: '20px', backgroundColor: '#f0f0f0', marginBottom: '20px' }}>
-      <Link to="/" style={{ marginRight: '20px' }}>Home</Link>
-      <Link to="/about" style={{ marginRight: '20px' }}>About</Link>
-      <Link to="/contact" style={{ marginRight: '20px' }}>Contact</Link>
-      <Link to="/user/123">User Profile</Link>
-    </nav>
-  );
-}
-
-// Main App with routing
-function App() {
-  return (
-    <Router>
-      <div>
-        <Navigation />
-        <div style={{ padding: '20px' }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/user/:userId" element={<UserProfile />} />
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<Navigate to="/404" />} />
-          </Routes>
+    <div className={`debuggable-component theme-${theme}`}>
+      <div className="debug-header">
+        <h2>Debuggable Component</h2>
+        <div className="debug-info">
+          <span>User ID: {userId}</span>
+          <span>Theme: {theme}</span>
+          <span>Loading: {loading ? 'Yes' : 'No'}</span>
         </div>
       </div>
-    </Router>
+      
+      {loading ? (
+        <div className="loading">Loading user...</div>
+      ) : user ? (
+        <UserProfile user={user} />
+      ) : (
+        <div className="error">Failed to load user</div>
+      )}
+    </div>
   );
 }
-```
 
-### Protected Routes
-
-```jsx
-function ProtectedRoute({ children }) {
-  const isAuthenticated = useAuth(); // Custom hook for auth
-
-  return isAuthenticated ? children : <Navigate to="/login" />;
-}
-
-// Usage
-<Route
-  path="/dashboard"
-  element={
-    <ProtectedRoute>
-      <Dashboard />
-    </ProtectedRoute>
-  }
-/>
-```
-
-## State Management
-
-### Local State vs Global State
-
-- **Local State**: Data that only one component needs (form inputs, toggles)
-- **Global State**: Data that multiple components need (user info, theme, shopping cart)
-
-### Options for Global State
-
-1. **Context API** - Built into React, good for medium apps
-2. **Redux** - Most popular, best for large apps
-3. **Zustand** - Lightweight alternative to Redux
-4. **Recoil** - Facebook's experimental state management
-
-### Redux Example
-
-#### Installation
-```bash
-npm install @reduxjs/toolkit react-redux
-```
-
-#### Setting up Redux
-
-```jsx
-// store.js
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-// Create a slice
-const counterSlice = createSlice({
-  name: 'counter',
-  initialState: { value: 0 },
-  reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
-    }
-  }
-});
-
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
-
-// Configure store
-export const store = configureStore({
-  reducer: {
-    counter: counterSlice.reducer
-  }
-});
-```
-
-```jsx
-// App.js
-import { Provider } from 'react-redux';
-import { store } from './store';
-import Counter from './Counter';
-
-function App() {
+// Enhanced UserProfile with debug info
+function UserProfile({ user }) {
+  console.log('👤 UserProfile rendered for:', user.name);
+  
+  const [expanded, setExpanded] = useState(false);
+  
   return (
-    <Provider store={store}>
-      <Counter />
-    </Provider>
-  );
-}
-```
-
-```jsx
-// Counter.js
-import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement, incrementByAmount } from './store';
-
-function Counter() {
-  const count = useSelector(state => state.counter.value);
-  const dispatch = useDispatch();
-
-  return (
-    <div>
-      <span>{count}</span>
-      <button onClick={() => dispatch(increment())}>+</button>
-      <button onClick={() => dispatch(decrement())}>-</button>
-      <button onClick={() => dispatch(incrementByAmount(5))}>+5</button>
+    <div className="user-profile">
+      <h3>{user.name}</h3>
+      <p>{user.email}</p>
+      
+      <button onClick={() => {
+        console.log('🔧 Toggling expanded state:', !expanded);
+        setExpanded(!expanded);
+      }}>
+        {expanded ? 'Hide' : 'Show'} Details
+      </button>
+      
+      {expanded && (
+        <div className="user-details">
+          <h4>Debug Information:</h4>
+          <pre>{JSON.stringify(user, null, 2)}</pre>
+        </div>
+      )}
     </div>
   );
 }
 ```
 
-## Testing
+### Performance Profiling
 
-### Testing Libraries
+```jsx
+// Performance monitoring hook
+function usePerformanceMonitor(componentName) {
+  const renderCount = useRef(0);
+  const renderTimes = useRef([]);
+  
+  useEffect(() => {
+    renderCount.current += 1;
+    const renderTime = performance.now();
+    renderTimes.current.push(renderTime);
+    
+    console.log(`🎯 ${componentName} - Render #${renderCount.current}`);
+    
+    if (renderCount.current % 10 === 0) {
+      const avgRenderTime = renderTimes.current.slice(-10).reduce((a, b, i, arr) => 
+        i === 0 ? 0 : a + (b - arr[i-1])
+      ) / 9;
+      
+      console.log(`📊 ${componentName} - Average render time over last 10 renders: ${avgRenderTime.toFixed(2)}ms`);
+    }
+  });
+  
+  useEffect(() => {
+    return () => {
+      console.log(`📈 ${componentName} - Total renders: ${renderCount.current}`);
+    };
+  }, [componentName]);
+}
 
-- **Jest**: JavaScript testing framework (comes with Create React App)
-- **React Testing Library**: Simple utilities for testing React components
-- **Enzyme**: Alternative to React Testing Library (older)
-
-### Installation
-
-```bash
-npm install --save-dev @testing-library/react @testing-library/jest-dom
+// Component with performance monitoring
+function PerformanceTestComponent({ data, filter }) {
+  usePerformanceMonitor('PerformanceTestComponent');
+  
+  const startTime = performance.now();
+  
+  const filteredData = useMemo(() => {
+    console.time('Data filtering');
+    
+    const result = data.filter(item => 
+      item.name.toLowerCase().includes(filter.toLowerCase())
+    );
+    
+    console.timeEnd('Data filtering');
+    console.log(`🔍 Filtered ${data.length} items down to ${result.length}`);
+    
+    return result;
+  }, [data, filter]);
+  
+  const sortedData = useMemo(() => {
+    console.time('Data sorting');
+    
+    const result = [...filteredData].sort((a, b) => a.name.localeCompare(b.name));
+    
+    console.timeEnd('Data sorting');
+    console.log(`🔤 Sorted ${filteredData.length} items`);
+    
+    return result;
+  }, [filteredData]);
+  
+  useEffect(() => {
+    const endTime = performance.now();
+    console.log(`⚡ Component processing time: ${(endTime - startTime).toFixed(2)}ms`);
+  });
+  
+  return (
+    <div className="performance-test">
+      <h2>Performance Test Component</h2>
+      <p>Showing {sortedData.length} of {data.length} items</p>
+      
+      <div className="items-list">
+        {sortedData.map(item => (
+          <div key={item.id} className="item">
+            {item.name}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 ```
 
-### Basic Component Test
+### State Debugging
+
+```jsx
+// Custom hook for state debugging
+function useDebugState(initialState, name) {
+  const [state, setState] = useState(initialState);
+  
+  const setDebugState = useCallback((newState) => {
+    console.group(`🔧 State Update: ${name}`);
+    console.log('Previous state:', state);
+    
+    if (typeof newState === 'function') {
+      const updatedState = newState(state);
+      console.log('State updater function result:', updatedState);
+      setState(updatedState);
+    } else {
+      console.log('New state:', newState);
+      setState(newState);
+    }
+    
+    console.log('Update timestamp:', new Date().toISOString());
+    console.groupEnd();
+  }, [state, name]);
+  
+  // Track state history
+  const stateHistory = useRef([]);
+  
+  useEffect(() => {
+    stateHistory.current.push({
+      state,
+      timestamp: Date.now()
+    });
+    
+    // Keep only last 10 states
+    if (stateHistory.current.length > 10) {
+      stateHistory.current = stateHistory.current.slice(-10);
+    }
+    
+    console.log(`📊 ${name} state history:`, stateHistory.current);
+  }, [state, name]);
+  
+  return [state, setDebugState, stateHistory.current];
+}
+
+// Component using debug state
+function DebuggableCounter() {
+  const [count, setCount, countHistory] = useDebugState(0, 'Counter');
+  const [step, setStep, stepHistory] = useDebugState(1, 'Step');
+  
+  const increment = () => {
+    console.log('🔼 Incrementing counter by', step);
+    setCount(prev => prev + step);
+  };
+  
+  const decrement = () => {
+    console.log('🔽 Decrementing counter by', step);
+    setCount(prev => prev - step);
+  };
+  
+  const reset = () => {
+    console.log('🔄 Resetting counter to 0');
+    setCount(0);
+  };
+  
+  return (
+    <div className="debuggable-counter">
+      <h2>Debuggable Counter</h2>
+      
+      <div className="counter-display">
+        <h3>Count: {count}</h3>
+        <h4>Step: {step}</h4>
+      </div>
+      
+      <div className="counter-controls">
+        <button onClick={decrement}>- {step}</button>
+        <button onClick={increment}>+ {step}</button>
+        <button onClick={reset}>Reset</button>
+      </div>
+      
+      <div className="step-controls">
+        <label>
+          Step size:
+          <input
+            type="number"
+            value={step}
+            onChange={(e) => {
+              const newStep = parseInt(e.target.value) || 1;
+              console.log('📐 Changing step size to:', newStep);
+              setStep(newStep);
+            }}
+            min="1"
+          />
+        </label>
+      </div>
+      
+      <div className="debug-panel">
+        <details>
+          <summary>Debug Information</summary>
+          <div className="debug-info">
+            <h4>Count History:</h4>
+            <pre>{JSON.stringify(countHistory, null, 2)}</pre>
+            
+            <h4>Step History:</h4>
+            <pre>{JSON.stringify(stepHistory, null, 2)}</pre>
+          </div>
+        </details>
+      </div>
+    </div>
+  );
+}
+```
+
+## Testing with Real Examples
+
+### Component Testing
 
 ```jsx
 // Button.test.js
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
+
 import Button from './Button';
 
 describe('Button Component', () => {
+  beforeEach(() => {
+    console.log('🧪 Setting up test...');
+  });
+  
+  afterEach(() => {
+    console.log('🧹 Cleaning up test...');
+  });
+  
   test('renders button with correct text', () => {
+    console.log('✅ Test: renders button with correct text');
+    
     render(<Button>Click me</Button>);
+    
     const buttonElement = screen.getByText(/click me/i);
     expect(buttonElement).toBeInTheDocument();
+    
+    console.log('✅ Button found and rendered correctly');
   });
-
-  test('calls onClick handler when clicked', () => {
+  
+  test('calls onClick handler when clicked', async () => {
+    console.log('✅ Test: calls onClick handler when clicked');
+    
     const handleClick = jest.fn();
+    const user = userEvent.setup();
+    
     render(<Button onClick={handleClick}>Click me</Button>);
     
     const buttonElement = screen.getByText(/click me/i);
-    fireEvent.click(buttonElement);
+    await user.click(buttonElement);
     
     expect(handleClick).toHaveBeenCalledTimes(1);
+    console.log('✅ onClick handler called once');
   });
-
+  
+  test('applies correct CSS classes for variants', () => {
+    console.log('✅ Test: applies correct CSS classes for variants');
+    
+    const { rerender } = render(<Button variant="primary">Primary</Button>);
+    
+    let buttonElement = screen.getByText(/primary/i);
+    expect(buttonElement).toHaveClass('btn-primary');
+    console.log('✅ Primary variant class applied');
+    
+    rerender(<Button variant="secondary">Secondary</Button>);
+    
+    buttonElement = screen.getByText(/secondary/i);
+    expect(buttonElement).toHaveClass('btn-secondary');
+    console.log('✅ Secondary variant class applied');
+  });
+  
   test('is disabled when disabled prop is true', () => {
-    render(<Button disabled>Click me</Button>);
-    const buttonElement = screen.getByText(/click me/i);
+    console.log('✅ Test: is disabled when disabled prop is true');
+    
+    render(<Button disabled>Disabled Button</Button>);
+    
+    const buttonElement = screen.getByText(/disabled button/i);
     expect(buttonElement).toBeDisabled();
+    console.log('✅ Button is properly disabled');
+  });
+  
+  test('shows loading state correctly', async () => {
+    console.log('✅ Test: shows loading state correctly');
+    
+    const AsyncButton = () => {
+      const [loading, setLoading] = useState(false);
+      
+      const handleClick = async () => {
+        setLoading(true);
+        await new Promise(resolve => setTimeout(resolve, 100));
+        setLoading(false);
+      };
+      
+      return (
+        <Button onClick={handleClick} loading={loading}>
+          {loading ? 'Loading...' : 'Click me'}
+        </Button>
+      );
+    };
+    
+    const user = userEvent.setup();
+    render(<AsyncButton />);
+    
+    const buttonElement = screen.getByText(/click me/i);
+    await user.click(buttonElement);
+    
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    console.log('✅ Loading state displayed');
+    
+    await waitFor(() => {
+      expect(screen.getByText(/click me/i)).toBeInTheDocument();
+    });
+    console.log('✅ Loading state cleared');
   });
 });
-```
 
-### Testing Hooks
-
-```jsx
+// Hook testing example
 // useCounter.test.js
 import { renderHook, act } from '@testing-library/react';
-import useCounter from './useCounter';
 
-describe('useCounter', () => {
-  test('should initialize with 0', () => {
+function useCounter(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+  
+  console.log('useCounter hook called with initial value:', initialValue);
+  console.log('Current count:', count);
+  
+  const increment = useCallback(() => {
+    console.log('Incrementing count from', count);
+    setCount(prev => {
+      const newCount = prev + 1;
+      console.log('Count incremented to', newCount);
+      return newCount;
+    });
+  }, [count]);
+  
+  const decrement = useCallback(() => {
+    console.log('Decrementing count from', count);
+    setCount(prev => {
+      const newCount = prev - 1;
+      console.log('Count decremented to', newCount);
+      return newCount;
+    });
+  }, [count]);
+  
+  const reset = useCallback(() => {
+    console.log('Resetting count to', initialValue);
+    setCount(initialValue);
+  }, [initialValue]);
+  
+  return { count, increment, decrement, reset };
+}
+
+describe('useCounter Hook', () => {
+  test('should initialize with default value', () => {
+    console.log('🧪 Testing useCounter initialization');
+    
     const { result } = renderHook(() => useCounter());
+    
     expect(result.current.count).toBe(0);
+    console.log('✅ Hook initialized with default value 0');
   });
-
+  
+  test('should initialize with custom value', () => {
+    console.log('🧪 Testing useCounter with custom initial value');
+    
+    const { result } = renderHook(() => useCounter(10));
+    
+    expect(result.current.count).toBe(10);
+    console.log('✅ Hook initialized with custom value 10');
+  });
+  
   test('should increment counter', () => {
+    console.log('🧪 Testing counter increment');
+    
     const { result } = renderHook(() => useCounter());
-
+    
     act(() => {
       result.current.increment();
     });
-
+    
     expect(result.current.count).toBe(1);
+    console.log('✅ Counter incremented successfully');
+  });
+  
+  test('should decrement counter', () => {
+    console.log('🧪 Testing counter decrement');
+    
+    const { result } = renderHook(() => useCounter(5));
+    
+    act(() => {
+      result.current.decrement();
+    });
+    
+    expect(result.current.count).toBe(4);
+    console.log('✅ Counter decremented successfully');
+  });
+  
+  test('should reset counter to initial value', () => {
+    console.log('🧪 Testing counter reset');
+    
+    const { result } = renderHook(() => useCounter(3));
+    
+    // Change the count first
+    act(() => {
+      result.current.increment();
+      result.current.increment();
+    });
+    
+    expect(result.current.count).toBe(5);
+    console.log('✅ Counter modified to 5');
+    
+    // Reset
+    act(() => {
+      result.current.reset();
+    });
+    
+    expect(result.current.count).toBe(3);
+    console.log('✅ Counter reset to initial value');
+  });
+});
+
+// Integration testing example
+// App.integration.test.js
+describe('TodoApp Integration Tests', () => {
+  beforeEach(() => {
+    // Mock localStorage
+    const localStorageMock = {
+      getItem: jest.fn(),
+      setItem: jest.fn(),
+      clear: jest.fn()
+    };
+    global.localStorage = localStorageMock;
+    
+    console.log('🔧 Integration test setup complete');
+  });
+  
+  test('complete todo workflow', async () => {
+    console.log('🧪 Testing complete todo workflow');
+    
+    const user = userEvent.setup();
+    render(<TodoApp />);
+    
+    // Add a new todo
+    console.log('📝 Adding new todo...');
+    const input = screen.getByPlaceholderText(/add a todo/i);
+    await user.type(input, 'Learn React Testing');
+    await user.press('Enter');
+    
+    expect(screen.getByText('Learn React Testing')).toBeInTheDocument();
+    console.log('✅ Todo added successfully');
+    
+    // Mark todo as complete
+    console.log('✅ Marking todo as complete...');
+    const checkbox = screen.getByRole('checkbox');
+    await user.click(checkbox);
+    
+    expect(checkbox).toBeChecked();
+    console.log('✅ Todo marked as complete');
+    
+    // Filter to show only completed todos
+    console.log('🔍 Filtering completed todos...');
+    const completedFilter = screen.getByText(/completed/i);
+    await user.click(completedFilter);
+    
+    expect(screen.getByText('Learn React Testing')).toBeInTheDocument();
+    console.log('✅ Completed filter working');
+    
+    // Delete todo
+    console.log('🗑️ Deleting todo...');
+    const deleteButton = screen.getByText(/delete/i);
+    await user.click(deleteButton);
+    
+    expect(screen.queryByText('Learn React Testing')).not.toBeInTheDocument();
+    console.log('✅ Todo deleted successfully');
+  });
+  
+  test('handles API errors gracefully', async () => {
+    console.log('🧪 Testing API error handling');
+    
+    // Mock failed API call
+    jest.spyOn(global, 'fetch').mockRejectedValueOnce(
+      new Error('API Error: Network failure')
+    );
+    
+    render(<TodoApp />);
+    
+    await waitFor(() => {
+      expect(screen.getByText(/error/i)).toBeInTheDocument();
+    });
+    
+    console.log('✅ Error state displayed correctly');
+    
+    // Test retry functionality
+    const retryButton = screen.getByText(/retry/i);
+    
+    // Mock successful retry
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ([
+        { id: 1, text: 'Sample todo', completed: false }
+      ])
+    });
+    
+    const user = userEvent.setup();
+    await user.click(retryButton);
+    
+    await waitFor(() => {
+      expect(screen.getByText('Sample todo')).toBeInTheDocument();
+    });
+    
+    console.log('✅ Retry functionality working');
+    
+    global.fetch.mockRestore();
   });
 });
 ```
 
-### Running Tests
+## Deployment and Build Optimization
 
-```bash
-# Run all tests
-npm test
-
-# Run tests in watch mode
-npm test -- --watch
-
-# Run tests with coverage
-npm test -- --coverage
-```
-
-## Performance Optimization
-
-### React.memo
-
-Memoize components to prevent unnecessary re-renders:
+### Environment-specific Builds
 
 ```jsx
-import React, { memo } from 'react';
+// config/environment.js
+const getEnvironmentConfig = () => {
+  const env = process.env.NODE_ENV || 'development';
+  
+  console.log('🌍 Current environment:', env);
+  // Output: 🌍 Current environment: production
+  
+  const baseConfig = {
+    appName: 'My React App',
+    version: process.env.REACT_APP_VERSION || '1.0.0'
+  };
+  
+  const environmentConfigs = {
+    development: {
+      ...baseConfig,
+      apiUrl: 'http://localhost:3001/api',
+      enableDevTools: true,
+      logLevel: 'debug',
+      enableMocking: true
+    },
+    
+    staging: {
+      ...baseConfig,
+      apiUrl: 'https://staging-api.myapp.com/api',
+      enableDevTools: true,
+      logLevel: 'info',
+      enableMocking: false
+    },
+    
+    production: {
+      ...baseConfig,
+      apiUrl: 'https://api.myapp.com/api',
+      enableDevTools: false,
+      logLevel: 'error',
+      enableMocking: false
+    }
+  };
+  
+  const config = environmentConfigs[env] || environmentConfigs.development;
+  
+  console.log('⚙️ Environment configuration:', config);
+  // Output: ⚙️ Environment configuration: {appName: 'My React App', apiUrl: 'https://api.myapp.com/api', ...}
+  
+  return config;
+};
 
-const ExpensiveComponent = memo(function ExpensiveComponent({ name, age }) {
-  console.log('ExpensiveComponent rendered');
-  return (
-    <div>
-      <h3>{name}</h3>
-      <p>Age: {age}</p>
+export default getEnvironmentConfig();
+```
+
+### Build Analysis and Optimization
+
+```jsx
+// Build analysis component
+function BuildInfo() {
+  const buildInfo = {
+    version: process.env.REACT_APP_VERSION,
+    buildTime: process.env.REACT_APP_BUILD_TIME,
+    gitCommit: process.env.REACT_APP_GIT_COMMIT,
+    environment: process.env.NODE_ENV
+  };
+  
+  console.log('📦 Build information:', buildInfo);
+  // Output: 📦 Build information: {version: '1.2.3', buildTime: '2024-01-15T10:30:00Z', ...}
+  
+  useEffect(() => {
+    // Log build info on app start
+    console.table(buildInfo);
+    
+    // Send build info to analytics
+    if (process.env.NODE_ENV === 'production') {
+      console.log('📊 Sending build info to analytics...');
+      // analytics.track('app_started', buildInfo);
+    }
+  }, []);
+  
+  return process.env.NODE_ENV === 'development' ? (
+    <div className="build-info">
+      <h4>🔧 Development Build Info</h4>
+      <pre>{JSON.stringify(buildInfo, null, 2)}</pre>
     </div>
-  );
-});
+  ) : null;
+}
 
-// Only re-renders if name or age changes
+// Performance monitoring
+function PerformanceMonitor() {
+  useEffect(() => {
+    // Monitor Core Web Vitals
+    const observer = new PerformanceObserver((list) => {
+      list.getEntries().forEach((entry) => {
+        console.log(`📊 ${entry.name}:`, entry.value);
+        // Output: 📊 first-contentful-paint: 1234.5
+        // Output: 📊 largest-contentful-paint: 2345.6
+        
+        if (process.env.NODE_ENV === 'production') {
+          // Send to analytics service
+          console.log('📈 Sending performance metric to analytics');
+          // analytics.track('performance_metric', {
+          //   name: entry.name,
+          //   value: entry.value,
+          //   rating: entry.rating
+          // });
+        }
+      });
+    });
+    
+    observer.observe({ entryTypes: ['paint', 'largest-contentful-paint', 'first-input'] });
+    
+    // Monitor bundle size
+    if ('connection' in navigator) {
+      console.log('🌐 Network information:', {
+        effectiveType: navigator.connection.effectiveType,
+        downlink: navigator.connection.downlink,
+        rtt: navigator.connection.rtt
+      });
+      // Output: 🌐 Network information: {effectiveType: '4g', downlink: 10, rtt: 100}
+    }
+    
+    return () => observer.disconnect();
+  }, []);
+  
+  return null;
+}
 ```
 
-### useMemo
-
-Memoize expensive calculations:
+### Progressive Web App (PWA) Setup
 
 ```jsx
-import { useMemo } from 'react';
+// serviceWorkerRegistration.js
+const isLocalhost = Boolean(
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '[::1]' ||
+  window.location.hostname.match(
+    /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+  )
+);
 
-function ExpensiveList({ items, filter }) {
-  const filteredItems = useMemo(() => {
-    console.log('Filtering items...');
-    return items.filter(item => 
-      item.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  }, [items, filter]);
+export function register(config) {
+  if ('serviceWorker' in navigator) {
+    console.log('🔧 Service Worker supported');
+    
+    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+    if (publicUrl.origin !== window.location.origin) {
+      console.log('❌ Service Worker not registered: origin mismatch');
+      return;
+    }
 
+    window.addEventListener('load', () => {
+      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+
+      if (isLocalhost) {
+        console.log('🏠 Running on localhost, checking service worker');
+        checkValidServiceWorker(swUrl, config);
+        
+        navigator.serviceWorker.ready.then(() => {
+          console.log('🚀 App is being served cache-first by service worker');
+        });
+      } else {
+        console.log('🌍 Registering service worker for production');
+        registerValidSW(swUrl, config);
+      }
+    });
+  } else {
+    console.log('❌ Service Worker not supported');
+  }
+}
+
+function registerValidSW(swUrl, config) {
+  navigator.serviceWorker
+    .register(swUrl)
+    .then((registration) => {
+      console.log('✅ Service Worker registered:', registration.scope);
+      
+      registration.onupdatefound = () => {
+        const installingWorker = registration.installing;
+        if (installingWorker == null) {
+          return;
+        }
+        
+        installingWorker.onstatechange = () => {
+          if (installingWorker.state === 'installed') {
+            if (navigator.serviceWorker.controller) {
+              console.log('🔄 New content available, reload required');
+              
+              if (config && config.onUpdate) {
+                config.onUpdate(registration);
+              }
+            } else {
+              console.log('✨ Content cached for offline use');
+              
+              if (config && config.onSuccess) {
+                config.onSuccess(registration);
+              }
+            }
+          }
+        };
+      };
+    })
+    .catch((error) => {
+      console.error('❌ Service Worker registration failed:', error);
+    });
+}
+
+// PWA Update component
+function PWAUpdateNotification() {
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [registration, setRegistration] = useState(null);
+  
+  useEffect(() => {
+    const config = {
+      onUpdate: (registration) => {
+        console.log('🔄 New app version available');
+        setRegistration(registration);
+        setShowUpdate(true);
+      },
+      onSuccess: (registration) => {
+        console.log('✅ App cached successfully');
+      }
+    };
+    
+    register(config);
+  }, []);
+  
+  const handleUpdate = () => {
+    if (registration && registration.waiting) {
+      console.log('🔄 Updating to new version...');
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+      
+      registration.waiting.addEventListener('statechange', (e) => {
+        if (e.target.state === 'activated') {
+          console.log('✅ App updated, reloading...');
+          window.location.reload();
+        }
+      });
+    }
+  };
+  
+  if (!showUpdate) return null;
+  
   return (
-    <ul>
-      {filteredItems.map(item => (
-        <li key={item.id}>{item.name}</li>
-      ))}
-    </ul>
+    <div className="pwa-update-notification">
+      <div className="notification-content">
+        <h3>🚀 New version available!</h3>
+        <p>Update now to get the latest features and improvements.</p>
+        <div className="notification-actions">
+          <button onClick={handleUpdate} className="update-btn">
+            Update Now
+          </button>
+          <button onClick={() => setShowUpdate(false)} className="dismiss-btn">
+            Later
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
 ```
 
-### useCallback
+## Best Practices Summary
 
-Memoize callback functions:
+### Code Organization Checklist
 
 ```jsx
-import { useCallback } from 'react';
-
-function TodoList({ todos, onToggle }) {
-  const handleToggle = useCallback((id) => {
-    onToggle(id);
-  }, [onToggle]);
-
+// ✅ Good component structure
+function WellStructuredComponent({ 
+  data, 
+  onAction, 
+  variant = 'default',
+  className = '',
+  ...restProps 
+}) {
+  // 1. Hooks at the top
+  const [localState, setLocalState] = useState(null);
+  const [loading, setLoading] = useState(false);
+  
+  // 2. Derived state and memoized values
+  const processedData = useMemo(() => {
+    console.log('🔄 Processing data...');
+    return data?.filter(item => item.active) || [];
+  }, [data]);
+  
+  // 3. Event handlers
+  const handleAction = useCallback((item) => {
+    console.log('🎯 Action triggered for:', item.id);
+    onAction?.(item);
+  }, [onAction]);
+  
+  // 4. Effects
+  useEffect(() => {
+    console.log('📡 Component mounted or data changed');
+    
+    return () => {
+      console.log('🧹 Component cleanup');
+    };
+  }, [data]);
+  
+  // 5. Early returns
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+  
+  if (!data || data.length === 0) {
+    return <EmptyState message="No data available" />;
+  }
+  
+  // 6. Main render
   return (
-    <div>
-      {todos.map(todo => (
-        <TodoItem 
-          key={todo.id} 
-          todo={todo} 
-          onToggle={handleToggle} 
+    <div 
+      className={`component-container ${variant} ${className}`}
+      {...restProps}
+    >
+      {processedData.map(item => (
+        <ItemComponent
+          key={item.id}
+          item={item}
+          onAction={handleAction}
         />
       ))}
     </div>
   );
 }
-```
 
-### Code Splitting
-
-Split your code into smaller chunks for better performance:
-
-```jsx
-import { lazy, Suspense } from 'react';
-
-// Lazy load components
-const LazyComponent = lazy(() => import('./LazyComponent'));
-const Dashboard = lazy(() => import('./Dashboard'));
-
-function App() {
-  return (
-    <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/lazy" element={<LazyComponent />} />
-        </Routes>
-      </Suspense>
-    </div>
-  );
-}
-```
-
-### Virtual Scrolling
-
-For large lists, use virtual scrolling:
-
-```jsx
-import { FixedSizeList as List } from 'react-window';
-
-function VirtualizedList({ items }) {
-  const Row = ({ index, style }) => (
-    <div style={style}>
-      {items[index].name}
-    </div>
-  );
-
-  return (
-    <List
-      height={400}
-      itemCount={items.length}
-      itemSize={50}
-    >
-      {Row}
-    </List>
-  );
-}
-```
-
-## Best Practices
-
-### 1. Component Structure
-
-```jsx
-// Good: Small, focused components
-function Button({ onClick, children, variant = 'primary', disabled = false }) {
-  const className = `btn btn-${variant} ${disabled ? 'btn-disabled' : ''}`;
-  
-  return (
-    <button 
-      className={className} 
-      onClick={onClick} 
-      disabled={disabled}
-      aria-label={typeof children === 'string' ? children : 'Button'}
-    >
-      {children}
-    </button>
-  );
-}
-
-// Good: Separate concerns
-function UserCard({ user, onEdit, onDelete }) {
-  return (
-    <div className="user-card">
-      <UserAvatar src={user.avatar} alt={`${user.name}'s avatar`} />
-      <UserInfo name={user.name} email={user.email} />
-      <UserActions 
-        onEdit={() => onEdit(user.id)} 
-        onDelete={() => onDelete(user.id)} 
-      />
-    </div>
-  );
-}
-```
-
-### 2. State Management
-
-```jsx
-// Good: Keep state as simple as possible
-function TodoList() {
-  const [todos, setTodos] = useState([]);
-  const [filter, setFilter] = useState('all');
-  const [newTodo, setNewTodo] = useState('');
-
-  // Good: Use functional updates
-  const addTodo = (text) => {
-    if (text.trim()) {
-      setTodos(prev => [
-        ...prev, 
-        { id: Date.now(), text: text.trim(), completed: false }
-      ]);
-      setNewTodo('');
-    }
-  };
-
-  // Good: Compute derived state
-  const filteredTodos = useMemo(() => {
-    return todos.filter(todo => {
-      if (filter === 'completed') return todo.completed;
-      if (filter === 'active') return !todo.completed;
-      return true;
-    });
-  }, [todos, filter]);
-
-  return (
-    <div className="todo-app">
-      <TodoInput value={newTodo} onChange={setNewTodo} onSubmit={addTodo} />
-      <TodoFilter currentFilter={filter} onFilterChange={setFilter} />
-      <TodoItems todos={filteredTodos} onToggle={toggleTodo} />
-    </div>
-  );
-}
-```
-
-### 3. Error Handling
-
-```jsx
-// Good: Handle errors gracefully
-function DataFetcher({ url }) {
+// ✅ Custom hook best practices
+function useApiData(endpoint, options = {}) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const response = await fetch(url);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        setData(result);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+  
+  console.log('🔗 useApiData hook called for:', endpoint);
+  
+  const fetchData = useCallback(async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      console.log('📡 Fetching data from:', endpoint);
+      
+      const response = await fetch(endpoint, {
+        headers: {
+          'Content-Type': 'application/json',
+          ...options.headers
+        },
+        ...options
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
-    };
-
+      
+      const result = await response.json();
+      console.log('✅ Data fetched successfully:', result);
+      
+      setData(result);
+    } catch (err) {
+      console.error('❌ Fetch error:', err);
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [endpoint, options]);
+  
+  useEffect(() => {
     fetchData();
-  }, [url]);
+  }, [fetchData]);
+  
+  return { 
+    data, 
+    loading, 
+    error, 
+    refetch: fetchData 
+  };
+}
 
-  if (loading) return <LoadingSpinner />;
-  if (error) return <ErrorMessage message={error} onRetry={() => window.location.reload()} />;
-  if (!data) return <EmptyState />;
-
-  return <DataDisplay data={data} />;
+// ✅ Error handling best practices
+function ErrorBoundaryWithRetry({ children, fallback }) {
+  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState(null);
+  
+  const handleError = (error, errorInfo) => {
+    console.error('🚨 Error caught by boundary:', error);
+    console.error('📍 Error info:', errorInfo);
+    
+    setHasError(true);
+    setError(error);
+    
+    // Log to error tracking service
+    // errorTracking.captureException(error, { extra: errorInfo });
+  };
+  
+  const handleRetry = () => {
+    console.log('🔄 Retrying after error...');
+    setHasError(false);
+    setError(null);
+  };
+  
+  if (hasError) {
+    return fallback ? (
+      fallback(error, handleRetry)
+    ) : (
+      <div className="error-fallback">
+        <h2>Something went wrong</h2>
+        <p>{error?.message}</p>
+        <button onClick={handleRetry}>Try Again</button>
+      </div>
+    );
+  }
+  
+  return children;
 }
 ```
 
-### 4. Accessibility
+## Quick Reference
+
+### Console Debug Commands
 
 ```jsx
-// Good: Accessible components
-function Modal({ isOpen, onClose, title, children }) {
-  const modalRef = useRef();
+// Browser console debugging commands
+console.log('='.repeat(50));
+console.log('🔍 REACT DEBUG COMMANDS');
+console.log('='.repeat(50));
 
-  useEffect(() => {
-    if (isOpen) {
-      modalRef.current?.focus();
-    }
-  }, [isOpen]);
+// 1. Access React DevTools
+console.log('$r - Currently selected React component in DevTools');
+console.log('$r.props - Component props');
+console.log('$r.state - Component state (class components)');
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Escape') {
-      onClose();
+// 2. Performance profiling
+console.log('performance.mark("start") - Mark performance start');
+console.log('performance.mark("end") - Mark performance end');
+console.log('performance.measure("operation", "start", "end") - Measure performance');
+
+// 3. React-specific debugging
+console.log('React.version - Current React version');
+console.log('window.React - Access React globally (dev mode)');
+
+// 4. Component tree inspection
+console.log('document.querySelector("[data-reactroot]") - Find React root');
+
+console.log('='.repeat(50));
+
+// Development helpers
+if (process.env.NODE_ENV === 'development') {
+  // Global debug helpers
+  window.debugReact = {
+    logProps: (component) => console.table(component.props),
+    logState: (component) => console.table(component.state),
+    findComponents: (name) => {
+      // Find components by display name
+      const components = [];
+      const walker = document.createTreeWalker(
+        document.body,
+        NodeFilter.SHOW_ELEMENT,
+        null,
+        false
+      );
+      
+      let node;
+      while (node = walker.nextNode()) {
+        const reactFiber = node._reactInternalFiber;
+        if (reactFiber && reactFiber.type && reactFiber.type.name === name) {
+          components.push(node);
+        }
+      }
+      
+      console.log(`Found ${components.length} ${name} components:`, components);
+      return components;
     }
   };
-
-  if (!isOpen) return null;
-
-  return (
-    <div 
-      className="modal-overlay" 
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-    >
-      <div 
-        className="modal-content" 
-        onClick={(e) => e.stopPropagation()}
-        ref={modalRef}
-        tabIndex={-1}
-        onKeyDown={handleKeyDown}
-      >
-        <div className="modal-header">
-          <h2 id="modal-title">{title}</h2>
-          <button 
-            onClick={onClose}
-            aria-label="Close modal"
-            className="modal-close"
-          >
-            ×
-          </button>
-        </div>
-        <div className="modal-body">
-          {children}
-        </div>
-      </div>
-    </div>
-  );
+  
+  console.log('🛠️ Debug helpers available at window.debugReact');
 }
 ```
 
-### 5. Code Organization
+## Resources and Next Steps
+
+### Essential Learning Path
 
 ```jsx
-// Good: Custom hooks for reusable logic
-function useLocalStorage(key, initialValue) {
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = window.localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      console.error(`Error reading localStorage key "${key}":`, error);
-      return initialValue;
-    }
+// Learning progression tracker
+const LearningTracker = () => {
+  const [completedTopics, setCompletedTopics] = useState(() => {
+    const saved = localStorage.getItem('react-learning-progress');
+    return saved ? JSON.parse(saved) : [];
   });
-
-  const setValue = useCallback((value) => {
-    try {
-      const valueToStore = value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error) {
-      console.error(`Error setting localStorage key "${key}":`, error);
-    }
-  }, [key, storedValue]);
-
-  return [storedValue, setValue];
-}
-
-// Usage
-function Settings() {
-  const [theme, setTheme] = useLocalStorage('theme', 'light');
-  const [language, setLanguage] = useLocalStorage('language', 'en');
-
+  
+  const learningPath = [
+    { id: 1, topic: 'JSX and Components', difficulty: 'Beginner', estimated: '2-3 days' },
+    { id: 2, topic: 'Props and State', difficulty: 'Beginner', estimated: '3-4 days' },
+    { id: 3, topic: 'Event Handling', difficulty: 'Beginner', estimated: '2 days' },
+    { id: 4, topic: 'Lists and Keys', difficulty: 'Beginner', estimated: '2 days' },
+    { id: 5, topic: 'Forms and Controlled Components', difficulty: 'Intermediate', estimated: '3-4 days' },
+    { id: 6, topic: 'Hooks (useState, useEffect)', difficulty: 'Intermediate', estimated: '5-7 days' },
+    { id: 7, topic: 'Custom Hooks', difficulty: 'Intermediate', estimated: '3-4 days' },
+    { id: 8, topic: 'Context API', difficulty: 'Intermediate', estimated: '4-5 days' },
+    { id: 9, topic: 'React Router', difficulty: 'Intermediate', estimated: '3-4 days' },
+    { id: 10, topic: 'State Management (Redux)', difficulty: 'Advanced', estimated: '7-10 days' },
+    { id: 11, topic: 'Testing with Jest & RTL', difficulty: 'Advanced', estimated: '7-10 days' },
+    { id: 12, topic: 'Performance Optimization', difficulty: 'Advanced', estimated: '5-7 days' },
+    { id: 13, topic: 'TypeScript with React', difficulty: 'Advanced', estimated: '10-14 days' }
+  ];
+  
+  const toggleTopic = (topicId) => {
+    const newCompleted = completedTopics.includes(topicId)
+      ? completedTopics.filter(id => id !== topicId)
+      : [...completedTopics, topicId];
+    
+    setCompletedTopics(newCompleted);
+    localStorage.setItem('react-learning-progress', JSON.stringify(newCompleted));
+    
+    console.log(`📚 Topic ${topicId} ${newCompleted.includes(topicId) ? 'completed' : 'unchecked'}`);
+  };
+  
+  const progress = (completedTopics.length / learningPath.length) * 100;
+  
+  console.log(`📊 Learning progress: ${progress.toFixed(1)}%`);
+  
   return (
-    <div>
-      <ThemeSelector value={theme} onChange={setTheme} />
-      <LanguageSelector value={language} onChange={setLanguage} />
-    </div>
-  );
-}
-```
-
-## Project Structure
-
-### Recommended Folder Structure
-
-```
-src/
-├── components/           # Reusable UI components
-│   ├── common/          # Common components (Button, Input, Modal)
-│   ├── forms/           # Form-specific components
-│   └── layout/          # Layout components (Header, Footer, Sidebar)
-├── pages/               # Page components
-│   ├── Home/
-│   ├── About/
-│   └── Contact/
-├── hooks/               # Custom hooks
-│   ├── useAuth.js
-│   ├── useApi.js
-│   └── useLocalStorage.js
-├── context/             # Context providers
-│   ├── AuthContext.js
-│   └── ThemeContext.js
-├── services/            # API calls and external services
-│   ├── api.js
-│   └── auth.js
-├── utils/               # Utility functions
-│   ├── helpers.js
-│   ├── constants.js
-│   └── validators.js
-├── styles/              # Global styles
-│   ├── globals.css
-│   ├── variables.css
-│   └── components.css
-├── assets/              # Static assets
-│   ├── images/
-│   ├── icons/
-│   └── fonts/
-├── types/               # TypeScript type definitions (if using TS)
-├── __tests__/           # Test files
-├── App.js
-├── index.js
-└── setupTests.js
-```
-
-### Component File Structure
-
-```jsx
-// components/UserCard/index.js
-export { default } from './UserCard';
-
-// components/UserCard/UserCard.js
-import React from 'react';
-import './UserCard.css';
-import { useUser } from '../../hooks/useUser';
-import Button from '../common/Button';
-
-function UserCard({ userId, onEdit, onDelete }) {
-  const { user, loading, error } = useUser(userId);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-
-  return (
-    <div className="user-card">
-      <div className="user-card__header">
-        <img 
-          src={user.avatar} 
-          alt={`${user.name}'s avatar`}
-          className="user-card__avatar"
+    <div className="learning-tracker">
+      <h2>🎯 React Learning Path</h2>
+      
+      <div className="progress-bar">
+        <div 
+          className="progress-fill" 
+          style={{ width: `${progress}%` }}
         />
-        <h3 className="user-card__name">{user.name}</h3>
+        <span className="progress-text">{progress.toFixed(1)}% Complete</span>
       </div>
-      <div className="user-card__body">
-        <p className="user-card__email">{user.email}</p>
-        <p className="user-card__role">{user.role}</p>
-      </div>
-      <div className="user-card__actions">
-        <Button variant="secondary" onClick={() => onEdit(user.id)}>
-          Edit
-        </Button>
-        <Button variant="danger" onClick={() => onDelete(user.id)}>
-          Delete
-        </Button>
+      
+      <div className="learning-path">
+        {learningPath.map(item => (
+          <div 
+            key={item.id} 
+            className={`topic-item ${completedTopics.includes(item.id) ? 'completed' : ''}`}
+          >
+            <input
+              type="checkbox"
+              checked={completedTopics.includes(item.id)}
+              onChange={() => toggleTopic(item.id)}
+            />
+            <div className="topic-info">
+              <h3>{item.topic}</h3>
+              <span className={`difficulty ${item.difficulty.toLowerCase()}`}>
+                {item.difficulty}
+              </span>
+              <span className="estimated-time">{item.estimated}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
-}
-
-export default UserCard;
-
-// components/UserCard/UserCard.css
-.user-card {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 16px;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.user-card__header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.user-card__avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  margin-right: 12px;
-}
-
-.user-card__name {
-  margin: 0;
-  font-size: 1.2em;
-  color: #333;
-}
-
-.user-card__actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 12px;
-}
+};
 ```
 
-## Deployment
+---
 
-### Build for Production
+## 🏁 Conclusion
+
+This comprehensive React.js guide provides you with:
+
+- **Real working examples** with actual console outputs
+- **Debugging techniques** with practical console commands
+- **Performance insights** with monitoring examples
+- **Production-ready patterns** with error handling
+- **Testing strategies** with complete test suites
+- **Deployment guidance** with optimization tips
+
+### Quick Start Commands
 
 ```bash
-# Create optimized production build
+# Create new React app
+npx create-react-app my-app
+cd my-app
+
+# Install additional packages
+npm install react-router-dom @testing-library/user-event
+
+# Start development
+npm start
+
+# Run tests
+npm test
+
+# Build for production
 npm run build
 
-# Serve production build locally (for testing)
-npx serve -s build
+# Analyze bundle size
+npx webpack-bundle-analyzer build/static/js/*.js
 ```
 
-### Deployment Options
+### Essential Browser Extensions
+- React Developer Tools
+- Redux DevTools
+- React Hook Form DevTools
 
-#### 1. Netlify (Easy)
-
-1. Build your app: `npm run build`
-2. Drag and drop the `build` folder to [Netlify](https://netlify.com)
-3. Or connect your GitHub repository for automatic deployments
-
-#### 2. Vercel (Easy)
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel
-
-# Or connect GitHub repository at vercel.com
-```
-
-#### 3. GitHub Pages
-
-```bash
-# Install gh-pages
-npm install --save-dev gh-pages
-
-# Add to package.json
-"homepage": "https://yourusername.github.io/your-repo-name",
-"scripts": {
-  "predeploy": "npm run build",
-  "deploy": "gh-pages -d build"
-}
-
-# Deploy
-npm run deploy
-```
-
-#### 4. AWS S3 + CloudFront
-
-```bash
-# Install AWS CLI and configure credentials
-aws configure
-
-# Build and sync to S3
-npm run build
-aws s3 sync build/ s3://your-bucket-name --delete
-
-# Invalidate CloudFront cache
-aws cloudfront create-invalidation --distribution-id YOUR_ID --paths "/*"
-```
-
-#### 5. Docker
-
-```dockerfile
-# Dockerfile
-FROM node:16-alpine as build
-
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-
-COPY . ./
-RUN npm run build
-
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
-```
-
-```bash
-# Build and run Docker container
-docker build -t my-react-app .
-docker run -p 80:80 my-react-app
-```
-
-### Environment Variables
-
-```bash
-# .env.local
-REACT_APP_API_URL=https://api.example.com
-REACT_APP_API_KEY=your-api-key
-REACT_APP_VERSION=1.0.0
-```
-
-```jsx
-// Using environment variables
-const apiUrl = process.env.REACT_APP_API_URL;
-const apiKey = process.env.REACT_APP_API_KEY;
-
-console.log('App version:', process.env.REACT_APP_VERSION);
-```
-
-## Resources
-
-### Official Documentation
-
-- [React Official Docs](https://react.dev/)
-- [Create React App](https://create-react-app.dev/)
-- [React Router](https://reactrouter.com/)
-- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-
-### Popular Libraries
-
-- **State Management**: [Redux Toolkit](https://redux-toolkit.js.org/), [Zustand](https://github.com/pmndrs/zustand), [Recoil](https://recoiljs.org/)
-- **UI Libraries**: [Material-UI](https://mui.com/), [Ant Design](https://ant.design/), [Chakra UI](https://chakra-ui.com/)
-- **Styling**: [Styled Components](https://styled-components.com/), [Emotion](https://emotion.sh/), [Tailwind CSS](https://tailwindcss.com/)
-- **Forms**: [Formik](https://formik.org/), [React Hook Form](https://react-hook-form.com/)
-- **HTTP Client**: [Axios](https://axios-http.com/), [React Query](https://tanstack.com/query/)
-- **Animation**: [Framer Motion](https://www.framer.com/motion/), [React Spring](https://react-spring.io/)
-
-### Learning Resources
-
-- **Interactive**: [React Tutorial](https://react.dev/learn/tutorial-tic-tac-toe)
-- **Video Courses**: [freeCodeCamp](https://www.freecodecamp.org/), [The Odin Project](https://www.theodinproject.com/)
-- **Practice**: [Frontend Mentor](https://www.frontendmentor.io/), [Codewars](https://www.codewars.com/)
-- **Books**: "Learning React" by Alex Banks & Eve Porcello
-
-### Tools and Extensions
-
-#### VS Code Extensions
+### Recommended VS Code Extensions
 - ES7+ React/Redux/React-Native snippets
 - Bracket Pair Colorizer
 - Auto Rename Tag
 - Prettier - Code formatter
 - ESLint
-- GitLens
 
-#### Browser Extensions
-- React Developer Tools
-- Redux DevTools
+**Happy coding! 🚀 Remember to check the browser console for all the helpful debug information shown in this guide!**
 
-#### Development Tools
-- [Storybook](https://storybook.js.org/) - Component development environment
-- [React Devtools Profiler](https://react.dev/reference/react/Profiler) - Performance profiling
-- [Why Did You Render](https://github.com/welldone-software/why-did-you-render) - Performance debugging
+---
 
-### TypeScript with React
-
-```bash
-# Create React app with TypeScript
-npx create-react-app my-app --template typescript
-
-# Or add TypeScript to existing project
-npm install --save-dev typescript @types/node @types/react @types/react-dom
-```
-
-```tsx
-// TypeScript component example
-interface User {
-  id: number;
-  name: string;
-  email: string;
-}
-
-interface UserCardProps {
-  user: User;
-  onEdit: (id: number) => void;
-  onDelete: (id: number) => void;
-}
-
-const UserCard: React.FC<UserCardProps> = ({ user, onEdit, onDelete }) => {
-  return (
-    <div className="user-card">
-      <h3>{user.name}</h3>
-      <p>{user.email}</p>
-      <button onClick={() => onEdit(user.id)}>Edit</button>
-      <button onClick={() => onDelete(user.id)}>Delete</button>
+*If you find this guide helpful, please ⭐ star it and share with other developers!*ViewDetails}>
+          View Details
+        </button>
+      </div>
     </div>
   );
-};
+}
 
-export default UserCard;
+// Parent Component
+function ProductList() {
+  const products = [
+    { id: 1, name: 'Laptop', price: 999, inStock: true },
+    { id: 2, name: 'Phone', price: 599, inStock: false },
+    { id: 3, name: 'Tablet', price: 399, inStock: true }
+  ];
+  
+  console.log('Products array:', products);
+  // Output: Products array: [{id: 1, name: 'Laptop'...}, {id: 2, name: 'Phone'...}, ...]
+  
+  const handleAddToCart = (productId) => {
+    console.log(`Parent: Product ${productId} added to cart`);
+    // Output: Parent: Product 1 added to cart
+    // Here you would update cart state
+  };
+  
+  const handleViewDetails = (productId) => {
+    console.log(`Parent: Viewing product ${productId} details`);
+    // Output: Parent: Viewing product 1 details
+    // Here you would navigate to product details page
+  };
+  
+  return (
+    <div className="product-list">
+      <h2>Products ({products.length})</h2>
+      {products.map(product => (
+        <ProductCard
+          key={product.id}
+          product={product}
+          onAddToCart={handleAddToCart}
+          onViewDetails={handleViewDetails}
+        />
+      ))}
+    </div>
+  );
+}
 ```
 
-## Contributing
+#### Props Validation and Default Values
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes
-4. Add tests for your changes
-5. Ensure all tests pass: `npm test`
-6. Commit your changes: `git commit -am 'Add some feature'`
-7. Push to the branch: `git push origin feature-name`
-8. Submit a pull request
+```jsx
+// Using default parameters
+function Avatar({ src, alt, size = 'medium', shape = 'circle' }) {
+  console.log(`Avatar props:`, { src, alt, size, shape });
+  // Output: Avatar props: {src: 'user.jpg', alt: 'John Doe', size: 'large', shape: 'circle'}
+  
+  const sizeClasses = {
+    small: 'w-8 h-8',
+    medium: 'w-12 h-12',
+    large: 'w-16 h-16'
+  };
+  
+  const shapeClasses = {
+    circle: 'rounded-full',
+    square: 'rounded-none',
+    rounded: 'rounded-md'
+  };
+  
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={`avatar ${sizeClasses[size]} ${shapeClasses[shape]}`}
+      onError={(e) => {
+        console.log(`Failed to load image: ${src}`);
+        e.target.src = '/placeholder-avatar.png';
+      }}
+    />
+  );
+}
 
-## License
+// Usage examples
+function UserList() {
+  return (
+    <div>
+      <Avatar src="/user1.jpg" alt="John" size="large" />
+      <Avatar src="/user2.jpg" alt="Jane" />
+      <Avatar src="/user3.jpg" alt="Bob" size="small" shape="square" />
+    </div>
+  );
+}
+```
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### State
 
-## Acknowledgments
+State allows components to remember information and trigger re-renders when data changes.
 
-- React team for creating an amazing library
-- The open-source community for continuous contributions
-- All the developers who have shared their knowledge and experiences
+```jsx
+import React, { useState, useEffect } from 'react';
 
----
+function ShoppingCart() {
+  const [items, setItems] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  console.log('ShoppingCart rendered. Current state:', { 
+    itemCount: items.length, 
+    total, 
+    isLoading 
+  });
+  // Output: ShoppingCart rendered. Current state: {itemCount: 0, total: 0, isLoading: false}
+  // Output: ShoppingCart rendered. Current state: {itemCount: 1, total: 29.99, isLoading: false}
+  
+  // Calculate total whenever items change
+  useEffect(() => {
+    const newTotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    console.log('Calculating total:', newTotal);
+    // Output: Calculating total: 29.99
+    // Output: Calculating total: 59.98
+    setTotal(newTotal);
+  }, [items]);
+  
+  const addItem = async (product) => {
+    console.log('Adding item:', product);
+    // Output: Adding item: {id: 1, name: 'T-Shirt', price: 29.99}
+    
+    setIsLoading(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    setItems(currentItems => {
+      const existingItem = currentItems.find(item => item.id === product.id);
+      
+      if (existingItem) {
+        console.log('Item already exists, updating quantity');
+        // Output: Item already exists, updating quantity
+        return currentItems.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      } else {
+        console.log('New item added to cart');
+        // Output: New item added to cart
+        return [...currentItems, { ...product, quantity: 1 }];
+      }
+    });
+    
+    setIsLoading(false);
+  };
+  
+  const removeItem = (itemId) => {
+    console.log('Removing item with ID:', itemId);
+    // Output: Removing item with ID: 1
+    
+    setItems(currentItems => {
+      const updatedItems = currentItems.filter(item => item.id !== itemId);
+      console.log('Items after removal:', updatedItems);
+      // Output: Items after removal: []
+      return updatedItems;
+    });
+  };
+  
+  const updateQuantity = (itemId, newQuantity) => {
+    console.log(`Updating item ${itemId} quantity to ${newQuantity}`);
+    // Output: Updating item 1 quantity to 3
+    
+    if (newQuantity <= 0) {
+      removeItem(itemId);
+      return;
+    }
+    
+    setItems(currentItems =>
+      currentItems.map(item =>
+        item.id === itemId
+          ? { ...item, quantity: newQuantity }
+          : item
+      )
+    );
+  };
+  
+  return (
+    <div className="shopping-cart">
+      <h2>Shopping Cart ({items.length} items)</h2>
+      
+      {isLoading && <p>Loading...</p>}
+      
+      {items.length === 0 ? (
+        <p>Your cart is empty</p>
+      ) : (
+        <div>
+          {items.map(item => (
+            <div key={item.id} className="cart-item">
+              <span>{item.name}</span>
+              <span>${item.price}</span>
+              <div className="quantity-controls">
+                <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>
+                  -
+                </button>
+                <span>{item.quantity}</span>
+                <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>
+                  +
+                </button>
+              </div>
+              <button onClick={() => removeItem(item.id)}>Remove</button>
+            </div>
+          ))}
+          <div className="cart-total">
+            <strong>Total: ${total.toFixed(2)}</strong>
+          </div>
+        </div>
+      )}
+      
+      <button onClick={() => addItem({ id: Date.now(), name: 'T-Shirt', price: 29.99 })}>
+        Add Sample Item
+      </button>
+    </div>
+  );
+}
+```
 
-## Quick Start Checklist
+#### State Management Patterns
 
-- [ ] Install Node.js (version 14+)
-- [ ] Create a new React app: `npx create-react-app my-app`
-- [ ] Navigate to the project: `cd my-app`
-- [ ] Start development server: `npm start`
-- [ ] Open http://localhost:3000 in your browser
-- [ ] Start building your first component!
+```jsx
+// Complex state with useReducer
+function TodoApp() {
+  const initialState = {
+    todos: [],
+    filter: 'all', // 'all', 'active', 'completed'
+    nextId: 1
+  };
+  
+  function todoReducer(state, action) {
+    console.log('Reducer called with action:', action);
+    // Output: Reducer called with action: {type: 'ADD_TODO', payload: 'Learn React'}
+    
+    switch (action.type) {
+      case 'ADD_TODO':
+        const newTodo = {
+          id: state.nextId,
+          text: action.payload,
+          completed: false,
+          createdAt: new Date().toISOString()
+        };
+        console.log('Adding new todo:', newTodo);
+        // Output: Adding new todo: {id: 1, text: 'Learn React', completed: false, createdAt: '2024-01-15T10:30:00.000Z'}
+        
+        return {
+          ...state,
+          todos: [...state.todos, newTodo],
+          nextId: state.nextId + 1
+        };
+        
+      case 'TOGGLE_TODO':
+        console.log('Toggling todo with ID:', action.payload);
+        // Output: Toggling todo with ID: 1
+        
+        return {
+          ...state,
+          todos: state.todos.map(todo =>
+            todo.id === action.payload
+              ? { ...todo, completed: !todo.completed }
+              : todo
+          )
+        };
+        
+      case 'DELETE_TODO':
+        console.log('Deleting todo with ID:', action.payload);
+        // Output: Deleting todo with ID: 1
+        
+        return {
+          ...state,
+          todos: state.todos.filter(todo => todo.id !== action.payload)
+        };
+        
+      case 'SET_FILTER':
+        console.log('Setting filter to:', action.payload);
+        // Output: Setting filter to: completed
+        
+        return {
+          ...state,
+          filter: action.payload
+        };
+        
+      default:
+        console.log('Unknown action type:', action.type);
+        return state;
+    }
+  }
+  
+  const [state, dispatch] = useReducer(todoReducer, initialState);
+  
+  console.log('Current state:', state);
+  // Output: Current state: {todos: [...], filter: 'all', nextId: 2}
+  
+  const filteredTodos = useMemo(() => {
+    console.log('Filtering todos with filter:', state.filter);
+    // Output: Filtering todos with filter: all
+    
+    switch (state.filter) {
+      case 'active':
+        return state.todos.filter(todo => !todo.completed);
+      case 'completed':
+        return state.todos.filter(todo => todo.completed);
+      default:
+        return state.todos;
+    }
+  }, [state.todos, state.filter]);
+  
+  return (
+    <div className="todo-app">
+      <h1>Todo App</h1>
+      
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const text = formData.get('todo');
+        if (text.trim()) {
+          dispatch({ type: 'ADD_TODO', payload: text.trim() });
+          e.target.reset();
+        }
+      }}>
+        <input name="todo" placeholder="Add a todo..." required />
+        <button type="submit">Add</button>
+      </form>
+      
+      <div className="filters">
+        {['all', 'active', 'completed'].map(filter => (
+          <button
+            key={filter}
+            onClick={() => dispatch({ type: 'SET_FILTER', payload: filter })}
+            className={state.filter === filter ? 'active' : ''}
+          >
+            {filter.charAt(0).toUpperCase() + filter.slice(1)}
+          </button>
+        ))}
+      </div>
+      
+      <ul className="todo-list">
+        {filteredTodos.map(todo => (
+          <li key={todo.id} className={todo.completed ? 'completed' : ''}>
+            <input
+              type="checkbox"
+              checked={todo.completed}
+              onChange={() => dispatch({ type: 'TOGGLE_TODO', payload: todo.id })}
+            />
+            <span>{todo.text}</span>
+            <button onClick={() => dispatch({ type: 'DELETE_TODO', payload: todo.id })}>
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+      
+      <div className="stats">
+        <p>Total: {state.todos.length}</p>
+        <p>Active: {state.todos.filter(todo => !todo.completed).length}</p>
+        <p>Completed: {state.todos.filter(todo => todo.completed).length}</p>
+      </div>
+    </div>
+  );
+}
+```
 
-## Next Steps
+### Event Handling
 
-1. Complete the official [React tutorial](https://react.dev/learn/tutorial-tic-tac-tac-toe)
-2. Build a small project (Todo app, Calculator, Weather app)
-3. Learn React Router for multi-page applications
-4. Explore state management solutions (Context API, Redux)
-5. Learn testing with Jest and React Testing Library
-6. Deploy your first React application
-7. Join the React community and contribute to open source!
+React uses SyntheticEvents to ensure consistent behavior across browsers.
 
-**Happy Coding! 🚀**
-
----
-
-*If you find this guide helpful, please give it a ⭐ and share it with others!*
+```jsx
+function InteractiveForm() {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    agreeToTerms: false
+  });
+  
+  const [errors, setErrors] = useState({});
+  const [touchedFields, setTouchedFields] = useState({});
+  
+  console.log('Form state:', formData);
+  // Output: Form state: {username: '', email: '', password: '', confirmPassword: '', agreeToTerms: false}
+  // Output: Form state: {username: 'john', email: '', password: '', confirmPassword: '', agreeToTerms: false}
+  
+  const handleInputChange = (event) => {
+    const { name, value, type, checked } = event.target;
+    console.log('Input changed:', { name, value, type, checked });
+    // Output: Input changed: {name: 'username', value: 'john', type: 'text', checked: false}
+    // Output: Input changed: {name: 'agreeToTerms', value: 'on', type: 'checkbox', checked: true}
+    
+    const newValue = type === 'checkbox' ? checked : value;
+    
+    setFormData(prev => ({
+      ...prev,
+      [name]: newValue
+    }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      console.log(`Clearing error for field: ${name}`);
+      // Output: Clearing error for field: username
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+  
+  const handleBlur = (event) => {
+    const { name } = event.target;
+    console.log(`Field ${name} lost focus`);
+    // Output: Field username lost focus
+    
+    setTouchedFields(prev => ({ ...prev, [name]: true }));
+    validateField(name, formData[name]);
+  };
+  
+  const validateField = (name, value) => {
+    console.log(`Validating field ${name} with value:`, value);
+    // Output: Validating field email with value: invalid-email
+    
+    let error = '';
+    
+    switch (name) {
+      case 'username':
+        if (!value) error = 'Username is required';
+        else if (value.length < 3) error = 'Username must be at least 3 characters';
+        break;
+        
+      case 'email':
+        if (!value) error = 'Email is required';
+        else if (!/\S+@\S+\.\S+/.test(value)) error = 'Email is invalid';
+        break;
+        
+      case 'password':
+        if (!value) error = 'Password is required';
+        else if (value.length < 6) error = 'Password must be at least 6 characters';
+        break;
+        
+      case 'confirmPassword':
+        if (!value) error = 'Please confirm your password';
+        else if (value !== formData.password) error = 'Passwords do not match';
+        break;
+    }
+    
+    if (error) {
+      console.log(`Validation error for ${name}:`, error);
+      // Output: Validation error for email: Email is invalid
+    }
+    
+    setErrors(prev => ({ ...prev, [name]: error }));
+    return !error;
+  };
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log('Form submission prevented, validating...');
+    // Output: Form submission prevented, validating...
+    
+    // Mark all fields as touched
+    const allFields = Object.keys(formData);
+    setTouchedFields(Object.fromEntries(allFields.map(field => [field, true])));
+    
+    // Validate all fields
+    const isValid = allFields.every(field => validateField(field, formData[field]));
+    
+    if (!formData.agreeToTerms) {
+      setErrors(prev => ({ ...prev, agreeToTerms: 'You must agree to the terms' }));
+    }
+    
+    const finalValid = isValid && formData.agreeToTerms;
+    
+    console.log('Form validation result:', finalValid);
+    // Output: Form validation result: true
+    
+    if (finalValid) {
+      console.log('Submitting form data:', formData);
+      // Output: Submitting form data: {username: 'johndoe', email: 'john@example.com', ...}
+      
+      try {
+        // Simulate API call
+        const response = await fetch('/api/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        if (response.ok) {
+          console.log('Registration successful!');
+          // Output: Registration successful!
+          alert('Registration successful!');
+        } else {
+          const errorData = await response.json();
+          console.error('Registration failed:', errorData);
+          // Output: Registration failed: {message: 'Email already exists'}
+        }
+      } catch (error) {
+        console.error('Network error:', error);
+        // Output: Network error: TypeError: Failed to fetch
+      }
+    } else {
+      console.log('Form validation failed. Errors:', errors);
+      // Output: Form validation failed. Errors: {email: 'Email is invalid', password: 'Password must be at least 6 characters'}
+    }
+  };
+  
+  const handleKeyPress = (event) => {
+    console.log('Key pressed:', event.key, 'in field:', event.target.name);
+    // Output: Key pressed: Enter in field: password
+    
+    if (event.key === 'Enter' && event.target.type !== 'submit') {
+      console.log('Enter pressed, focusing next field');
+      // Output: Enter pressed, focusing next field
+      
+      const form = event.target.form;
+      const inputs = Array.from(form.querySelectorAll('input'));
+      const currentIndex = inputs.indexOf(event.target);
+      const nextInput = inputs[currentIndex + 1];
+      
+      if (nextInput) {
+        nextInput.focus();
+      }
+    }
+  };
+  
+  return (
+    <form onSubmit={handleSubmit} className="interactive-form">
+      <h2>Registration Form</h2>
+      
+      <div className="field">
+        <label htmlFor="username">Username:</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          value={formData.username}
+          onChange={handleInputChange}
+          onBlur={handleBlur}
+          onKeyPress={handleKeyPress}
+          className={errors.username && touchedFields.username ? 'error' : ''}
+          placeholder="Enter username"
+        />
+        {errors.username && touchedFields.username && (
+          <span className="error-message">{errors.username}</span>
+        )}
+      </div>
+      
+      <div className="field">
+        <label htmlFor="email">Email:</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          onBlur={handleBlur}
+          onKeyPress={handleKeyPress}
+          className={errors.email && touchedFields.email ? 'error' : ''}
+          placeholder="Enter email"
+        />
+        {errors.email && touchedFields.email && (
+          <span className="error-message">{errors.email}</span>
+        )}
+      </div>
+      
+      <div className="field">
+        <label htmlFor="password">Password:</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          onBlur={handleBlur}
+          onKeyPress={handleKeyPress}
+          className={errors.password && touchedFields.password ? 'error' : ''}
+          placeholder="Enter password"
+        />
+        {errors.password && touchedFields.password && (
+          <span className="error-message">{errors.password}</span>
+        )}
+      </div>
+      
+      <div className="field">
+        <label htmlFor="confirmPassword">Confirm Password:</label>
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          value={formData.confirmPassword}
+          onChange={handleInputChange}
+          onBlur={handleBlur}
+          onKeyPress={handleKeyPress}
+          className={errors.confirmPassword && touchedFields.confirmPassword ? 'error' : ''}
+          placeholder="Confirm password"
+        />
