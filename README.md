@@ -96,7 +96,7 @@ npm create vite@latest my-react-app // project name is "my-react-app"
 # ✔ Select a variant: › TypeScript + SWC (or JavaScript + SWC for JS only)
  
 cd my-react-app
-npm install or npm i
+npm install # or npm i
 ```
 
 **Console Output:**
