@@ -180,7 +180,7 @@ const element = (
   </div>
 );
 
-# Output -
+// Output -
 # <div>
 #  <h1>Hello, John!</h1>
 #  <p>You are 25 years old</p>
