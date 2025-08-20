@@ -301,12 +301,12 @@ Props (properties) are how you pass data from parent to child components. Think 
 #### Basic Props Example
 
 ```jsx
-// Child component that receives props
-function Greeting(props) {
-  return <h1>Hello, {props.name}!</h1>;
+// ✅ Child component (using props destructuring)
+function Greeting({ name }) {
+  return <h1>Hello, {name}!</h1>;
 }
 
-// Parent component that passes props
+// ✅ Parent component
 function App() {
   return (
     <div>
@@ -316,6 +316,15 @@ function App() {
     </div>
   );
 }
+
+export default App;
+
+
+// Output-
+// Hello, Alice!
+// Hello, Bob!
+// Hello, Charlie!
+
 ```
 
 #### Props with Destructuring
