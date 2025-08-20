@@ -372,61 +372,55 @@ State is data that can change over time. When state changes, React re-renders th
 #### useState Hook
 
 ```jsx
-import React, { useState } from 'react';
+
+ import React, { useState } from "react";
 
 function Counter() {
   /**
-   * 🟢 What useState does:
-   * - useState(0) initializes a state variable with value 0.
-   * - It returns an array with two elements:
-   *   [currentValue, updaterFunction]
+   * ✅ useState(0)
+   * - Creates a state variable with initial value = 0
    *
-   * Here:
-   *   count     → current state value
-   *   setCount  → function that updates the value of count
+   * ✅ count
+   * - Stores the current value of our state (starts at 0)
+   *
+   * ✅ setCount
+   * - A special function to update 'count'
+   * - When you call setCount(newValue):
+   *    1. React updates the value of 'count'
+   *    2. React automatically re-renders the component
    */
   const [count, setCount] = useState(0);
 
   return (
     <div>
-      {/* 👀 Display the current state value */}
       <h2>Count: {count}</h2>
 
-      {/* 🔼 Increase Button */}
-      {/*
-        onClick = event listener in React.
-        When clicked:
-        - setCount(count + 1) is called
-        - React schedules a re-render
-        - New count value is shown in the <h2>
-      */}
-      <button onClick={() => setCount(count + 1)}>
-        Increase
-      </button>
+      {/* When clicked, increases count by 1 */}
+      <button onClick={() => setCount(count + 1)}>Increase</button>
 
-      {/* 🔽 Decrease Button */}
-      {/*
-        Works the same way but decreases value by 1.
-        Example:
-        If count = 5 → click → setCount(4) → re-render → UI updates.
-      */}
-      <button onClick={() => setCount(count - 1)}>
-        Decrease
-      </button>
+      {/* When clicked, decreases count by 1 */}
+      <button onClick={() => setCount(count - 1)}>Decrease</button>
 
-      {/* 🔄 Reset Button */}
-      {/*
-        Directly sets count = 0
-        No matter what the previous value was.
-      */}
-      <button onClick={() => setCount(0)}>
-        Reset
-      </button>
+      {/* When clicked, resets count to 0 */}
+      <button onClick={() => setCount(0)}>Reset</button>
+
+      {/**
+       * 🖼️ Example in Action (How this behaves):
+       *
+       * Start → count = 0 → UI shows "Count: 0"
+       * Click Increase → setCount(1) → UI shows "Count: 1"
+       * Click Decrease → setCount(0) → UI shows "Count: 0"
+       * Click Reset   → setCount(0) → UI stays "Count: 0"
+       *
+       * ✅ That one line (const [count, setCount] = useState(0))
+       * is the HEART of React state management in functional components.
+       */}
     </div>
   );
 }
 
 export default Counter;
+
 
 ```
 
