@@ -181,11 +181,11 @@ const element = (
 );
 
 // Output -
-# <div>
-#  <h1>Hello, John!</h1>
-#  <p>You are 25 years old</p>
-#  <p>Next year you'll be 26</p>
-# </div>
+// <div>
+//  <h1>Hello, John!</h1>
+//  <p>You are 25 years old</p>
+//  <p>Next year you'll be 26</p>
+// </div>
 
 ```
 
