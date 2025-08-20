@@ -375,24 +375,59 @@ State is data that can change over time. When state changes, React re-renders th
 import React, { useState } from 'react';
 
 function Counter() {
-  // useState returns [currentValue, functionToUpdateValue]
-  const [count, setCount] = useState(0); // 0 is initial value
+  /**
+   * 🟢 What useState does:
+   * - useState(0) initializes a state variable with value 0.
+   * - It returns an array with two elements:
+   *   [currentValue, updaterFunction]
+   *
+   * Here:
+   *   count     → current state value
+   *   setCount  → function that updates the value of count
+   */
+  const [count, setCount] = useState(0);
 
   return (
     <div>
+      {/* 👀 Display the current state value */}
       <h2>Count: {count}</h2>
+
+      {/* 🔼 Increase Button */}
+      {/*
+        onClick = event listener in React.
+        When clicked:
+        - setCount(count + 1) is called
+        - React schedules a re-render
+        - New count value is shown in the <h2>
+      */}
       <button onClick={() => setCount(count + 1)}>
         Increase
       </button>
+
+      {/* 🔽 Decrease Button */}
+      {/*
+        Works the same way but decreases value by 1.
+        Example:
+        If count = 5 → click → setCount(4) → re-render → UI updates.
+      */}
       <button onClick={() => setCount(count - 1)}>
         Decrease
       </button>
+
+      {/* 🔄 Reset Button */}
+      {/*
+        Directly sets count = 0
+        No matter what the previous value was.
+      */}
       <button onClick={() => setCount(0)}>
         Reset
       </button>
     </div>
   );
 }
+
+export default Counter;
+
 ```
 
 ### Event Handling
