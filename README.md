@@ -198,6 +198,24 @@ const element = (
 // ✅ JSX way
 <div className="container" onClick={handleClick}>
 ```
+Full Example
+```jsx
+import React from "react";
+
+function App() {
+  function handleClick() {
+    alert("Div clicked!");
+  }
+
+  return (
+    <div className="container" onClick={handleClick}>
+      Click Me!
+    </div>
+  );
+}
+
+export default App;
+```
 
 ### Components
 
