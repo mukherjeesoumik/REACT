@@ -179,6 +179,14 @@ const element = (
     <p>Next year you'll be {age + 1}</p>
   </div>
 );
+
+# Output -
+# <div>
+#  <h1>Hello, John!</h1>
+#  <p>You are 25 years old</p>
+#  <p>Next year you'll be 26</p>
+# </div>
+
 ```
 
 3. **HTML Attributes in camelCase**
